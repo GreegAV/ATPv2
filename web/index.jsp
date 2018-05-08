@@ -1,7 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" %>
 <html>
 <head>
-  <title>Time-Tracker</title>
+  <title>ATP</title>
+  <link href="webjars/bootstrap/4.1.0/css/bootstrap.min.css"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -26,5 +28,8 @@
   </form>
 </div>
 <jsp:include page="footer.jsp" />
+<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
 </body>
 </html>

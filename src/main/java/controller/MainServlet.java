@@ -23,7 +23,7 @@ public class MainServlet extends HttpServlet {
     // Parsing command and forwarding to proper page
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String page = null;
+        String page;
 
         try {
             ICommand command = helper.getCommand(request);
@@ -39,6 +39,7 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
+
     }
 
     @Override

@@ -2,8 +2,7 @@
 <html>
 <head>
   <title>ATP</title>
-  <link href="webjars/bootstrap/4.1.0/css/bootstrap.min.css"
-        rel="stylesheet">
+  <link href="webjars/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .footer {
             position: absolute;
@@ -30,7 +29,8 @@
       </tr>
       <tr>
         <td align="center">
-          <input type="submit" name="command" value="Login">
+          <input name="command" type="submit" class="btn btn-success" value="Login" />
+          <%--<input type="submit" name="command" value="Login">--%>
         </td>
       </tr>
     </table>

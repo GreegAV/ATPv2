@@ -8,10 +8,6 @@
 <div align="center">
     <br/>
     <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
     <font size="-1"> &copy; GreegAV 2018</font>
 </div>
 

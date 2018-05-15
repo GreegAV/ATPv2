@@ -6,7 +6,6 @@ public class Route {
     private int routeID;
     private String routeName;
 
-
     public Route(int routeID, String routeName, int assigned2Driver, int assigned2Bus) {
         this.routeID = routeID;
         this.routeName = routeName;

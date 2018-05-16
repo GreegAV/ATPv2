@@ -17,15 +17,14 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String locale=request.getParameter("theLocale");
-//        request.getServletContext().setAttribute("theLocale", locale);
+        doPost(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         UserUtil userUtil = new UserUtil();
-//        String locale=request.getParameter("theLocale");
-//        request.getServletContext().setAttribute("theLocale", locale);
+        String locale=request.getParameter("theLocale");
+        request.getServletContext().setAttribute("theLocale", locale);
         String loginName = request.getParameter("nameInput");
         String loginPassword = request.getParameter("passInput");
 

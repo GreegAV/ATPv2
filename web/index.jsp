@@ -28,20 +28,15 @@
 <body>
 <div align=right>
     <%--<select>--%>
-    <a href="index.jsp?theLocale=en">English (en)</a>&nbsp;&nbsp;
-    <a href="index.jsp?theLocale=ru">Russian (ru)</a>&nbsp;&nbsp;
-    <a href="index.jsp?theLocale=uk">Ukrainian (uk)</a>&nbsp;&nbsp;
     <a href="index.jsp?theLocale=en_US">English (en_US)</a>&nbsp;&nbsp;
     <a href="index.jsp?theLocale=ru_RU">Russian (ru_RU)</a>&nbsp;&nbsp;
     <a href="index.jsp?theLocale=uk_UA">Ukrainian (uk_UA)</a>&nbsp;&nbsp;
     <%--</select>--%>
 </div>
 <div align="center">
-    theLocale ${theLocale}
-    <br/><br/>
 
     <div align="center">
-        <form method="post" action="MainServlet">
+        <form method="get" action="MainServlet">
             <table align="center" width="25%" border="0">
                 <tr>
                     <td align="center">
@@ -54,7 +49,7 @@
                 </tr>
                 <tr>
                     <td align="center">
-                        <input name="command" type="hidden">
+                        <input name="theLocale" value="${theLocale}" type="hidden">
                         <input type="submit" class="btn btn-secondary" value=<fmt:message key="label.login"/>
                         <%--<input type="submit" name="command" value="LoginCommand">--%>
                     </td>

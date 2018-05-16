@@ -4,7 +4,6 @@
 
 <c:set var="theLocale"
        value="${not empty param.theLocale ? param.theLocale : pageContext.request.locale}" scope="session"/>
-
 <fmt:setLocale value="${theLocale}"/>
 
 <fmt:setBundle basename="mylabels" />
@@ -28,9 +27,6 @@
 <body>
 <div align=right>
     <%--<select>--%>
-    <a href="admin.jsp?theLocale=en">English (en)</a>&nbsp;&nbsp;
-    <a href="admin.jsp?theLocale=ru">Russian (ru)</a>&nbsp;&nbsp;
-    <a href="admin.jsp?theLocale=uk">Ukrainian (uk)</a>&nbsp;&nbsp;
     <a href="admin.jsp?theLocale=en_US">English (en_US)</a>&nbsp;&nbsp;
     <a href="admin.jsp?theLocale=ru_RU">Russian (ru_RU)</a>&nbsp;&nbsp;
     <a href="admin.jsp?theLocale=uk_UA">Ukrainian (uk_UA)</a>&nbsp;&nbsp;

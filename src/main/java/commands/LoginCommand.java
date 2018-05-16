@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Locale;
 
 public class LoginCommand implements ICommand {
     private static Logger logger = Logger.getLogger(LoginCommand.class);
@@ -18,8 +19,10 @@ public class LoginCommand implements ICommand {
         UserUtil userUtil = new UserUtil();
         String loginName=request.getParameter("nameInput");
         String loginPassword=request.getParameter("passInput");
+        Locale locale=request.getLocale();
+        response.setLocale(locale);
         String page=userUtil.getUserPage(loginName,loginPassword);
-        request.getRequestDispatcher(page).forward(request,response);
+//        request.getRequestDispatcher(page).forward(request,response);
 //        response.getWriter().write(loginName+" "+loginPassword);
 //        User loggedUser = User.isUserValid(request.getParameter("nameInput"), request.getParameter("passInput"));
 //        if (loggedUser != null) {
@@ -30,6 +33,6 @@ public class LoginCommand implements ICommand {
 //            logger.info("Username/Password error!");
 //            return "/error.jsp";
 //        }
-        return "";
+        return page;
     }
 }

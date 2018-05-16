@@ -54,5 +54,5 @@ INSERT INTO `atp`.`bus` (`busID`, `busName`, `driverID`, `routeID`) VALUES ('0',
 
 INSERT INTO `atp`.`route` (`routeID`, `routeName`) VALUES ('0', 'AdminRoute');
 
-INSERT INTO `atp`.`driver` (`userID`, `driverName`, `driverPassword`, `routeID`, `busID`, `confirmed`) VALUES ('0', 'admin', 'nimda', '0', '0', '0');
+INSERT INTO `atp`.`driver` (`userID`, `driverName`, `driverPassword`, `routeID`, `busID`, `confirmed`) VALUES ('0', 'admin', 'nimda', '0', '0', '1');
 

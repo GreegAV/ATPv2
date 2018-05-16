@@ -8,14 +8,14 @@ import java.util.HashMap;
 
 public class Helper {
 
-    private static Logger logger = org.apache.log4j.Logger.getLogger(RegisterCommand.class);
+    private static Logger logger = org.apache.log4j.Logger.getLogger(LoginCommand.class);
     private static Helper instance = null;
     private HashMap<String, ICommand> commands = new HashMap<>();
 
     // Adding command to list of available commands
     private Helper() {
         commands.put("Logout", new LogoutCommand());
-        commands.put("Login", new RegisterCommand());
+        commands.put("Login", new LoginCommand());
         commands.put("changeStatus", new ChangeStatusCommand());
         commands.put("Register", new RegisterNewUserCommand());
         commands.put("Activity", new AddNewActivityCommand());

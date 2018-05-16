@@ -5,14 +5,17 @@
 </head>
 <body>
 <div align="center">
-    <br /> <br /> <br />
+    <br />
     <img src="error.png"><br />
-    Что-то пошло не так.<br />
+    <br/>
+    <br/>
+    Такой пользователь не найден.<br />
+    Или пароль неправильный. <br />
     Попробуйте еще раз.<br /><br />
-   <font size="+1"> На этот раз внимательно :)</font>
+    <font size="+1"> На этот раз внимательно :)</font>
     <br /><br /><br />
     <a href="index.jsp">
-        <input  method="post" type="button" value="В начало">
+        <input type="button" value="В начало">
     </a>
     <jsp:include page="footer.jsp" />
 </div>

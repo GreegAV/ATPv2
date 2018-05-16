@@ -7,9 +7,9 @@ public class Driver {
     private String driverName;
     private int routeID;
     private int busID;
-    private boolean confirmed;
+    private int confirmed;
 
-    public Driver(int userID, String driverName, int routeID, int busID, boolean confirmed) {
+    public Driver(int userID, String driverName, int routeID, int busID, int confirmed) {
         this.userID = userID;
         this.driverName = driverName;
         this.routeID = routeID;
@@ -18,10 +18,10 @@ public class Driver {
     }
 
     public boolean isConfirmed() {
-        return confirmed;
+        return confirmed>0;
     }
 
-    public void setConfirmed(boolean confirmed) {
+    public void setConfirmed(int confirmed) {
         this.confirmed = confirmed;
     }
 

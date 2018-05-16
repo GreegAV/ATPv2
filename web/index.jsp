@@ -30,7 +30,7 @@
       <tr>
         <td align="center">
           <input name="command" type="submit" class="btn btn-secondary" value="Login" />
-          <%--<input type="submit" name="command" value="Login">--%>
+          <%--<input type="submit" name="command" value="LoginCommand">--%>
         </td>
       </tr>
     </table>

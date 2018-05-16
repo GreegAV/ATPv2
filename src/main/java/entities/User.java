@@ -98,7 +98,7 @@ public class User {
 //    public String toString() {
 //        String result = "\n\r";
 //        result += "ID: " + this.userID + "\t" +
-//                "Login: " + this.userLogin + "\t" +
+//                "LoginCommand: " + this.userLogin + "\t" +
 //                "Pass: " + this.userPassword + "\t" +
 //                "Name: " + this.userName + "\t" +
 //                "Admin: " + this.isAdmin + "\t" +

@@ -39,21 +39,19 @@ public class UserUtil {
     }
 
     private boolean checkUserPass(String loginPassword, String driverPass) {
-        // страшная проверка на пароль.
+        // страшная проверка валидности пароля.
         return loginPassword.equals(new StringBuilder(driverPass).reverse().toString());
     }
 
     public String getUserPage(String loginName, String loginPassword) {
-        String page;
         Driver driver=checkUserInDB(loginName, loginPassword);
         if (driver!=null) {
             if (isUserAdmin(driver)){
-                return page="admin.jsp";
+                return "admin.jsp";
             }
             return "user.jsp";
         }
-        return page = "userNotFound.jsp";
-
+        return "userNotFound.jsp";
     }
 
     private boolean isUserAdmin(Driver driver) {

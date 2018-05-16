@@ -8,13 +8,13 @@ import java.sql.*;
 public class DAOUser {
     private static Logger logger = Logger.getLogger(DAOUser.class);
 
-    public static String getUserNameByID(int userID) {
-        for (User user : DAOOperation.getUserListFromDB()) {
-            if (user.getUserID() == userID)
-                return user.getUserName();
-        }
-        return null;
-    }
+//    public static String getUserNameByID(int userID) {
+//        for (User user : DAOOperation.getUserListFromDB()) {
+//            if (user.getUserID() == userID)
+//                return user.getUserName();
+//        }
+//        return null;
+//    }
 
     public static boolean isUserLoginExists(String newUserLogin) {
         String usersSQLSelect = "select * from users";

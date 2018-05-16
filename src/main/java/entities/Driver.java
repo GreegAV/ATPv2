@@ -7,19 +7,29 @@ public class Driver {
     private String driverName;
     private int routeID;
     private int busID;
+    private boolean confirmed;
+
+    public Driver(int userID, String driverName, int routeID, int busID, boolean confirmed) {
+        this.userID = userID;
+        this.driverName = driverName;
+        this.routeID = routeID;
+        this.busID = busID;
+        this.confirmed = confirmed;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
+    }
 
     public int getBusID() {
         return busID;
     }
 
     public void setBusID(int busID) {
-        this.busID = busID;
-    }
-
-    public Driver(int userID, String driverName, int routeID, int busID) {
-        this.userID = userID;
-        this.driverName = driverName;
-        this.routeID = routeID;
         this.busID = busID;
     }
 

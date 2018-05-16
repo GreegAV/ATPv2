@@ -14,11 +14,11 @@ public class ChangePageCommand implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        User loggedUser = (User) request.getServletContext().getAttribute("loggedUser");
-        int page2show = Integer.parseInt(request.getParameter("Page"));
-        logger.info("Changing page to "+page2show);
-        response.getWriter().print(Display.showPage(loggedUser, request, page2show));
+//
+//        User loggedUser = (User) request.getServletContext().getAttribute("loggedUser");
+//        int page2show = Integer.parseInt(request.getParameter("Page"));
+//        logger.info("Changing page to "+page2show);
+//        response.getWriter().print(Display.showPage(loggedUser, request, page2show));
 
         return "";
     }

@@ -17,46 +17,46 @@ public class ChangeStatusCommand implements controller.ICommand {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        String action = request.getParameter("action");
-        Activity activity = Activity.getActByID(Integer.parseInt(request.getParameter("actid")));
-        User loggedUser = (User) request.getServletContext().getAttribute("loggedUser");
-
-        if (action.equalsIgnoreCase("remove")) {
-            if (activity != null) {
-                activity.setActStatus(FREE);
-                activity.setUserID(1);
-                activity.setUserName(DAOUser.getUserNameByID(1));
-                DAOOperation.updateActivityDB(activity);
-                response.getWriter().print(Display.showPage(loggedUser, request,1));
-            }
-        }
-
-        if (action.equalsIgnoreCase("approve")) {
-            if (activity != null) {
-                activity.setActStatus(TAKEN);
-                DAOOperation.updateActivityDB(activity);
-                response.getWriter().print(Display.showPage(loggedUser, request,1));
-            }
-        }
-
-        if (action.equalsIgnoreCase("take")) {
-            if (activity != null) {
-                activity.setActStatus(FORADD);
-                activity.setUserID(loggedUser.getUserID());
-                activity.setUserName(loggedUser.getUserName());
-                DAOOperation.updateActivityDB(activity);
-                response.getWriter().print(Display.showPage(loggedUser, request,1));
-            }
-        }
-
-        if (action.equalsIgnoreCase("drop")) {
-            if (activity != null) {
-                activity.setActStatus(FORDEL);
-                DAOOperation.updateActivityDB(activity);
-                response.getWriter().print(Display.showPage(loggedUser, request,1));
-            }
-        }
-
+//        String action = request.getParameter("action");
+//        Activity activity = Activity.getActByID(Integer.parseInt(request.getParameter("actid")));
+//        User loggedUser = (User) request.getServletContext().getAttribute("loggedUser");
+//
+//        if (action.equalsIgnoreCase("remove")) {
+//            if (activity != null) {
+//                activity.setActStatus(FREE);
+//                activity.setUserID(1);
+//                activity.setUserName(DAOUser.getUserNameByID(1));
+//                DAOOperation.updateActivityDB(activity);
+//                response.getWriter().print(Display.showPage(loggedUser, request,1));
+//            }
+//        }
+//
+//        if (action.equalsIgnoreCase("approve")) {
+//            if (activity != null) {
+//                activity.setActStatus(TAKEN);
+//                DAOOperation.updateActivityDB(activity);
+//                response.getWriter().print(Display.showPage(loggedUser, request,1));
+//            }
+//        }
+//
+//        if (action.equalsIgnoreCase("take")) {
+//            if (activity != null) {
+//                activity.setActStatus(FORADD);
+//                activity.setUserID(loggedUser.getUserID());
+//                activity.setUserName(loggedUser.getUserName());
+//                DAOOperation.updateActivityDB(activity);
+//                response.getWriter().print(Display.showPage(loggedUser, request,1));
+//            }
+//        }
+//
+//        if (action.equalsIgnoreCase("drop")) {
+//            if (activity != null) {
+//                activity.setActStatus(FORDEL);
+//                DAOOperation.updateActivityDB(activity);
+//                response.getWriter().print(Display.showPage(loggedUser, request,1));
+//            }
+//        }
+//
         return "";
     }
 }

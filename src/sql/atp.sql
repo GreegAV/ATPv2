@@ -42,3 +42,17 @@ ADD CONSTRAINT `busID`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
+
+ALTER TABLE `atp`.`driver`
+ADD COLUMN `driverPassword` VARCHAR(45) NOT NULL AFTER `driverName`;
+
+
+ALTER TABLE `atp`.`driver`
+CHANGE COLUMN `confirmed` `confirmed` INT NULL ;
+
+INSERT INTO `atp`.`bus` (`busID`, `busName`, `driverID`, `routeID`) VALUES ('0', 'AdminBus', '0', '0');
+
+INSERT INTO `atp`.`route` (`routeID`, `routeName`) VALUES ('0', 'AdminRoute');
+
+INSERT INTO `atp`.`driver` (`userID`, `driverName`, `driverPassword`, `routeID`, `busID`, `confirmed`) VALUES ('0', 'admin', 'nimda', '0', '0', '0');
+

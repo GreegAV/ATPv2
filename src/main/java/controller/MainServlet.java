@@ -1,6 +1,7 @@
 package controller;
 
 import org.apache.log4j.Logger;
+import service.BusUtil;
 import service.UserUtil;
 
 import javax.servlet.ServletException;
@@ -43,7 +44,7 @@ public class MainServlet extends HttpServlet {
                     break;
 
                 case "ADDBUS":
-//                    addBus(request, response);
+                    addBus(request, response);
                     break;
 
                 case "ADDDRIVER":
@@ -66,6 +67,20 @@ public class MainServlet extends HttpServlet {
             logger.error(e.getLocalizedMessage());
         }
 
+
+    }
+
+    private void addBus(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String busModel = request.getParameter("busModel");
+        BusUtil busUtil = new BusUtil();
+        System.out.println(busModel);
+        String page = busUtil.addBus(busModel);
+        try {
+            request.getRequestDispatcher(page).forward(request, response);
+        } catch (ServletException | IOException e) {
+            logger.error("Failed to add new bus.");
+            logger.error(e.getLocalizedMessage());
+        }
 
     }
 

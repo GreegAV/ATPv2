@@ -25,6 +25,7 @@
 </head>
 
 <body>
+<form method="get" action="MainServlet">
 <div align=right>
     <a href="addNewBus.jsp?theLocale=en_US"><img src="img\us.png"></a>&nbsp;&nbsp;
     <a href="addNewBus.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
@@ -33,22 +34,26 @@
 <div align="center">
     <br/><br/>
     &nbsp;
-    <input class="btn btn-secondary" type="button" value="<fmt:message key="label.addnewuser"/>"
-           onclick="window.location.href='addNewDriver.jsp'; return false;"/>
-    &nbsp;
-    &nbsp;
-    &nbsp;
-    <input class="btn btn-secondary" type="button" value="<fmt:message key="label.addnewbus"/>"
-           onclick="window.location.href='addNewBus.jsp' ; return false;"/>
-    &nbsp;
-    &nbsp;
-    &nbsp;
-    <input class="btn btn-secondary" type="button" value="<fmt:message key="label.addnewroute"/>"
-           onclick="window.location.href='addNewRoute.jsp' ; return false;"/>
-
+    <table width="33%" border="0">
+        <tr>
+            <td align="center">
+                <fmt:message key="label.addbusmodel"/><br> <input type="text" name="busModel" required><br>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <br/>
+                <input name="command" value="ADDBUS" type="hidden">
+                <input class="btn btn-secondary" type="submit" value="<fmt:message key="label.addnewbus"/>">
+            </td>
+        </tr>
+    </table>
     <br/><br/>
 
+    <p>
+        <a href="MainServlet">Back to List</a></p>
 </div>
+</form>
 
 <%--<table align="center" width="25%" border="0">--%>
 <%--<tr>--%>

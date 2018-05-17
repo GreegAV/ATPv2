@@ -15,10 +15,10 @@ public class MainServlet extends HttpServlet {
 
     private static Logger logger = Logger.getLogger(MainServlet.class);
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
-    }
+//    @Override
+//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        doPost(request, response);
+//    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {

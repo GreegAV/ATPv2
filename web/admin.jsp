@@ -6,7 +6,7 @@
        value="${not empty param.theLocale ? param.theLocale : pageContext.request.locale}" scope="session"/>
 <fmt:setLocale value="${theLocale}"/>
 
-<fmt:setBundle basename="mylabels" />
+<fmt:setBundle basename="mylabels"/>
 
 <html>
 <head>
@@ -26,23 +26,25 @@
 
 <body>
 <div align=right>
-    <%--<select>--%>
-    <a href="admin.jsp?theLocale=en_US">English (en_US)</a>&nbsp;&nbsp;
-    <a href="admin.jsp?theLocale=ru_RU">Russian (ru_RU)</a>&nbsp;&nbsp;
-    <a href="admin.jsp?theLocale=uk_UA">Ukrainian (uk_UA)</a>&nbsp;&nbsp;
-    <%--</select>--%>
+    <a href="admin.jsp?theLocale=en_US"><img src="img\us.png"></a>&nbsp;&nbsp;
+    <a href="admin.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
+    <a href="admin.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
 </div>
 <div align="center">
     <br/><br/>
-        <div class="btn btn-secondary"><a href="addNewUser.jsp">&nbsp;<fmt:message key="label.addnewuser"/></a></div>
-        &nbsp;
-        &nbsp;
-        &nbsp;
-        <div class="btn btn-secondary"><a href="addNewBus.jsp">&nbsp;<fmt:message key="label.addnewbus"/></a></div>
-        &nbsp;
-        &nbsp;
-        &nbsp;
-        <div class="btn btn-secondary"><a href="addNewRoute.jsp">&nbsp;<fmt:message key="label.addnewroute"/></a></div>
+    &nbsp;
+    <input class="btn btn-secondary" type="button" value="<fmt:message key="label.addnewuser"/>"
+           onclick="window.location.href='addNewUser.jsp'; return false;"/>
+    &nbsp;
+    &nbsp;
+    &nbsp;
+    <input class="btn btn-secondary" type="button" value="<fmt:message key="label.addnewbus"/>"
+           onclick="window.location.href='addNewBus.jsp' ; return false;"/>
+    &nbsp;
+    &nbsp;
+    &nbsp;
+    <input class="btn btn-secondary" type="button" value="<fmt:message key="label.addnewroute"/>"
+           onclick="window.location.href='addNewBus.jsp' ; return false;"/>
 
     <br/><br/>
 
@@ -70,8 +72,6 @@
 
 <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <div class="footer" align="center">
-    <br/>
-    <br/>
     <font size="-1"> &copy; GreegAV 2018</font>
 </div>
 

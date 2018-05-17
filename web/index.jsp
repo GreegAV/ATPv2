@@ -27,21 +27,19 @@
 
 <body>
 <div align=right>
-    <%--<select>--%>
-    <a href="index.jsp?theLocale=en_US">English (en_US)</a>&nbsp;&nbsp;
-    <a href="index.jsp?theLocale=ru_RU">Russian (ru_RU)</a>&nbsp;&nbsp;
-    <a href="index.jsp?theLocale=uk_UA">Ukrainian (uk_UA)</a>&nbsp;&nbsp;
-    <%--</select>--%>
+    <a href="index.jsp?theLocale=en_US"><img src="img\us.png"> </a>&nbsp;&nbsp;
+    <a href="index.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
+    <a href="index.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
 </div>
 <div align="center">
 
     <div align="center">
-        <form method="get" action="MainServlet">
+        <form method="post" action="MainServlet">
             <table align="center" width="25%" border="0">
                 <tr>
                     <td align="center">
-                        Login<br> <input type="text" name="nameInput" required><br>
-                        Password<br> <input type="password" name="passInput" required><br>
+                        <fmt:message key="label.name"/><br> <input type="text" name="nameInput" required><br>
+                        <fmt:message key="label.password"/><br> <input type="password" name="passInput" required><br>
                     </td>
                 </tr>
                 <tr>
@@ -50,16 +48,15 @@
                 <tr>
                     <td align="center">
                         <input name="theLocale" value="${theLocale}" type="hidden">
-                        <input type="submit" class="btn btn-secondary" value=<fmt:message key="label.login"/>
+                        <input type="submit" class="btn btn-secondary" value=
+                        <fmt:message key="label.login"/>
                         <%--<input type="submit" name="command" value="LoginCommand">--%>
-                    </td>
+                                </td>
                 </tr>
             </table>
         </form>
     </div>
     <div class="footer" align="center">
-        <br/>
-        <br/>
         <font size="-1"> &copy; GreegAV 2018</font>
     </div>
     <script src="webjars/jquery/3.3.1/jquery.min.js"></script>

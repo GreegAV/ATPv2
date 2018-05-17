@@ -16,7 +16,7 @@
 <body>
 <div align="center">
     <br /> <br /> <br />
-    <img src="error.png"><br />
+    <img src="img\error.png"><br />
     Что-то пошло не так.<br />
     Попробуйте еще раз.<br /><br />
    <font size="+1"> На этот раз внимательно :)</font>

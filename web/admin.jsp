@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <title>ATP</title>
+    <title>ATP - Admin page</title>
     <link href="webjars/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .footer {

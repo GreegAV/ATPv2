@@ -15,16 +15,63 @@ public class MainServlet extends HttpServlet {
 
     private static Logger logger = Logger.getLogger(MainServlet.class);
 
-//    @Override
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        doPost(request, response);
-//    }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            // saving locale for the future
+            String locale = request.getParameter("theLocale");
+            request.getServletContext().setAttribute("theLocale", locale);
+
+            // read the "command" parameter
+            String theCommand = request.getParameter("command");
+
+            // if the command is missing, then default to listing students
+            if (theCommand == null) {
+                theCommand = "HOME";
+            }
+
+            // route to the appropriate method
+            switch (theCommand) {
+
+                case "LOGIN":
+                    login(request, response);
+                    break;
+
+                case "ADDBUS":
+//                    addBus(request, response);
+                    break;
+
+                case "ADDDRIVER":
+//                    addDriver(request, response);
+                    break;
+
+                case "ADDROUTE":
+//                    addRoute(request, response);
+                    break;
+
+                default:
+//                    home(request, response);
+            }
+
+        } catch (
+                Exception e)
+
+        {
+            logger.error("Failed to process command.");
+            logger.error(e.getLocalizedMessage());
+        }
+
+
+    }
+
+    private void login(HttpServletRequest request, HttpServletResponse response) {
         UserUtil userUtil = new UserUtil();
-        String locale=request.getParameter("theLocale");
-        request.getServletContext().setAttribute("theLocale", locale);
+
         String loginName = request.getParameter("nameInput");
         String loginPassword = request.getParameter("passInput");
 

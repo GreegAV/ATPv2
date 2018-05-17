@@ -26,7 +26,7 @@
 </head>
 
 <body>
-<form method="post" action="MainServlet">
+<form method="get" action="MainServlet">
 <jsp:include page="locale.jsp"/>
     <div align="center">
 
@@ -43,6 +43,7 @@
             <tr>
                 <td align="center">
                     <input name="theLocale" value="${theLocale}" type="hidden">
+                    <input name="command" value="LOGIN" type="hidden">
                     <input type="submit" class="btn btn-secondary" value="<fmt:message key="label.login"/>">
                 </td>
             </tr>

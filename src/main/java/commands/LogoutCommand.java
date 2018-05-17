@@ -1,6 +1,5 @@
 package commands;
 
-import controller.ICommand;
 import dao.ConnectionPool;
 import org.apache.log4j.Logger;
 
@@ -8,11 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
-public class LogoutCommand implements ICommand {
+public class LogoutCommand {
 
     private static Logger logger = org.apache.log4j.Logger.getLogger(LogoutCommand.class);
 
-    @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().invalidate();
         request.getSession(false);

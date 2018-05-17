@@ -26,41 +26,34 @@
 </head>
 
 <body>
-<div align=right>
-    <a href="index.jsp?theLocale=en_US"><img src="img\us.png"> </a>&nbsp;&nbsp;
-    <a href="index.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
-    <a href="index.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
-</div>
-<div align="center">
-
+<form method="post" action="MainServlet">
+<jsp:include page="locale.jsp"/>
     <div align="center">
-        <form method="post" action="MainServlet">
-            <table align="center" width="25%" border="0">
-                <tr>
-                    <td align="center">
-                        <fmt:message key="label.name"/><br> <input type="text" name="nameInput" required><br>
-                        <fmt:message key="label.password"/><br> <input type="password" name="passInput" required><br>
-                    </td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        <input name="theLocale" value="${theLocale}" type="hidden">
-                        <input type="submit" class="btn btn-secondary" value=
-                        <fmt:message key="label.login"/>
-                        <%--<input type="submit" name="command" value="LoginCommand">--%>
-                                </td>
-                </tr>
-            </table>
-        </form>
-    </div>
-    <div class="footer" align="center">
-        <font size="-1"> &copy; GreegAV 2018</font>
-    </div>
-    <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
-    <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+        <table align="center" width="25%" border="0">
+            <tr>
+                <td align="center">
+                    <fmt:message key="label.name"/><br> <input type="text" name="nameInput" required><br>
+                    <fmt:message key="label.password"/><br> <input type="password" name="passInput" required><br>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <input name="theLocale" value="${theLocale}" type="hidden">
+                    <input type="submit" class="btn btn-secondary" value="<fmt:message key="label.login"/>">
+                </td>
+            </tr>
+        </table>
+</form>
+</div>
+<div class="footer" align="center">
+    <font size="-1"> &copy; GreegAV 2018</font>
+</div>
+<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 </body>
 </html>

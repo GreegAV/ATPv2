@@ -34,7 +34,7 @@
     <br/><br/>
     &nbsp;
     <input class="btn btn-secondary" type="button" value="<fmt:message key="label.addnewuser"/>"
-           onclick="window.location.href='addNewUser.jsp'; return false;"/>
+           onclick="window.location.href='addNewDriver.jsp'; return false;"/>
     &nbsp;
     &nbsp;
     &nbsp;
@@ -44,7 +44,7 @@
     &nbsp;
     &nbsp;
     <input class="btn btn-secondary" type="button" value="<fmt:message key="label.addnewroute"/>"
-           onclick="window.location.href='addNewBus.jsp' ; return false;"/>
+           onclick="window.location.href='addNewRoute.jsp' ; return false;"/>
 
     <br/><br/>
 

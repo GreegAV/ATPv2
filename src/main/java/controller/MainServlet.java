@@ -3,6 +3,7 @@ package controller;
 import org.apache.log4j.Logger;
 import service.BusUtil;
 import service.DriverUtil;
+import service.RouteUtil;
 import service.UserUtil;
 
 import javax.servlet.ServletException;
@@ -53,22 +54,29 @@ public class MainServlet extends HttpServlet {
                     break;
 
                 case "ADDROUTE":
-//                    addRoute(request, response);
+                    addRoute(request, response);
                     break;
 
                 default:
 //                    home(request, response);
             }
 
-        } catch (
-                Exception e)
-
-        {
+        } catch (Exception e) {
             logger.error("Failed to process command.");
             logger.error(e.getLocalizedMessage());
         }
+    }
 
-
+    private void addRoute(HttpServletRequest request, HttpServletResponse response) {
+        String routeName = request.getParameter("routeName");
+        RouteUtil routeUtil = new RouteUtil();
+        String page = routeUtil.addRoute(routeName);
+        try {
+            request.getRequestDispatcher(page).forward(request, response);
+        } catch (ServletException | IOException e) {
+            logger.error("Failed to add new route.");
+            logger.error(e.getLocalizedMessage());
+        }
     }
 
     private void addDriver(HttpServletRequest request, HttpServletResponse response) {

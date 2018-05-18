@@ -1,6 +1,7 @@
 package service;
 
 import dao.ConnectionPool;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class UserUtil {
                 String driverName = myRs.getString("driverName");
                 if (driverName.equalsIgnoreCase(loginName)) {
                     String driverPass = myRs.getString("driverPassword");
-                    if (checkUserPass(loginPassword,driverPass)) {
+                    if (checkUserPass(loginPassword, driverPass)) {
                         int userID = myRs.getInt("userID");
                         int routeID = myRs.getInt("routeID");
                         int busID = myRs.getInt("busID");
@@ -44,9 +45,9 @@ public class UserUtil {
     }
 
     public String getUserPage(String loginName, String loginPassword) {
-        Driver driver=checkUserInDB(loginName, loginPassword);
-        if (driver!=null) {
-            if (isUserAdmin(driver)){
+        Driver driver = checkUserInDB(loginName, loginPassword);
+        if (driver != null) {
+            if (isUserAdmin(driver)) {
                 return "admin.jsp";
             }
             return "user.jsp";
@@ -55,6 +56,6 @@ public class UserUtil {
     }
 
     private boolean isUserAdmin(Driver driver) {
-        return driver.getUserID()==0;
+        return driver.getUserID() == 0;
     }
 }

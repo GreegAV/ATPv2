@@ -10,7 +10,7 @@ public class BusUtil {
 
     public String addBus(String busModel) {
         try (Connection myConn = ConnectionPool.getInstance().getConnection()) {
-            logger.error("Received connection for adding new bus.");
+            logger.info("Received connection for adding new bus.");
             // create sql for insert
             String sql = "insert into bus "
                     + "(busName, driverID, routeID) "
@@ -21,14 +21,8 @@ public class BusUtil {
             myStmt.setString(1, busModel);
             myStmt.setInt(2, 0);
             myStmt.setInt(3, 0);
-            System.out.println("before execution");
-            System.out.println(myStmt);
             // execute sql insert
-            System.out.println("!");
-            System.out.println(myStmt.execute());
-//            int result = myStmt.executeUpdate();
-//            System.out.println(result);
-            System.out.println("done");
+            myStmt.execute();
 
         } catch (SQLException e) {
             logger.error("Failed to add new bus.");

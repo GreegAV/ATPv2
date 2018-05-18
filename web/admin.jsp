@@ -31,20 +31,43 @@
     <a href="admin.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
 </div>
 <div align="center">
-    <br/><br/>
+    <table width="75%" border="1">
+        <tr>
+            <td width="20%">
+                <input width=100px class="btn btn-outline-success" type="button" value="<fmt:message key="label.addnewdriver"/>"
+                       onclick="window.location.href='addNewDriver.jsp?theLocale=${theLocale}'; return false;"/>
+                <br/><br/><br/>
+                <input class="btn btn-outline-success" type="button" value="<fmt:message key="label.addnewbus"/>"
+                       onclick="window.location.href='addNewBus.jsp?theLocale=${theLocale}' ; return false;"/>
+                <br/><br/><br/>
+                <input class="btn btn-outline-success" type="button" value="<fmt:message key="label.addnewroute"/>"
+                       onclick="window.location.href='addNewRoute.jsp?theLocale=${theLocale}' ; return false;"/>
+            </td>
+            <td width="60%">
+                Список водителей с маршрутами и автобусами
+            </td>
+            <td width="20%">
+                <input class="btn btn-outline-danger" type="button" value="<fmt:message key="label.removedriver"/>"
+                       onclick="window.location.href='removeDriver.jsp?theLocale=${theLocale}'; return false;"/>
+                <br/><br/><br/>
+                <input class="btn btn-outline-danger" type="button" value="<fmt:message key="label.removebus"/>"
+                       onclick="window.location.href='removeBus.jsp?theLocale=${theLocale}' ; return false;"/>
+                <br/><br/><br/>
+                <input class="btn btn-outline-danger" type="button" value="<fmt:message key="label.removeroute"/>"
+                       onclick="window.location.href='removeRoute.jsp?theLocale=${theLocale}' ; return false;"/>
+            </td>
+        </tr>
+    </table>
     &nbsp;
-    <input class="btn btn-secondary" type="button" value="<fmt:message key="label.addnewuser"/>"
-           onclick="window.location.href='addNewDriver.jsp?theLocale=${theLocale}'; return false;"/>
+
     &nbsp;
     &nbsp;
     &nbsp;
-    <input class="btn btn-secondary" type="button" value="<fmt:message key="label.addnewbus"/>"
-           onclick="window.location.href='addNewBus.jsp?theLocale=${theLocale}' ; return false;"/>
+
     &nbsp;
     &nbsp;
     &nbsp;
-    <input class="btn btn-secondary" type="button" value="<fmt:message key="label.addnewroute"/>"
-           onclick="window.location.href='addNewRoute.jsp?theLocale=${theLocale}' ; return false;"/>
+
 
     <br/><br/>
 

@@ -51,29 +51,9 @@
     </table>
     <br/><br/>
 
-    <p>
-        <a href="MainServlet">Back to List</a></p>
+    <a onclick="javascript:history.back(); return false;"><img src="img\back.png"></a>
 </div>
 </form>
-
-<%--<table align="center" width="25%" border="0">--%>
-<%--<tr>--%>
-<%--<td align="center">--%>
-<%--Login<br> <input type="text" name="nameInput" required><br>--%>
-<%--Password<br> <input type="password" name="passInput" required><br>--%>
-<%--</td>--%>
-<%--</tr>--%>
-<%--<tr>--%>
-<%--<td>&nbsp;</td>--%>
-<%--</tr>--%>
-<%--<tr>--%>
-<%--<td align="center">--%>
-<%--<input name="command" type="submit" class="btn btn-secondary" value="Login" />--%>
-<%--&lt;%&ndash;<input type="submit" name="command" value="LoginCommand">&ndash;%&gt;--%>
-<%--</td>--%>
-<%--</tr>--%>
-<%--</table>--%>
-<%--</form>--%>
 
 
 <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>

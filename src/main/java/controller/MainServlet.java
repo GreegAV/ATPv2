@@ -2,6 +2,7 @@ package controller;
 
 import org.apache.log4j.Logger;
 import service.BusUtil;
+import service.DriverUtil;
 import service.UserUtil;
 
 import javax.servlet.ServletException;
@@ -48,7 +49,7 @@ public class MainServlet extends HttpServlet {
                     break;
 
                 case "ADDDRIVER":
-//                    addDriver(request, response);
+                    addDriver(request, response);
                     break;
 
                 case "ADDROUTE":
@@ -70,10 +71,22 @@ public class MainServlet extends HttpServlet {
 
     }
 
+    private void addDriver(HttpServletRequest request, HttpServletResponse response) {
+        String driverName = request.getParameter("driverName");
+        DriverUtil driverUtil = new DriverUtil();
+        System.out.println(driverName);
+        String page = driverUtil.addDriver(driverName);
+        try {
+            request.getRequestDispatcher(page).forward(request, response);
+        } catch (ServletException | IOException e) {
+            logger.error("Failed to add new bus.");
+            logger.error(e.getLocalizedMessage());
+        }
+    }
+
     private void addBus(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String busModel = request.getParameter("busModel");
         BusUtil busUtil = new BusUtil();
-        System.out.println(busModel);
         String page = busUtil.addBus(busModel);
         try {
             request.getRequestDispatcher(page).forward(request, response);
@@ -81,7 +94,6 @@ public class MainServlet extends HttpServlet {
             logger.error("Failed to add new bus.");
             logger.error(e.getLocalizedMessage());
         }
-
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) {

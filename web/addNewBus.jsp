@@ -44,6 +44,7 @@
             <td align="center">
                 <br/>
                 <input name="command" value="ADDBUS" type="hidden">
+                <input name="theLocale" value="${theLocale}" type="hidden">
                 <input class="btn btn-secondary" type="submit" value="<fmt:message key="label.addnewbus"/>">
             </td>
         </tr>

@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <title>ATP - Admin page - Add new driver</title>
+    <title>ATP - Admin page - Remove driver</title>
     <link href="webjars/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .footer {
@@ -34,7 +34,6 @@
     <div align="center">
         <br/>
         <table>
-
             <tr>
                 <th>Driver ID</th>
                 <th>Driver Name</th>
@@ -45,8 +44,8 @@
             <c:forEach var="tempDriver" items="${DRIVER_LIST}">
 
                 <c:url var="deleteLink" value="MainServlet">
-                    <c:param name="command" value="DELETE" />
-                    <c:param name="driverID" value="${tempDriver.id}" />
+                    <c:param name="command" value="DELETE"/>
+                    <c:param name="driverID" value="${tempDriver.id}"/>
                 </c:url>
 
                 <tr>

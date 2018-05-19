@@ -14,7 +14,7 @@ CREATE TABLE `atp`.`bus` (
 CREATE TABLE `atp`.`route` (
   `routeID` int unique AUTO_INCREMENT,
   `routeName` VARCHAR(45) NULL,
-  PRIMARY KEY (`routeID`));
+  `assigned2bus` int null,  `assigned2driver` int null, PRIMARY KEY (`routeID`));
 
 
 

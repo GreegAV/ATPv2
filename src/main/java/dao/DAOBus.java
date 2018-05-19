@@ -41,9 +41,7 @@ public class DAOBus {
                 int driverID = myRs.getInt("driverID");
                 int routeID = myRs.getInt("routeID");
 
-                // create new student object
                 Bus tempBus = new Bus(busID, busName, driverID, routeID);
-                // add it to the list of routes
                 buses.add(tempBus);
             }
         } catch (Exception e) {

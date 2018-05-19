@@ -48,9 +48,8 @@ public class DAORoute {
                 // add it to the list of routes
                 routes.add(tempRoute);
             }
-
-
         } catch (Exception e) {
+            logger.error("Failed go get routes list. DAORoute.getRoutes().");
             logger.error(e.getLocalizedMessage());
         }
         return routes;

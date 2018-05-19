@@ -40,9 +40,8 @@ public class DAODriver {
                 // add it to the list of students
                 drivers.add(tempDriver);
             }
-
-
         } catch (Exception e) {
+            logger.error("Failed go get drivers list. DAODriver.getDrivers().");
             logger.error(e.getLocalizedMessage());
         }
         return drivers;

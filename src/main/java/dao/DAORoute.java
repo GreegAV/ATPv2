@@ -43,9 +43,7 @@ public class DAORoute {
                 int assigned2Driver = myRs.getInt("assigned2Driver");
                 int assigned2Bus = myRs.getInt("assigned2Bus");
 
-                // create new student object
                 Route tempRoute = new Route(routeID, routeName, assigned2Driver,assigned2Bus);
-                // add it to the list of routes
                 routes.add(tempRoute);
             }
         } catch (Exception e) {

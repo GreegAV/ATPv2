@@ -1,8 +1,8 @@
 package controller;
 
+import dao.DAODriver;
 import org.apache.log4j.Logger;
 import service.BusUtil;
-import service.DriverUtil;
 import service.RouteUtil;
 import service.UserUtil;
 
@@ -81,9 +81,8 @@ public class MainServlet extends HttpServlet {
 
     private void addDriver(HttpServletRequest request, HttpServletResponse response) {
         String driverName = request.getParameter("driverName");
-        DriverUtil driverUtil = new DriverUtil();
-        System.out.println(driverName);
-        String page = driverUtil.addDriver(driverName);
+        DAODriver daoDriver = new DAODriver();
+        String page = daoDriver.addDriver(driverName);
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (ServletException | IOException e) {

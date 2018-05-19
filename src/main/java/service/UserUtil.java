@@ -29,7 +29,7 @@ public class UserUtil {
                         int routeID = myRs.getInt("routeID");
                         int busID = myRs.getInt("busID");
                         int confirmed = myRs.getInt("confirmed");
-                        return new Driver(userID, driverName, routeID, busID, confirmed);
+                        return new Driver(userID, driverName, driverPass, routeID, busID, confirmed);
                     }
                 }
             }

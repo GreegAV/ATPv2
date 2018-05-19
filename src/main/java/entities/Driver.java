@@ -1,20 +1,57 @@
 package entities;
 
+import dao.DAOBus;
+import dao.DAORoute;
+
 import java.util.Objects;
 
 public class Driver {
     private int userID;
     private String driverName;
+    private String driverPassword;
     private int routeID;
     private int busID;
     private int confirmed;
+    private String routeName;
+    private String busName;
 
-    public Driver(int userID, String driverName, int routeID, int busID, int confirmed) {
+    public Driver(int userID, String driverName, String driverPassword, int routeID, int busID, int confirmed) {
         this.userID = userID;
         this.driverName = driverName;
+        this.driverPassword = driverPassword;
         this.routeID = routeID;
         this.busID = busID;
         this.confirmed = confirmed;
+        setRouteName(routeID);
+        setBusName(busID);
+    }
+
+    public void setBusName(int busID) {
+        this.busName = DAOBus.getBusNameByID(busID);
+    }
+
+    public void setRouteName(int routeID) {
+        this.routeName = DAORoute.getRouteNameByID(routeID);
+    }
+
+    public String getRouteName() {
+        return routeName;
+    }
+
+    public String getBusName() {
+        return busName;
+    }
+
+    public String getDriverPassword() {
+        return driverPassword;
+    }
+
+    public void setDriverPassword(String driverPassword) {
+        this.driverPassword = driverPassword;
+    }
+
+    public int getConfirmed() {
+        return confirmed;
     }
 
     public boolean isConfirmed() {

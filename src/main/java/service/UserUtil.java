@@ -1,16 +1,16 @@
 package service;
 
-import dao.ConnectionPool;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import dao.ConnectionPool;
 import entities.Driver;
-import org.apache.log4j.Logger;
+
+import static service.ErrorLog.logError;
 
 public class UserUtil {
-    private static Logger logger = Logger.getLogger(UserUtil.class);
 
     public Driver checkUserInDB(String loginName, String loginPassword) {
 
@@ -32,7 +32,7 @@ public class UserUtil {
                 }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            logError("Failed to get list of users", e);
         }
         return null;
     }

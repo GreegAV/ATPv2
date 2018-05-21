@@ -1,16 +1,17 @@
 package service;
 
 import dao.ConnectionPool;
-import org.apache.log4j.Logger;
 
 import java.sql.*;
 
+import static service.ErrorLog.logError;
+import static service.ErrorLog.logInfo;
+
 public class BusUtil {
-    private static Logger logger = Logger.getLogger(BusUtil.class);
 
     public String addBus(String busModel) {
         try (Connection myConn = ConnectionPool.getInstance().getConnection()) {
-            logger.info("Received connection for adding new bus.");
+            logInfo("Received connection for adding new bus.");
             // create sql for insert
             String sql = "insert into bus "
                     + "(busName, driverID, routeID) "
@@ -25,8 +26,7 @@ public class BusUtil {
             myStmt.execute();
 
         } catch (SQLException e) {
-            logger.error("Failed to add new bus.");
-            logger.error(e.getMessage());
+            logError("Failed to add new bus.",e);
             return "error.jsp";
         }
         return "admin.jsp";

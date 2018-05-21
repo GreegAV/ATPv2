@@ -9,16 +9,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import static service.ErrorLog.logError;
+import static service.ErrorLog.logInfo;
 
 public class DAORoute {
-    private static Logger logger = Logger.getLogger(DAORoute.class);
 
     public static String getRouteNameByID(int routeID) {
         String routeName;
         // getting busName by ID from DB
 
-        routeName="TODO routeName by ID";
+        routeName = "TODO routeName by ID";
 
         return routeName;
     }
@@ -33,7 +33,7 @@ public class DAORoute {
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
              ResultSet myRs = myStmt.executeQuery(sql)) {
-            logger.info("Received connection for getting list of routes.");
+            logInfo("Received connection for getting list of routes.");
 
             // process result set
             while (myRs.next()) {
@@ -43,12 +43,11 @@ public class DAORoute {
                 int assigned2Driver = myRs.getInt("assigned2Driver");
                 int assigned2Bus = myRs.getInt("assigned2Bus");
 
-                Route tempRoute = new Route(routeID, routeName, assigned2Driver,assigned2Bus);
+                Route tempRoute = new Route(routeID, routeName, assigned2Driver, assigned2Bus);
                 routes.add(tempRoute);
             }
         } catch (Exception e) {
-            logger.error("Failed go get routes list. DAORoute.getRoutes().");
-            logger.error(e.getLocalizedMessage());
+            logError("Failed go get routes list. DAORoute.getRoutes().", e);
         }
         return routes;
     }

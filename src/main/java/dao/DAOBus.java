@@ -1,7 +1,6 @@
 package dao;
 
 import entities.Bus;
-import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,14 +8,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static service.ErrorLog.logError;
+import static service.ErrorLog.logInfo;
+
 public class DAOBus {
-    private static Logger logger = Logger.getLogger(DAOBus.class);
 
     public static String getBusNameByID(int busID) {
         String busName;
         // getting busName by ID from DB
 
-        busName="TODO busName from ID";
+        busName = "TODO busName from ID";
 
         return busName;
     }
@@ -31,7 +32,7 @@ public class DAOBus {
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
              ResultSet myRs = myStmt.executeQuery(sql)) {
-            logger.info("Received connection for getting list of buses.");
+            logInfo("Received connection for getting list of buses.");
 
             // process result set
             while (myRs.next()) {
@@ -45,8 +46,7 @@ public class DAOBus {
                 buses.add(tempBus);
             }
         } catch (Exception e) {
-            logger.error("Failed go get buses list. DAOBus.getbuses().");
-            logger.error(e.getLocalizedMessage());
+            logError("Failed go get buses list. DAOBus.getbuses().", e);
         }
         return buses;
     }

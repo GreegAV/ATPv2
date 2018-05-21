@@ -44,18 +44,17 @@
             <c:forEach var="tempDriver" items="${DRIVER_LIST}">
 
                 <c:url var="deleteLink" value="MainServlet">
-                    <c:param name="command" value="DELETE"/>
-                    <c:param name="driverID" value="${tempDriver.id}"/>
+                    <c:param name="command" value="DELETEDRIVER"/>
+                    <c:param name="driverID" value="${tempDriver.userID}"/>
                 </c:url>
 
                 <tr>
-                    <td> ${tempDriver.driverID} </td>
+                    <td> ${tempDriver.userID} </td>
                     <td> ${tempDriver.driverName} </td>
-                    <td> ${tempDriver.driverRoute} </td>
-                    <td> ${tempDriver.driverBus} </td>
+                    <td> ${tempDriver.routeName} </td>
+                    <td> ${tempDriver.busName} </td>
                     <td>
-                        <a href="${deleteLink}"
-                           onclick="if (!(confirm('Are you sure you want to delete this driver?'))) return false">
+                        <a href="${deleteLink}">
                             Delete</a>
                     </td>
                 </tr>
@@ -64,7 +63,7 @@
 
         </table>
         <br/>
-        <a onclick="javascript:history.back(); return false;"><img src="img\back.png"></a>
+        <a href="admin.jsp"><img src="img\back.png"></a>
     </div>
 </form>
 

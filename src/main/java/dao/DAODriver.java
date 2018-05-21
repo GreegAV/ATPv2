@@ -3,13 +3,15 @@ package dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import entities.Driver;
 
-import org.apache.log4j.Logger;
+import static service.ErrorLog.logError;
+import static service.ErrorLog.logInfo;
 
 public class DAODriver {
-    private static Logger logger = Logger.getLogger(DAODriver.class);
 
     public List<Driver> getDrivers() {
 
@@ -21,7 +23,7 @@ public class DAODriver {
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
              ResultSet myRs = myStmt.executeQuery(sql)) {
-            logger.info("Received connection for getting list of drivers.");
+            logInfo("Received connection for getting list of drivers.");
 
             // process result set
             while (myRs.next()) {
@@ -41,33 +43,42 @@ public class DAODriver {
                 drivers.add(tempDriver);
             }
         } catch (Exception e) {
-            logger.error("Failed go get drivers list. DAODriver.getDrivers().");
-            logger.error(e.getLocalizedMessage());
+            logError("Failed go get drivers list. DAODriver.getDrivers().", e);
         }
         return drivers;
     }
 
-    public String addDriver(String driverName) {
+    public static void prepareListDrivers(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            DAODriver daoDriver = new DAODriver();
+            List<Driver> drivers = daoDriver.getDrivers();
+
+            // add drivers to the request
+            request.getServletContext().setAttribute("DRIVER_LIST", drivers);
+
+        } catch (Exception e) {
+            logError("Failed go get drivers list.", e);
+        }
+    }
+
+    public String addDriver(String driverName, HttpServletRequest request, HttpServletResponse response) {
         try (Connection myConn = ConnectionPool.getInstance().getConnection()) {
-            logger.info("Received connection for adding new driver.");
+            logInfo("Received connection for adding new driver.");
             // create sql for insert
             String sql = "insert into driver "
                     + "(driverName, driverPassword, routeID, busID, confirmed) "
                     + "values (?,?,?,?,?)";
 
             PreparedStatement myStmt = myConn.prepareStatement(sql);
-            // set the param values for the student
             myStmt.setString(1, driverName);
             myStmt.setString(2, new StringBuilder(driverName).reverse().toString());
             myStmt.setInt(3, 0);
             myStmt.setInt(4, 0);
             myStmt.setInt(5, 0);
-            // execute sql insert
             myStmt.execute();
-
+            prepareListDrivers(request, response);
         } catch (SQLException e) {
-            logger.error("Failed to add new driver.");
-            logger.error(e.getMessage());
+            logError("Failed to add new driver.", e);
             return "error.jsp";
         }
         return "admin.jsp";
@@ -79,7 +90,22 @@ public class DAODriver {
 
         routeName = "TODO routeName";
 
-
         return routeName;
+    }
+
+    public void deleteDriver(int driverID) {
+        String sql = "delete from driver where userid=?";
+
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             PreparedStatement myStmt = myConn.prepareStatement(sql);) {
+            logInfo("Received connection for driver deletion.");
+            System.out.println("Received connection for driver deletion.");
+
+            myStmt.setInt(1, driverID);
+            myStmt.execute();
+
+        } catch (SQLException e) {
+            logError("Failed to delete driver.", e);
+        }
     }
 }

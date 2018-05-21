@@ -1,17 +1,9 @@
 package controller;
 
-import dao.DAOBus;
-import dao.DAODriver;
-import dao.DAORoute;
-import entities.Bus;
-import entities.Driver;
-import entities.Route;
-import org.apache.log4j.Logger;
-import service.BusUtil;
-import service.RouteUtil;
-import service.UserUtil;
+import dao.*;
+import entities.*;
+import service.*;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,13 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static dao.DAODriver.prepareListDrivers;
+import static service.ErrorLog.logError;
+
 @WebServlet("/MainServlet")
 public class MainServlet extends HttpServlet {
 
-    private static Logger logger = Logger.getLogger(MainServlet.class);
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("doGet");
         doPost(request, response);
     }
 
@@ -37,10 +31,8 @@ public class MainServlet extends HttpServlet {
             String locale = request.getParameter("theLocale");
             request.getServletContext().setAttribute("theLocale", locale);
 
-            // read the "command" parameter
             String theCommand = request.getParameter("command");
             System.out.println(theCommand);
-            // if the command is missing, then default to listing students
             if (theCommand == null) {
                 theCommand = "HOME";
             }
@@ -48,9 +40,9 @@ public class MainServlet extends HttpServlet {
             // route to the appropriate method
             switch (theCommand) {
 
-//                case "LISTDRIVERS":
-//                    listDrivers(request, response);
-//                    break;
+                case "DELETEDRIVER":
+                    deleteDriver(request, response);
+                    break;
 
                 case "LOGIN":
                     login(request, response);
@@ -73,22 +65,22 @@ public class MainServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
-            logger.error("Failed to process command.");
-            logger.error(e.getLocalizedMessage());
+            logError("Failed to process command.", e);
         }
     }
 
-    private void listDrivers(HttpServletRequest request, HttpServletResponse response) {
+    private void deleteDriver(HttpServletRequest request, HttpServletResponse response) {
+        DAODriver daoDriver = new DAODriver();
+
+        int driverID = Integer.parseInt(request.getParameter("driverID"));
+        daoDriver.deleteDriver(driverID);
+
+        // renew drivers list
+        prepareListDrivers(request, response);
         try {
-            DAODriver daoDriver = new DAODriver();
-            List<Driver> drivers = daoDriver.getDrivers();
-
-            // add drivers to the request
-            request.setAttribute("DRIVER_LIST", drivers);
-
-        } catch ( Exception e) {
-            logger.error("Failed go get drivers list.");
-            logger.error(e.getLocalizedMessage());
+            request.getRequestDispatcher("removeDriver.jsp").forward(request, response);
+        } catch (ServletException | IOException e) {
+            logError("Failed go delete driver from the list.", e);
         }
     }
 
@@ -101,8 +93,7 @@ public class MainServlet extends HttpServlet {
             request.setAttribute("ROUTES_LIST", routes);
 
         } catch (Exception e) {
-            logger.error("Failed go get routes list.");
-            logger.error(e.getLocalizedMessage());
+            logError("Failed go get routes list.", e);
         }
     }
 
@@ -115,8 +106,7 @@ public class MainServlet extends HttpServlet {
             request.setAttribute("BUSES_LIST", buses);
 
         } catch (Exception e) {
-            logger.error("Failed go get buses list.");
-            logger.error(e.getLocalizedMessage());
+            logError("Failed go get buses list.", e);
         }
     }
 
@@ -127,20 +117,18 @@ public class MainServlet extends HttpServlet {
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (ServletException | IOException e) {
-            logger.error("Failed to add new route.");
-            logger.error(e.getLocalizedMessage());
+            logError("Failed to add new route.", e);
         }
     }
 
     private void addDriver(HttpServletRequest request, HttpServletResponse response) {
         String driverName = request.getParameter("driverName");
         DAODriver daoDriver = new DAODriver();
-        String page = daoDriver.addDriver(driverName);
+        String page = daoDriver.addDriver(driverName, request, response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (ServletException | IOException e) {
-            logger.error("Failed to add new bus.");
-            logger.error(e.getLocalizedMessage());
+            logError("Failed to add new bus.", e);
         }
     }
 
@@ -151,8 +139,7 @@ public class MainServlet extends HttpServlet {
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (ServletException | IOException e) {
-            logger.error("Failed to add new bus.");
-            logger.error(e.getLocalizedMessage());
+            logError("Failed to add new bus.", e);
         }
     }
 
@@ -164,13 +151,12 @@ public class MainServlet extends HttpServlet {
 
         String page = userUtil.getUserPage(loginName, loginPassword);
         if (!page.equalsIgnoreCase("userNotFound.jsp")) {
-            listDrivers(request,response);
+            prepareListDrivers(request, response);
         }
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (ServletException | IOException e) {
-            logger.error("Failed to login.");
-            logger.error(e.getLocalizedMessage());
+            logError("Failed to login.", e);
         }
     }
 }

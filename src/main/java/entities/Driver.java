@@ -55,7 +55,7 @@ public class Driver {
     }
 
     public boolean isConfirmed() {
-        return confirmed>0;
+        return confirmed > 0;
     }
 
     public void setConfirmed(int confirmed) {

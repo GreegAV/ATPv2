@@ -1,21 +1,21 @@
 package dao;
 
-import org.apache.log4j.Logger;
-
 import java.sql.*;
 
+import static service.ErrorLog.logError;
+import static service.ErrorLog.logInfo;
+
 public class DAOConnection {
-    private static Logger logger = Logger.getLogger(DAOConnection.class);
 
     public static ResultSet getResultSet(Statement statement, String sqlSelect) {
         try {
             if (statement != null) {
                 return statement.executeQuery(sqlSelect);
             } else {
-                logger.error("Null statement received!");
+                logInfo("Null statement received!");
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            logError("Failed to get resultset", e);
         }
         return null;
     }
@@ -25,10 +25,10 @@ public class DAOConnection {
             if (connection != null) {
                 return connection.createStatement();
             } else {
-                logger.error("Null connection received!");
+                logInfo("Null connection received!");
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            logError("Failed to create statement", e);
         }
         return null;
     }
@@ -38,7 +38,7 @@ public class DAOConnection {
             try {
                 resultSet.close();
             } catch (SQLException e) {
-                logger.error(e.getMessage());
+                logError("Failed to close resultset", e);
             }
         }
     }
@@ -48,7 +48,7 @@ public class DAOConnection {
             try {
                 statement.close();
             } catch (SQLException e) {
-                logger.error(e.getMessage());
+                logError("Failed to close statement", e);
             }
         }
     }

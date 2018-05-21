@@ -41,18 +41,18 @@
                 <th>Bus Route</th>
             </tr>
 
-            <c:forEach var="tempBus" items="${BUS_LIST}">
+            <c:forEach var="tempBus" items="${BUSES_LIST}">
 
                 <c:url var="deleteLink" value="MainServlet">
                     <c:param name="command" value="DELETEBUS"/>
-                    <c:param name="busID" value="${tempBus.userID}"/>
+                    <c:param name="busID" value="${tempBus.busID}"/>
                 </c:url>
 
                 <tr>
                     <td> ${tempBus.busID} </td>
                     <td> ${tempBus.busName} </td>
-                    <td> ${tempBus.driverName} </td>
-                    <td> ${tempBus.busRoute} </td>
+                    <td> ${tempBus.driverID} </td>
+                    <td> ${tempBus.routeID} </td>
                     <td>
                         <a href="${deleteLink}">
                             Delete</a>

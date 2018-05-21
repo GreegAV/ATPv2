@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static dao.DAODriver.prepareListDrivers;
+import static dao.DAOBus.prepareListBuses;
 import static service.ErrorLog.logError;
 
 @WebServlet("/MainServlet")
@@ -44,6 +45,10 @@ public class MainServlet extends HttpServlet {
                     deleteDriver(request, response);
                     break;
 
+                case "DELETEBUS":
+                    deleteBus(request, response);
+                    break;
+
                 case "LOGIN":
                     login(request, response);
                     break;
@@ -66,6 +71,21 @@ public class MainServlet extends HttpServlet {
 
         } catch (Exception e) {
             logError("Failed to process command.", e);
+        }
+    }
+
+    private void deleteBus(HttpServletRequest request, HttpServletResponse response) {
+        DAOBus daoBus = new DAOBus();
+
+        int busID = Integer.parseInt(request.getParameter("busID"));
+        daoBus.deleteBus(busID);
+
+        // renew drivers list
+        prepareListBuses(request, response);
+        try {
+            request.getRequestDispatcher("busList.jsp").forward(request, response);
+        } catch (ServletException | IOException e) {
+            logError("Failed go delete driver from the list.", e);
         }
     }
 
@@ -134,8 +154,8 @@ public class MainServlet extends HttpServlet {
 
     private void addBus(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String busModel = request.getParameter("busModel");
-        BusUtil busUtil = new BusUtil();
-        String page = busUtil.addBus(busModel);
+        DAOBus daoBus = new DAOBus();
+        String page = daoBus.addBus(busModel,request,response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (ServletException | IOException e) {
@@ -152,6 +172,7 @@ public class MainServlet extends HttpServlet {
         String page = userUtil.getUserPage(loginName, loginPassword);
         if (!page.equalsIgnoreCase("userNotFound.jsp")) {
             prepareListDrivers(request, response);
+            prepareListBuses(request, response);
         }
         try {
             request.getRequestDispatcher(page).forward(request, response);

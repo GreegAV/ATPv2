@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <title>ATP - Admin page - Remove driver</title>
+    <title>ATP - Admin page - Bus list</title>
     <link href="webjars/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .footer {
@@ -27,32 +27,32 @@
 <body>
 <form method="get" action="MainServlet">
     <div align=right>
-        <a href="removeDriver.jsp?theLocale=en_US"><img src="img\us.png"></a>&nbsp;&nbsp;
-        <a href="removeDriver.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
-        <a href="removeDriver.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
+        <a href="busList.jsp?theLocale=en_US"><img src="img\us.png"></a>&nbsp;&nbsp;
+        <a href="busList.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
+        <a href="busList.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
     </div>
     <div align="center">
         <br/>
         <table>
             <tr>
-                <th>Driver ID</th>
+                <th>Bus ID</th>
+                <th>Bus Name</th>
                 <th>Driver Name</th>
-                <th>Driver Route</th>
-                <th>Driver Bus</th>
+                <th>Bus Route</th>
             </tr>
 
-            <c:forEach var="tempDriver" items="${DRIVER_LIST}">
+            <c:forEach var="tempBus" items="${BUS_LIST}">
 
                 <c:url var="deleteLink" value="MainServlet">
-                    <c:param name="command" value="DELETEDRIVER"/>
-                    <c:param name="driverID" value="${tempDriver.userID}"/>
+                    <c:param name="command" value="DELETEBUS"/>
+                    <c:param name="busID" value="${tempBus.userID}"/>
                 </c:url>
 
                 <tr>
-                    <td> ${tempDriver.userID} </td>
-                    <td> ${tempDriver.driverName} </td>
-                    <td> ${tempDriver.routeName} </td>
-                    <td> ${tempDriver.busName} </td>
+                    <td> ${tempBus.busID} </td>
+                    <td> ${tempBus.busName} </td>
+                    <td> ${tempBus.driverName} </td>
+                    <td> ${tempBus.busRoute} </td>
                     <td>
                         <a href="${deleteLink}">
                             Delete</a>

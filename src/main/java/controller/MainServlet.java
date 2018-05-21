@@ -78,7 +78,7 @@ public class MainServlet extends HttpServlet {
         // renew drivers list
         prepareListDrivers(request, response);
         try {
-            request.getRequestDispatcher("removeDriver.jsp").forward(request, response);
+            request.getRequestDispatcher("driverList.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
             logError("Failed go delete driver from the list.", e);
         }

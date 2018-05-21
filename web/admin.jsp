@@ -48,7 +48,7 @@
             </td>
             <td width="20%">
                 <input class="btn btn-outline-danger" type="button" value="<fmt:message key="label.removedriver"/>"
-                       onclick="window.location.href='removeDriver.jsp?theLocale=${theLocale}&command=LISTDRIVERS'; return false;"/>
+                       onclick="window.location.href='driverList.jsp?theLocale=${theLocale}&command=LISTDRIVERS'; return false;"/>
                 <br/><br/><br/>
                 <input class="btn btn-outline-danger" type="button" value="<fmt:message key="label.removebus"/>"
                        onclick="window.location.href='removeBus.jsp?theLocale=${theLocale}' ; return false;"/>

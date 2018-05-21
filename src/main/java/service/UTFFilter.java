@@ -8,7 +8,6 @@ import java.io.IOException;
 public class UTFFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
-
     }
 
     // Setting UTF-8 for all pages

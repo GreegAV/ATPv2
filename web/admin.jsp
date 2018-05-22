@@ -31,57 +31,70 @@
     <a href="admin.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
 </div>
 <div align="center">
-<br/>
-<h1><fmt:message key="label.welcome"/></h1>
-<br/>
-<div align="center">
-    <table width="85%" border="1">
-        <tr>
-            <td width="20%">
-                <input class="btn btn-outline-success btn-block" type="button" value="<fmt:message key="label.addnewdriver"/>"
-                       onclick="window.location.href='addNewDriver.jsp?theLocale=${theLocale}'; return false;"/>
-                <br/><br/><br/>
-                <input class="btn btn-outline-success btn-block" type="button" value="<fmt:message key="label.addnewbus"/>"
-                       onclick="window.location.href='addNewBus.jsp?theLocale=${theLocale}' ; return false;"/>
-                <br/><br/><br/>
-                <input class="btn btn-outline-success btn-block" type="button" value="<fmt:message key="label.addnewroute"/>"
-                       onclick="window.location.href='addNewRoute.jsp?theLocale=${theLocale}' ; return false;"/>
-            </td>
-            <td width="60%">
-                Список водителей с маршрутами и автобусами
-            </td>
-            <td width="20%">
-                <input class="btn btn-outline-danger btn-block" type="button" value="<fmt:message key="label.removedriver"/>"
-                       onclick="window.location.href='driverList.jsp?theLocale=${theLocale}'; return false;"/>
-                <br/><br/><br/>
-                <input class="btn btn-outline-danger btn-block" type="button" value="<fmt:message key="label.removebus"/>"
-                       onclick="window.location.href='busList.jsp?theLocale=${theLocale}' ; return false;"/>
-                <br/><br/><br/>
-                <input class="btn btn-outline-danger btn-block" type="button" value="<fmt:message key="label.removeroute"/>"
-                       onclick="window.location.href='routeList.jsp?theLocale=${theLocale}' ; return false;"/>
-            </td>
-        </tr>
-    </table>
-    &nbsp;
+    <br/>
+    <h1><fmt:message key="label.welcome"/></h1>
+    <br/>
+    <div align="center">
+        <table width="85%" border="1">
+            <tr>
+                <td width="15%">
+                    <input class="btn btn-outline-success btn-block" type="button"
+                           value="<fmt:message key="label.addnewdriver"/>"
+                           onclick="window.location.href='addNewDriver.jsp?theLocale=${theLocale}'; return false;"/>
+                    <br/><br/><br/>
+                    <input class="btn btn-outline-success btn-block" type="button"
+                           value="<fmt:message key="label.addnewbus"/>"
+                           onclick="window.location.href='addNewBus.jsp?theLocale=${theLocale}' ; return false;"/>
+                    <br/><br/><br/>
+                    <input class="btn btn-outline-success btn-block" type="button"
+                           value="<fmt:message key="label.addnewroute"/>"
+                           onclick="window.location.href='addNewRoute.jsp?theLocale=${theLocale}' ; return false;"/>
+                </td>
+                <td width="70%">
+                    Список водителей с маршрутами и автобусами
+                </td>
+                <td width="15%">
+                    <input class="btn btn-outline-danger btn-block" type="button"
+                           value="<fmt:message key="label.removedriver"/>"
+                           onclick="window.location.href='driverList.jsp?theLocale=${theLocale}'; return false;"/>
+                    <br/><br/><br/>
+                    <input class="btn btn-outline-danger btn-block" type="button"
+                           value="<fmt:message key="label.removebus"/>"
+                           onclick="window.location.href='busList.jsp?theLocale=${theLocale}' ; return false;"/>
+                    <br/><br/><br/>
+                    <input class="btn btn-outline-danger btn-block" type="button"
+                           value="<fmt:message key="label.removeroute"/>"
+                           onclick="window.location.href='routeList.jsp?theLocale=${theLocale}' ; return false;"/>
+                </td>
+            </tr>
+        </table>
 
-    &nbsp;
-    &nbsp;
-    &nbsp;
+        <br/>
+        <table width="85%" border="1">
+            <tr>
+                <td width="10%">&nbsp;</td>
+                <td width="35%">
+                    <input class="btn btn-outline-info btn-block" type="button"
+                           value="<fmt:message key="label.setbus"/>"
+                           onclick="window.location.href='setBus.jsp?theLocale=${theLocale}' ; return false;"/>
+                </td>
+                <td width="10%">&nbsp;</td>
+                <td width="35%">
+                    <input class="btn btn-outline-info btn-block" type="button"
+                           value="<fmt:message key="label.setdriver"/>"
+                           onclick="window.location.href='setDriver.jsp?theLocale=${theLocale}' ; return false;"/>
+                </td>
+                <td width="10%">&nbsp;</td>
+            </tr>
+        </table>
 
-    &nbsp;
-    &nbsp;
-    &nbsp;
+    </div>
 
 
-    <br/><br/>
-
-</div>
-
-
-<script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<div class="footer" align="center">
-    <font size="-1"> &copy; GreegAV 2018</font>
-</div>
+    <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <div class="footer" align="center">
+        <font size="-1"> &copy; GreegAV 2018</font>
+    </div>
 
 </body>
 </html>

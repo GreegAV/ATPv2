@@ -22,7 +22,6 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("doGet");
         doPost(request, response);
     }
 
@@ -34,7 +33,6 @@ public class MainServlet extends HttpServlet {
             request.getServletContext().setAttribute("theLocale", locale);
 
             String theCommand = request.getParameter("command");
-            System.out.println(theCommand);
             if (theCommand == null) {
                 theCommand = "HOME";
             }

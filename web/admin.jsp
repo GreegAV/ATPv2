@@ -31,29 +31,33 @@
     <a href="admin.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
 </div>
 <div align="center">
-    <table width="75%" border="1">
+<br/>
+<h1><fmt:message key="label.welcome"/></h1>
+<br/>
+<div align="center">
+    <table width="85%" border="1">
         <tr>
             <td width="20%">
-                <input width=100px class="btn btn-outline-success" type="button" value="<fmt:message key="label.addnewdriver"/>"
+                <input class="btn btn-outline-success btn-block" type="button" value="<fmt:message key="label.addnewdriver"/>"
                        onclick="window.location.href='addNewDriver.jsp?theLocale=${theLocale}'; return false;"/>
                 <br/><br/><br/>
-                <input class="btn btn-outline-success" type="button" value="<fmt:message key="label.addnewbus"/>"
+                <input class="btn btn-outline-success btn-block" type="button" value="<fmt:message key="label.addnewbus"/>"
                        onclick="window.location.href='addNewBus.jsp?theLocale=${theLocale}' ; return false;"/>
                 <br/><br/><br/>
-                <input class="btn btn-outline-success" type="button" value="<fmt:message key="label.addnewroute"/>"
+                <input class="btn btn-outline-success btn-block" type="button" value="<fmt:message key="label.addnewroute"/>"
                        onclick="window.location.href='addNewRoute.jsp?theLocale=${theLocale}' ; return false;"/>
             </td>
             <td width="60%">
                 Список водителей с маршрутами и автобусами
             </td>
             <td width="20%">
-                <input class="btn btn-outline-danger" type="button" value="<fmt:message key="label.removedriver"/>"
+                <input class="btn btn-outline-danger btn-block" type="button" value="<fmt:message key="label.removedriver"/>"
                        onclick="window.location.href='driverList.jsp?theLocale=${theLocale}'; return false;"/>
                 <br/><br/><br/>
-                <input class="btn btn-outline-danger" type="button" value="<fmt:message key="label.removebus"/>"
+                <input class="btn btn-outline-danger btn-block" type="button" value="<fmt:message key="label.removebus"/>"
                        onclick="window.location.href='busList.jsp?theLocale=${theLocale}' ; return false;"/>
                 <br/><br/><br/>
-                <input class="btn btn-outline-danger" type="button" value="<fmt:message key="label.removeroute"/>"
+                <input class="btn btn-outline-danger btn-block" type="button" value="<fmt:message key="label.removeroute"/>"
                        onclick="window.location.href='routeList.jsp?theLocale=${theLocale}' ; return false;"/>
             </td>
         </tr>

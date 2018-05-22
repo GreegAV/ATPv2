@@ -32,7 +32,6 @@ public class MainServlet extends HttpServlet {
             // saving locale for the future
             String locale = request.getParameter("theLocale");
             request.getServletContext().setAttribute("theLocale", locale);
-            System.out.println(locale+"\t"+request.getServletPath());
 
             String theCommand = request.getParameter("command");
             System.out.println(theCommand);
@@ -73,7 +72,6 @@ public class MainServlet extends HttpServlet {
 
                 default:
                     request.getRequestDispatcher("error.jsp").forward(request, response);
-//                    home(request, response);
             }
 
         } catch (Exception e) {
@@ -88,11 +86,11 @@ public class MainServlet extends HttpServlet {
         int busID = Integer.parseInt(request.getParameter("busID"));
         daoBus.deleteBus(busID);
 
-        // renew drivers list
+        // renew buses list
         prepareListBuses(request, response);
         try {
             request.getRequestDispatcher("busList.jsp").forward(request, response);
-        } catch (ServletException | IOException e) {
+        } catch (Exception e) {
             logError("Failed go delete driver from the list.", e);
         }
     }
@@ -107,7 +105,7 @@ public class MainServlet extends HttpServlet {
         prepareListDrivers(request, response);
         try {
             request.getRequestDispatcher("driverList.jsp").forward(request, response);
-        } catch (ServletException | IOException e) {
+        } catch (Exception e) {
             logError("Failed go delete driver from the list.", e);
         }
     }
@@ -122,7 +120,7 @@ public class MainServlet extends HttpServlet {
         prepareListRoutes(request, response);
         try {
             request.getRequestDispatcher("routeList.jsp").forward(request, response);
-        } catch (ServletException | IOException e) {
+        } catch (Exception e) {
             logError("Failed go delete route from the list.", e);
         }
     }
@@ -133,10 +131,11 @@ public class MainServlet extends HttpServlet {
         DAOBus daoBus = new DAOBus();
         String page = daoBus.addBus(busModel);
 
+        // renew buses list
         prepareListBuses(request, response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
-        } catch (ServletException | IOException e) {
+        } catch (Exception e) {
             logError("Failed to add new bus.", e);
         }
     }
@@ -145,10 +144,11 @@ public class MainServlet extends HttpServlet {
         String driverName = request.getParameter("driverName");
         DAODriver daoDriver = new DAODriver();
         String page = daoDriver.addDriver(driverName);
+        //renew drivers list
         prepareListDrivers(request, response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
-        } catch (ServletException | IOException e) {
+        } catch (Exception e) {
             logError("Failed to add new bus.", e);
         }
     }
@@ -160,7 +160,7 @@ public class MainServlet extends HttpServlet {
         prepareListRoutes(request,response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
-        } catch (ServletException | IOException e) {
+        } catch (Exception e) {
             logError("Failed to add new route.", e);
         }
     }
@@ -180,7 +180,7 @@ public class MainServlet extends HttpServlet {
         }
         try {
             request.getRequestDispatcher(page).forward(request, response);
-        } catch (ServletException | IOException e) {
+        } catch (Exception e) {
             logError("Failed to login.", e);
         }
     }

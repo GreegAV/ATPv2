@@ -22,15 +22,34 @@ public class Driver {
         this.routeID = routeID;
         this.busID = busID;
         this.confirmed = confirmed;
-        setRouteName(routeID);
-        setBusName(busID);
+        setRouteNameByID(routeID);
+        setBusNameByID(busID);
     }
 
-    public void setBusName(int busID) {
+    public Driver(int userID, String driverName, String driverPassword, int routeID, int busID, int confirmed, String routeName, String busName) {
+        this.userID = userID;
+        this.driverName = driverName;
+        this.driverPassword = driverPassword;
+        this.routeID = routeID;
+        this.busID = busID;
+        this.confirmed = confirmed;
+        this.routeName = routeName;
+        this.busName = busName;
+    }
+
+    public void setBusName(String busName) {
+        this.busName = busName;
+    }
+
+    public void setRouteName(String routeName) {
+        this.routeName = routeName;
+    }
+
+    public void setBusNameByID(int busID) {
         this.busName = DAOBus.getBusNameByID(busID);
     }
 
-    public void setRouteName(int routeID) {
+    public void setRouteNameByID(int routeID) {
         this.routeName = DAORoute.getRouteNameByID(routeID);
     }
 
@@ -95,6 +114,21 @@ public class Driver {
     }
 
     @Override
+    public String toString() {
+        String tostring = "Driver{" +
+                "userID=" + userID +
+                ", driverName='" + driverName + '\'' +
+                ", driverPassword='" + driverPassword + '\'' +
+                ", routeName='" + routeName + '\'' +
+                ", busName='" + busName + '\'';
+        if (confirmed > 0)
+            tostring += " Busy ";
+        else tostring += " Free ";
+        tostring += '}';
+        return tostring;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -102,22 +136,17 @@ public class Driver {
         return userID == driver.userID &&
                 routeID == driver.routeID &&
                 busID == driver.busID &&
-                Objects.equals(driverName, driver.driverName);
+                confirmed == driver.confirmed &&
+                Objects.equals(driverName, driver.driverName) &&
+                Objects.equals(driverPassword, driver.driverPassword) &&
+                Objects.equals(routeName, driver.routeName) &&
+                Objects.equals(busName, driver.busName);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(userID, driverName, routeID, busID);
+        return Objects.hash(userID, driverName, driverPassword, routeID, busID, confirmed, routeName, busName);
     }
 
-    @Override
-    public String toString() {
-        return "Driver{" +
-                "userID=" + userID +
-                ", driverName='" + driverName + '\'' +
-                ", routeID=" + routeID +
-                ", busID=" + busID +
-                '}';
-    }
 }

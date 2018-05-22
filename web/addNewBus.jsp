@@ -37,7 +37,7 @@
     <table width="33%" border="0">
         <tr>
             <td align="center">
-                <fmt:message key="label.addbusmodel"/><br> <input type="text" name="busModel" required><br>
+                <fmt:message key="label.addbusmodel"/><br> <input width="200" type="text" name="busModel" required><br>
             </td>
         </tr>
         <tr>

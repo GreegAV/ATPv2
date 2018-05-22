@@ -20,6 +20,12 @@
             height: 60px;
             background-color: #f5f5f5;
         }
+
+        .centertable {
+            vertical-align: top;
+            horiz-align: center;
+            text-align: center;
+        }
     </style>
     <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
 </head>
@@ -35,7 +41,7 @@
     <h1><fmt:message key="label.welcome"/></h1>
     <br/>
     <div align="center">
-        <table width="85%" border="1">
+        <table width="85%" border="0">
             <tr>
                 <td width="15%">
                     <input class="btn btn-outline-success btn-block" type="button"
@@ -50,9 +56,25 @@
                            value="<fmt:message key="label.addnewroute"/>"
                            onclick="window.location.href='addNewRoute.jsp?theLocale=${theLocale}' ; return false;"/>
                 </td>
-                <td width="70%">
-                    Список водителей с маршрутами и автобусами
+
+                <td width="70%" class="centertable">
+                    <table align="center" width="90%" border="1">
+                        <tr>
+                            <th width="20%"><center><fmt:message key="label.busname"/></center></th>
+                            <th width="20%"><center><fmt:message key="label.drivername"/></center></th>
+                            <th width="60%"><center><fmt:message key="label.routename"/></center></th>
+                        </tr>
+
+                        <c:forEach var="tempBus" items="${BUSES_LIST}">
+                            <tr>
+                                <td> ${tempBus.busName} </td>
+                                <td> ${tempBus.driverName} </td>
+                                <td> ${tempBus.routeName} </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
                 </td>
+
                 <td width="15%">
                     <input class="btn btn-outline-danger btn-block" type="button"
                            value="<fmt:message key="label.removedriver"/>"
@@ -70,7 +92,7 @@
         </table>
 
         <br/>
-        <table width="85%" border="1">
+        <table width="85%" border="0">
             <tr>
                 <td width="10%">&nbsp;</td>
                 <td width="35%">

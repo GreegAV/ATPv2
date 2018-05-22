@@ -33,12 +33,14 @@
     </div>
     <div align="center">
         <br/>
-        <table>
+        <table class="table-striped" width="70%">
             <tr>
-                <th>Route ID</th>
-                <th>Route Name</th>
-                <th>Assigned to bus</th>
-                <th>Assigned to driver</th>
+                <th width="5%" align="center">№№</th>
+                <th width="3%" align="center">&nbsp;</th>
+                <th width="15%" align="center"><fmt:message key="label.busname"/></th>
+                <th width="15%" align="center"><fmt:message key="label.drivername"/></th>
+                <th width="57%" align="center"><fmt:message key="label.routename"/></th>
+                <th width="5%" align="center">&nbsp;</th>
             </tr>
 
             <c:forEach var="tempRoute" items="${ROUTES_LIST}">
@@ -50,12 +52,13 @@
                 </c:url>
 
                 <tr>
-                    <td> ${tempRoute.routeID} </td>
-                    <td> ${tempRoute.routeName} </td>
+                    <td align="center"> ${tempRoute.routeID} </td>
+                    <td>&nbsp;</td>
                     <td> ${tempRoute.busName} </td>
                     <td> ${tempRoute.driverName} </td>
+                    <td> ${tempRoute.routeName} </td>
                     <td>
-                        <a class="btn-danger" href="${deleteLink}">
+                        <a class="btn-danger btn-block" href="${deleteLink}">
                             &nbsp;<fmt:message key="label.delete"/>&nbsp;</a>
                     </td>
                 </tr>

@@ -58,7 +58,7 @@
                 </td>
 
                 <td width="70%" class="centertable">
-                    <table align="center" width="90%" border="1">
+                    <table class="table-striped" align="center" width="90%" border="1">
                         <tr>
                             <th width="20%"><center><fmt:message key="label.busname"/></center></th>
                             <th width="20%"><center><fmt:message key="label.drivername"/></center></th>

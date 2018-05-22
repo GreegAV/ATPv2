@@ -49,7 +49,7 @@ public class DAODriver {
     }
 
     public static String getDriverNameByID(int driverID) {
-        String driverName = "TODO getDriverNameByID";
+        String driverName = "";
         String sql = "select * from driver where userid=" + driverID;
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();

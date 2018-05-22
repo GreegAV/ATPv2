@@ -67,9 +67,9 @@
 
                         <c:forEach var="tempBus" items="${BUSES_LIST}">
                             <tr>
-                                <td> ${tempBus.busName} </td>
-                                <td> ${tempBus.driverName} </td>
-                                <td> ${tempBus.routeName} </td>
+                                <td>&nbsp; ${tempBus.busName} </td>
+                                <td>&nbsp; ${tempBus.driverName} </td>
+                                <td>&nbsp; ${tempBus.routeName} </td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -111,7 +111,7 @@
         </table>
 
     </div>
-
+</div>
 
     <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <div class="footer" align="center">

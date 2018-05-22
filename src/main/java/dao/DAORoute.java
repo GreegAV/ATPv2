@@ -43,11 +43,19 @@ public class DAORoute {
     }
 
     public static String getRouteNameByID(int routeID) {
-        String routeName;
-        // getting busName by ID from DB
+        String routeName = "TODO routeName by ID "+routeID;
+        String sql = "select * from route where routeid=" + routeID;
 
-        routeName = "TODO routeName by ID";
-
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             Statement myStmt = myConn.createStatement();
+             ResultSet myRs = myStmt.executeQuery(sql)) {
+            logInfo("Received connection for getting name of the bus by id.");
+            while (myRs.next()) {
+                routeName = myRs.getString("routeName");
+            }
+        } catch (Exception e) {
+            logError("Failed go get name of the route by id. DAOBus.getRouteNameByID().", e);
+        }
         return routeName;
     }
 

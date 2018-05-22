@@ -49,11 +49,20 @@ public class DAODriver {
     }
 
     public static String getDriverNameByID(int driverID) {
-        String driverName;
+        String driverName = "TODO getDriverNameByID";
         // getting driverName by ID from DB
+        String sql = "select * from driver where userid=" + driverID;
 
-        driverName = "TODO driverNameByID";
-
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             Statement myStmt = myConn.createStatement();
+             ResultSet myRs = myStmt.executeQuery(sql)) {
+            logInfo("Received connection for getting name of the driver by id.");
+            while (myRs.next()) {
+                driverName = myRs.getString("driverName");
+            }
+        } catch (Exception e) {
+            logError("Failed go get name of the driver by id. DAODriver.getDriverNameByID().", e);
+        }
         return driverName;
     }
 

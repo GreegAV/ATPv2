@@ -25,9 +25,7 @@ public class DAOBus {
              ResultSet myRs = myStmt.executeQuery(sql)) {
             logInfo("Received connection for getting list of buses.");
 
-            // process result set
             while (myRs.next()) {
-                // retrieve data from result set row
                 int busID = myRs.getInt("busID");
                 String busName = myRs.getString("busName");
                 int driverID = myRs.getInt("driverID");
@@ -43,10 +41,20 @@ public class DAOBus {
     }
 
     public static String getBusNameByID(int busID) {
-        String busName;
+        String busName="TODO getBusNameByID";
         // getting busName by ID from DB
+        String sql = "select * from bus where busid=" + busID;
 
-        busName = "TODO busName from ID";
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             Statement myStmt = myConn.createStatement();
+             ResultSet myRs = myStmt.executeQuery(sql)) {
+            logInfo("Received connection for getting name of the bus by id.");
+            while (myRs.next()) {
+                busName = myRs.getString("busName");
+            }
+        } catch (Exception e) {
+            logError("Failed go get name of the busby id. DAOBus.getBusNameByID().", e);
+        }
 
         return busName;
     }
@@ -65,7 +73,7 @@ public class DAOBus {
             myStmt.setInt(2, 0);
             myStmt.setInt(3, 0);
             myStmt.execute();
-            
+
         } catch (SQLException e) {
             logError("Failed to add new bus.", e);
             return "error.jsp";
@@ -77,7 +85,7 @@ public class DAOBus {
         String sql = "delete from bus where busid=?";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
-             PreparedStatement myStmt = myConn.prepareStatement(sql);) {
+             PreparedStatement myStmt = myConn.prepareStatement(sql)) {
             logInfo("Received connection for bus deletion.");
 
             myStmt.setInt(1, busID);

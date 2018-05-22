@@ -25,9 +25,7 @@ public class DAORoute {
              ResultSet myRs = myStmt.executeQuery(sql)) {
             logInfo("Received connection for getting list of routes.");
 
-            // process result set
             while (myRs.next()) {
-                // retrieve data from result set row
                 int routeID = myRs.getInt("routeID");
                 String routeName = myRs.getString("routeName");
                 int assigned2Driver = myRs.getInt("assigned2Driver");
@@ -43,13 +41,13 @@ public class DAORoute {
     }
 
     public static String getRouteNameByID(int routeID) {
-        String routeName = "TODO routeName by ID "+routeID;
+        String routeName = "";
         String sql = "select * from route where routeid=" + routeID;
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
              ResultSet myRs = myStmt.executeQuery(sql)) {
-            logInfo("Received connection for getting name of the bus by id.");
+            logInfo("Received connection for getting name of the route by id.");
             while (myRs.next()) {
                 routeName = myRs.getString("routeName");
             }

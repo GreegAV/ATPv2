@@ -52,8 +52,8 @@
                 <tr>
                     <td> ${tempBus.busID} </td>
                     <td> ${tempBus.busName} </td>
-                    <td> ${tempBus.driverID} </td>
-                    <td> ${tempBus.routeID} </td>
+                    <td> ${tempBus.driverName} </td>
+                    <td> ${tempBus.routeName} </td>
                     <td>
                         <a  class="btn-danger" href="${deleteLink}">
                             &nbsp;<fmt:message key="label.delete"/>&nbsp;</a>

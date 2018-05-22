@@ -41,8 +41,7 @@ public class DAOBus {
     }
 
     public static String getBusNameByID(int busID) {
-        String busName="TODO getBusNameByID";
-        // getting busName by ID from DB
+        String busName = "";
         String sql = "select * from bus where busid=" + busID;
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
@@ -55,7 +54,6 @@ public class DAOBus {
         } catch (Exception e) {
             logError("Failed go get name of the busby id. DAOBus.getBusNameByID().", e);
         }
-
         return busName;
     }
 

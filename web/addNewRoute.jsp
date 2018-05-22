@@ -37,7 +37,26 @@
         <table width="33%" border="0">
             <tr>
                 <td align="center">
-                    <fmt:message key="label.addnewroute"/><br> <input type="text" name="routeName" required><br>
+                    <h3><fmt:message key="label.addnewroute"/></h3><br/>
+                    <table>
+                        <tr>
+                            <td align="right">
+                                <fmt:message key="label.routeStart"/>
+                            </td>
+                            <td>
+                                <input type="text" name="routeStart" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right">
+                                <fmt:message key="label.routeFinish"/>
+                            </td>
+                            <td>
+                                <input type="text" name="routeFinish" required>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
                 </td>
             </tr>
             <tr>

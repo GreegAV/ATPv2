@@ -152,9 +152,10 @@ public class MainServlet extends HttpServlet {
     }
 
     private void addRoute(HttpServletRequest request, HttpServletResponse response) {
-        String routeName = request.getParameter("routeName");
+        String routeStart = request.getParameter("routeStart");
+        String routeFinish = request.getParameter("routeFinish");
         DAORoute daoRoute = new DAORoute();
-        String page = daoRoute.addRoute(routeName);
+        String page = daoRoute.addRoute(routeStart+" - "+routeFinish);
         prepareListRoutes(request,response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
@@ -162,7 +163,6 @@ public class MainServlet extends HttpServlet {
             logError("Failed to add new route.", e);
         }
     }
-
 
     private void login(HttpServletRequest request, HttpServletResponse response) {
         UserUtil userUtil = new UserUtil();

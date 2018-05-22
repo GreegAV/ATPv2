@@ -55,8 +55,8 @@
                     <td> ${tempRoute.busName} </td>
                     <td> ${tempRoute.driverName} </td>
                     <td>
-                        <a href="${deleteLink}">
-                            Delete</a>
+                        <a class="btn-danger" href="${deleteLink}">
+                            &nbsp;<fmt:message key="label.delete"/>&nbsp;</a>
                     </td>
                 </tr>
 

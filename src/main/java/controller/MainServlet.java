@@ -32,6 +32,7 @@ public class MainServlet extends HttpServlet {
             // saving locale for the future
             String locale = request.getParameter("theLocale");
             request.getServletContext().setAttribute("theLocale", locale);
+            System.out.println(locale+"\t"+request.getServletPath());
 
             String theCommand = request.getParameter("command");
             System.out.println(theCommand);
@@ -48,6 +49,10 @@ public class MainServlet extends HttpServlet {
 
                 case "DELETEBUS":
                     deleteBus(request, response);
+                    break;
+
+                case "DELETEROUTE":
+                    deleteRoute(request, response);
                     break;
 
                 case "LOGIN":
@@ -67,6 +72,7 @@ public class MainServlet extends HttpServlet {
                     break;
 
                 default:
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
 //                    home(request, response);
             }
 
@@ -115,7 +121,7 @@ public class MainServlet extends HttpServlet {
         // renew routes list
         prepareListRoutes(request, response);
         try {
-            request.getRequestDispatcher("routesList.jsp").forward(request, response);
+            request.getRequestDispatcher("routeList.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
             logError("Failed go delete route from the list.", e);
         }
@@ -127,7 +133,7 @@ public class MainServlet extends HttpServlet {
         DAOBus daoBus = new DAOBus();
         String page = daoBus.addBus(busModel);
 
-        prepareListBuses(request,response);
+        prepareListBuses(request, response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (ServletException | IOException e) {
@@ -139,7 +145,7 @@ public class MainServlet extends HttpServlet {
         String driverName = request.getParameter("driverName");
         DAODriver daoDriver = new DAODriver();
         String page = daoDriver.addDriver(driverName);
-        prepareListDrivers(request,response);
+        prepareListDrivers(request, response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (ServletException | IOException e) {
@@ -151,6 +157,7 @@ public class MainServlet extends HttpServlet {
         String routeName = request.getParameter("routeName");
         DAORoute daoRoute = new DAORoute();
         String page = daoRoute.addRoute(routeName);
+        prepareListRoutes(request,response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (ServletException | IOException e) {

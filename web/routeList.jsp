@@ -46,13 +46,14 @@
                 <c:url var="deleteLink" value="MainServlet">
                     <c:param name="command" value="DELETEROUTE"/>
                     <c:param name="routeID" value="${tempRoute.routeID}"/>
+                    <c:param name="theLocale" value="${theLocale}"/>
                 </c:url>
 
                 <tr>
                     <td> ${tempRoute.routeID} </td>
                     <td> ${tempRoute.routeName} </td>
-                    <td> ${tempRoute.assigned2bus} </td>
-                    <td> ${tempRoute.assigned2driver} </td>
+                    <td> ${tempRoute.busName} </td>
+                    <td> ${tempRoute.driverName} </td>
                     <td>
                         <a href="${deleteLink}">
                             Delete</a>
@@ -63,7 +64,7 @@
 
         </table>
         <br/>
-        <a href="admin.jsp"><img src="img\back.png"></a>
+        <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>
     </div>
 </form>
 

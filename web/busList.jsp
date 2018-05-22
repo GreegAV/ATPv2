@@ -46,6 +46,7 @@
                 <c:url var="deleteLink" value="MainServlet">
                     <c:param name="command" value="DELETEBUS"/>
                     <c:param name="busID" value="${tempBus.busID}"/>
+                    <c:param name="theLocale" value="${theLocale}"/>
                 </c:url>
 
                 <tr>
@@ -63,7 +64,7 @@
 
         </table>
         <br/>
-        <a href="admin.jsp"><img src="img\back.png"></a>
+        <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>
     </div>
 </form>
 

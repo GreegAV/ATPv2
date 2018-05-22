@@ -14,6 +14,7 @@ import java.util.List;
 
 import static dao.DAODriver.prepareListDrivers;
 import static dao.DAOBus.prepareListBuses;
+import static dao.DAORoute.prepareListRoutes;
 import static service.ErrorLog.logError;
 
 @WebServlet("/MainServlet")
@@ -74,6 +75,7 @@ public class MainServlet extends HttpServlet {
         }
     }
 
+
     private void deleteBus(HttpServletRequest request, HttpServletResponse response) {
         DAOBus daoBus = new DAOBus();
 
@@ -104,36 +106,51 @@ public class MainServlet extends HttpServlet {
         }
     }
 
-    private void listRoutes(HttpServletRequest request, HttpServletResponse response) {
+    private void deleteRoute(HttpServletRequest request, HttpServletResponse response) {
+        DAORoute daoRoute = new DAORoute();
+
+        int routeID = Integer.parseInt(request.getParameter("routeID"));
+        daoRoute.deleteRoute(routeID);
+
+        // renew routes list
+        prepareListRoutes(request, response);
         try {
-            DAORoute daoRoute = new DAORoute();
-            List<Route> routes = daoRoute.getRoutes();
-
-            // add routes to the request
-            request.setAttribute("ROUTES_LIST", routes);
-
-        } catch (Exception e) {
-            logError("Failed go get routes list.", e);
+            request.getRequestDispatcher("routesList.jsp").forward(request, response);
+        } catch (ServletException | IOException e) {
+            logError("Failed go delete route from the list.", e);
         }
     }
 
-    private void listBuses(HttpServletRequest request, HttpServletResponse response) {
+
+    private void addBus(HttpServletRequest request, HttpServletResponse response) {
+        String busModel = request.getParameter("busModel");
+        DAOBus daoBus = new DAOBus();
+        String page = daoBus.addBus(busModel);
+
+        prepareListBuses(request,response);
         try {
-            DAOBus daoBus = new DAOBus();
-            List<Bus> buses = daoBus.getBuses();
+            request.getRequestDispatcher(page).forward(request, response);
+        } catch (ServletException | IOException e) {
+            logError("Failed to add new bus.", e);
+        }
+    }
 
-            // add buses to the request
-            request.setAttribute("BUSES_LIST", buses);
-
-        } catch (Exception e) {
-            logError("Failed go get buses list.", e);
+    private void addDriver(HttpServletRequest request, HttpServletResponse response) {
+        String driverName = request.getParameter("driverName");
+        DAODriver daoDriver = new DAODriver();
+        String page = daoDriver.addDriver(driverName);
+        prepareListDrivers(request,response);
+        try {
+            request.getRequestDispatcher(page).forward(request, response);
+        } catch (ServletException | IOException e) {
+            logError("Failed to add new bus.", e);
         }
     }
 
     private void addRoute(HttpServletRequest request, HttpServletResponse response) {
         String routeName = request.getParameter("routeName");
-        RouteUtil routeUtil = new RouteUtil();
-        String page = routeUtil.addRoute(routeName);
+        DAORoute daoRoute = new DAORoute();
+        String page = daoRoute.addRoute(routeName);
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (ServletException | IOException e) {
@@ -141,27 +158,6 @@ public class MainServlet extends HttpServlet {
         }
     }
 
-    private void addDriver(HttpServletRequest request, HttpServletResponse response) {
-        String driverName = request.getParameter("driverName");
-        DAODriver daoDriver = new DAODriver();
-        String page = daoDriver.addDriver(driverName, request, response);
-        try {
-            request.getRequestDispatcher(page).forward(request, response);
-        } catch (ServletException | IOException e) {
-            logError("Failed to add new bus.", e);
-        }
-    }
-
-    private void addBus(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String busModel = request.getParameter("busModel");
-        DAOBus daoBus = new DAOBus();
-        String page = daoBus.addBus(busModel,request,response);
-        try {
-            request.getRequestDispatcher(page).forward(request, response);
-        } catch (ServletException | IOException e) {
-            logError("Failed to add new bus.", e);
-        }
-    }
 
     private void login(HttpServletRequest request, HttpServletResponse response) {
         UserUtil userUtil = new UserUtil();
@@ -173,6 +169,7 @@ public class MainServlet extends HttpServlet {
         if (!page.equalsIgnoreCase("userNotFound.jsp")) {
             prepareListDrivers(request, response);
             prepareListBuses(request, response);
+            prepareListRoutes(request, response);
         }
         try {
             request.getRequestDispatcher(page).forward(request, response);

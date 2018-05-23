@@ -28,10 +28,9 @@ public class DAORoute {
             while (myRs.next()) {
                 int routeID = myRs.getInt("routeID");
                 String routeName = myRs.getString("routeName");
-                int assigned2Driver = myRs.getInt("assigned2Driver");
-                int assigned2Bus = myRs.getInt("assigned2Bus");
+                int assignedBus = myRs.getInt("assignedBus");
 
-                Route tempRoute = new Route(routeID, routeName, assigned2Driver, assigned2Bus);
+                Route tempRoute = new Route(routeID, routeName, assignedBus);
                 routes.add(tempRoute);
             }
         } catch (Exception e) {
@@ -59,8 +58,8 @@ public class DAORoute {
 
     public String addRoute(String routeName) {
         String sql = "insert into route "
-                + "(routeName, assigned2driver, assigned2bus) "
-                + "values (?, ?, ?)";
+                + "(routeName, assignedBus) "
+                + "values (?, ?)";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              PreparedStatement myStmt = myConn.prepareStatement(sql)) {
@@ -68,7 +67,6 @@ public class DAORoute {
 
             myStmt.setString(1, routeName);
             myStmt.setInt(2, 0);
-            myStmt.setInt(3, 0);
             myStmt.execute();
 
         } catch (SQLException e) {

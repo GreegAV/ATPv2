@@ -28,10 +28,12 @@ public class DAOBus {
             while (myRs.next()) {
                 int busID = myRs.getInt("busID");
                 String busName = myRs.getString("busName");
-                int driverID = myRs.getInt("driverID");
-                int routeID = myRs.getInt("routeID");
+                int assignedDriver = myRs.getInt("assignedDriver");
+//                int driverID = myRs.getInt("driverID");
+//                int routeID = myRs.getInt("routeID");
 
-                Bus tempBus = new Bus(busID, busName, driverID, routeID);
+//                Bus tempBus = new Bus(busID, busName, driverID, routeID);
+                Bus tempBus = new Bus(busID, busName, assignedDriver);
                 buses.add(tempBus);
             }
         } catch (Exception e) {
@@ -59,8 +61,11 @@ public class DAOBus {
 
     public String addBus(String busModel) {
         String sql = "insert into bus "
-                + "(busName, driverID, routeID) "
-                + "values (?, ?, ?)";
+                + "(busName, assignedDriver) "
+                + "values (?,?)";
+//String sql = "insert into bus "
+//                + "(busName, driverID, routeID) "
+//                + "values (?, ?, ?)";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              PreparedStatement myStmt = myConn.prepareStatement(sql)) {
@@ -68,8 +73,7 @@ public class DAOBus {
 
             // set the param values for the student
             myStmt.setString(1, busModel);
-            myStmt.setInt(2, 0);
-            myStmt.setInt(3, 0);
+            myStmt.setInt(2,0);
             myStmt.execute();
 
         } catch (SQLException e) {

@@ -8,24 +8,24 @@ import java.util.Objects;
 public class Bus {
     private int busID;
     private String busName;
-    private int driverID;
+    private int assignedDriver;
     private int routeID;
     private String routeName;
     private String driverName;
 
-    public Bus(int busID, String busName, int driverID, int routeID) {
+    public Bus(int busID, String busName, int assignedDriver) {
         this.busID = busID;
         this.busName = busName;
-        this.driverID = driverID;
-        this.routeID = routeID;
-        setDriverNameByID(driverID);
-        setRouteNameByID(routeID);
+        this.assignedDriver = assignedDriver;
+//        this.routeID = routeID;
+        setDriverNameByID(assignedDriver);
+//        setRouteNameByID(routeID);
     }
 
-    public Bus(int busID, String busName, int driverID, int routeID, String routeName, String driverName) {
+    public Bus(int busID, String busName, int assignedDriver, int routeID, String routeName, String driverName) {
         this.busID = busID;
         this.busName = busName;
-        this.driverID = driverID;
+        this.assignedDriver = assignedDriver;
         this.routeID = routeID;
         this.routeName = routeName;
         this.driverName = driverName;
@@ -80,11 +80,11 @@ public class Bus {
     }
 
     public int getDriverID() {
-        return driverID;
+        return assignedDriver;
     }
 
-    public void setDriverID(int driverID) {
-        this.driverID = driverID;
+    public void setDriverID(int assignedDriver) {
+        this.assignedDriver = assignedDriver;
     }
 
     @Override
@@ -93,7 +93,7 @@ public class Bus {
         if (o == null || getClass() != o.getClass()) return false;
         Bus bus = (Bus) o;
         return busID == bus.busID &&
-                driverID == bus.driverID &&
+                assignedDriver == bus.assignedDriver &&
                 routeID == bus.routeID &&
                 Objects.equals(busName, bus.busName) &&
                 Objects.equals(routeName, bus.routeName) &&
@@ -103,7 +103,7 @@ public class Bus {
     @Override
     public int hashCode() {
 
-        return Objects.hash(busID, busName, driverID, routeID, routeName, driverName);
+        return Objects.hash(busID, busName, assignedDriver, routeID, routeName, driverName);
     }
 
     @Override

@@ -155,8 +155,8 @@ public class MainServlet extends HttpServlet {
         String routeStart = request.getParameter("routeStart");
         String routeFinish = request.getParameter("routeFinish");
         DAORoute daoRoute = new DAORoute();
-        String page = daoRoute.addRoute(routeStart+" - "+routeFinish);
-        prepareListRoutes(request,response);
+        String page = daoRoute.addRoute(routeStart + " - " + routeFinish);
+        prepareListRoutes(request, response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (Exception e) {

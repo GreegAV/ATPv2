@@ -33,6 +33,8 @@
     </div>
     <div align="center">
         <br/>
+        <h3><fmt:message key="label.removeroute"/></h3>
+        <br/>
         <table class="table-striped" width="70%">
             <tr>
                 <th width="5%" align="center">№№</th>

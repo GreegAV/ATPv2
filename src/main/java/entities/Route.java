@@ -13,11 +13,11 @@ public class Route {
     private String driverName;
     private String busName;
 
-    public Route(int routeID, String routeName, int assigned2Driver, int assigned2Bus) {
+    public Route(int routeID, String routeName,  int assignedBus) {
         this.routeID = routeID;
         this.routeName = routeName;
-        setDriverNameByID(assigned2Driver);
-        setBusNameByID(assigned2Bus);
+//        setDriverNameByID(assigned2Driver);
+        setBusNameByID(assignedBus);
     }
 
     public Route(int routeID, String routeName, int driverID, int busID, String driverName, String busName) {

@@ -70,7 +70,7 @@
         </table>
         <br/><br/>
 
-        <a onclick="javascript:history.back(); return false;"><img src="img\back.png"></a>
+        <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>
     </div>
 </form>
 

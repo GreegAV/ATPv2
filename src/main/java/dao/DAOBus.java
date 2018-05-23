@@ -17,7 +17,6 @@ public class DAOBus {
 
         List<Bus> buses = new ArrayList<>();
 
-        // create sql statement
         String sql = "select * from bus";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
@@ -29,10 +28,6 @@ public class DAOBus {
                 int busID = myRs.getInt("busID");
                 String busName = myRs.getString("busName");
                 int assignedDriver = myRs.getInt("assignedDriver");
-//                int driverID = myRs.getInt("driverID");
-//                int routeID = myRs.getInt("routeID");
-
-//                Bus tempBus = new Bus(busID, busName, driverID, routeID);
                 Bus tempBus = new Bus(busID, busName, assignedDriver);
                 buses.add(tempBus);
             }
@@ -63,9 +58,6 @@ public class DAOBus {
         String sql = "insert into bus "
                 + "(busName, assignedDriver) "
                 + "values (?,?)";
-//String sql = "insert into bus "
-//                + "(busName, driverID, routeID) "
-//                + "values (?, ?, ?)";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              PreparedStatement myStmt = myConn.prepareStatement(sql)) {
@@ -73,7 +65,7 @@ public class DAOBus {
 
             // set the param values for the student
             myStmt.setString(1, busModel);
-            myStmt.setInt(2,0);
+            myStmt.setInt(2, 0);
             myStmt.execute();
 
         } catch (SQLException e) {

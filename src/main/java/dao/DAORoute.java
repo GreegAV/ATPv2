@@ -13,11 +13,27 @@ import static service.ErrorLog.logInfo;
 
 public class DAORoute {
 
-    public List<Route> getRoutes() {
+    public static int getRouteIDByBusID(int busID) {
+        int routeID = -1;
+        String sql = "select * from route where assignedBus=" + busID;
+        System.out.println(sql);
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             Statement myStmt = myConn.createStatement();
+             ResultSet myRs = myStmt.executeQuery(sql)) {
+            logInfo("Received connection for getting ID of the route by busID.");
+            while (myRs.next()) {
+                routeID = myRs.getInt("assignedBus");
+            }
+        } catch (Exception e) {
+            logError("Failed go get name of the driver by id. DAODriver.getDriverIDByRouteID().", e);
+        }
+        return routeID;
 
+    }
+
+    public List<Route> getRoutes() {
         List<Route> routes = new ArrayList<>();
 
-        // create sql statement
         String sql = "select * from route";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
@@ -30,8 +46,8 @@ public class DAORoute {
                 String routeName = myRs.getString("routeName");
                 int assignedBus = myRs.getInt("assignedBus");
 
-                Route tempRoute = new Route(routeID, routeName, assignedBus);
-                routes.add(tempRoute);
+//                Route tempRoute = new Route(routeID, routeName, assignedBus);
+                routes.add(new Route(routeID, routeName, assignedBus));
             }
         } catch (Exception e) {
             logError("Failed go get routes list. DAORoute.getRoutes().", e);
@@ -41,17 +57,17 @@ public class DAORoute {
 
     public static String getRouteNameByID(int routeID) {
         String routeName = "";
-        String sql = "select * from route where routeid=" + routeID;
-
+        String sql = "select * from route where routeID=" + routeID;
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
              ResultSet myRs = myStmt.executeQuery(sql)) {
             logInfo("Received connection for getting name of the route by id.");
+
             while (myRs.next()) {
                 routeName = myRs.getString("routeName");
             }
         } catch (Exception e) {
-            logError("Failed go get name of the route by id. DAOBus.getRouteNameByID().", e);
+            logError("Failed go get name of the route by id. DAORoute.getRouteNameByID().", e);
         }
         return routeName;
     }
@@ -96,7 +112,6 @@ public class DAORoute {
             DAORoute daoRoute = new DAORoute();
             List<Route> routes = daoRoute.getRoutes();
 
-            // add buses to the request
             request.getServletContext().setAttribute("ROUTES_LIST", routes);
 
         } catch (Exception e) {

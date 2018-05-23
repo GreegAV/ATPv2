@@ -9,6 +9,7 @@ public class Bus {
     private int busID;
     private String busName;
     private int assignedDriver;
+
     private int routeID;
     private String routeName;
     private String driverName;
@@ -17,74 +18,57 @@ public class Bus {
         this.busID = busID;
         this.busName = busName;
         this.assignedDriver = assignedDriver;
-//        this.routeID = routeID;
+        setRouteID(assignedDriver);
+        setRouteNameByID(routeID);
         setDriverNameByID(assignedDriver);
-//        setRouteNameByID(routeID);
-    }
-
-    public Bus(int busID, String busName, int assignedDriver, int routeID, String routeName, String driverName) {
-        this.busID = busID;
-        this.busName = busName;
-        this.assignedDriver = assignedDriver;
-        this.routeID = routeID;
-        this.routeName = routeName;
-        this.driverName = driverName;
-    }
-
-    public void setRouteNameByID(int routeID) {
-        this.routeName = DAORoute.getRouteNameByID(routeID);
-    }
-
-    public void setDriverNameByID(int driverID) {
-        this.driverName = DAODriver.getDriverNameByID(driverID);
-    }
-
-    public String getRouteName() {
-        return routeName;
-    }
-
-    public void setRouteName(String routeName) {
-        this.routeName = routeName;
-    }
-
-    public String getDriverName() {
-        return driverName;
-    }
-
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
-    }
-
-    public int getRouteID() {
-        return routeID;
-    }
-
-    public void setRouteID(int routeID) {
-        this.routeID = routeID;
     }
 
     public int getBusID() {
         return busID;
     }
 
-    public void setBusID(int busID) {
-        this.busID = busID;
-    }
-
     public String getBusName() {
         return busName;
+    }
+
+    public int getAssignedDriver() {
+        return assignedDriver;
+    }
+
+    public int getRouteID() {
+        return routeID;
+    }
+
+    public String getRouteName() {
+        return routeName;
+    }
+
+    public String getDriverName() {
+        return driverName;
+    }
+
+    public void setBusID(int busID) {
+        this.busID = busID;
     }
 
     public void setBusName(String busName) {
         this.busName = busName;
     }
 
-    public int getDriverID() {
-        return assignedDriver;
+    public void setAssignedDriver(int assignedDriver) {
+        this.assignedDriver = assignedDriver;
     }
 
-    public void setDriverID(int assignedDriver) {
-        this.assignedDriver = assignedDriver;
+    public void setRouteID(int assignedDriver) {
+        this.routeID = DAODriver.getRouteIDByDriverID(assignedDriver);
+    }
+
+    private void setRouteNameByID(int routeID) {
+        this.routeName = DAORoute.getRouteNameByID(routeID);
+    }
+
+    private void setDriverNameByID(int assignedDriver) {
+        this.driverName = DAODriver.getDriverNameByID(assignedDriver);
     }
 
     @Override
@@ -111,9 +95,10 @@ public class Bus {
         return "Bus{" +
                 "busID=" + busID +
                 ", busName='" + busName + '\'' +
+                ", assignedDriver=" + assignedDriver +
+                ", routeID=" + routeID +
                 ", routeName='" + routeName + '\'' +
                 ", driverName='" + driverName + '\'' +
                 '}';
     }
-
 }

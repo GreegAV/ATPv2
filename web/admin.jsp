@@ -60,9 +60,15 @@
                 <td width="70%" class="centertable">
                     <table class="table-striped" align="center" width="90%" border="1">
                         <tr>
-                            <th width="20%"><center><fmt:message key="label.busname"/></center></th>
-                            <th width="20%"><center><fmt:message key="label.drivername"/></center></th>
-                            <th width="60%"><center><fmt:message key="label.routename"/></center></th>
+                            <th width="20%">
+                                <center><fmt:message key="label.busname"/></center>
+                            </th>
+                            <th width="20%">
+                                <center><fmt:message key="label.drivername"/></center>
+                            </th>
+                            <th width="60%">
+                                <center><fmt:message key="label.routename"/></center>
+                            </th>
                         </tr>
 
                         <c:forEach var="tempBus" items="${BUSES_LIST}">
@@ -113,10 +119,10 @@
     </div>
 </div>
 
-    <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <div class="footer" align="center">
-        <font size="-1"> &copy; GreegAV 2018</font>
-    </div>
+<script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<div class="footer" align="center">
+    <font size="-1"> &copy; GreegAV 2018</font>
+</div>
 
 </body>
 </html>

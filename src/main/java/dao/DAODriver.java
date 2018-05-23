@@ -34,7 +34,6 @@ public class DAODriver {
 
         List<Driver> drivers = new ArrayList<>();
 
-        // create sql statement
         String sql = "select * from driver";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
@@ -54,13 +53,12 @@ public class DAODriver {
                 String driverBus = DAOBus.getBusNameByID(driverBusID);
                 int driverConfirmed = myRs.getInt("confirmed");
 
-                // create new student object
-                Driver tempDriver = new Driver(driverID, driverName, driverPassword, driverRouteID, driverBusID, driverConfirmed);
-                // add it to the list of students
-                drivers.add(tempDriver);
+//                Driver tempDriver = new Driver(driverID, driverName, driverPassword, driverRouteID, driverBusID, driverConfirmed);
+                if (driverID != 0)
+                    drivers.add(new Driver(driverID, driverName, driverPassword, driverRouteID, driverBusID, driverConfirmed));
             }
         } catch (Exception e) {
-            logError("Failed go get drivers list. DAODriver.getDrivers().", e);
+            logError("Failed to get drivers list. DAODriver.getDrivers().", e);
         }
         return drivers;
     }
@@ -68,7 +66,6 @@ public class DAODriver {
     public static int getDriverIDByRouteID(int routeID) {
         int driverID = -1;
         String sql = "select * from driver where routeid=" + routeID;
-//        String sql = "select * from driver where routeid=" + routeID+" and busid="+assignedBus;
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
@@ -76,7 +73,6 @@ public class DAODriver {
             logInfo("Received connection for getting ID of the driver by routeid.");
             while (myRs.next()) {
                 driverID = myRs.getInt("userID");
-                System.out.println("routeID "+routeID+" driverID "+driverID);
             }
         } catch (Exception e) {
             logError("Failed go get name of the driver by id. DAODriver.getDriverIDByRouteID().", e);

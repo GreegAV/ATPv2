@@ -47,7 +47,8 @@ public class DAORoute {
                 int assignedBus = myRs.getInt("assignedBus");
 
 //                Route tempRoute = new Route(routeID, routeName, assignedBus);
-                routes.add(new Route(routeID, routeName, assignedBus));
+                if (routeID != 0)
+                    routes.add(new Route(routeID, routeName, assignedBus));
             }
         } catch (Exception e) {
             logError("Failed go get routes list. DAORoute.getRoutes().", e);

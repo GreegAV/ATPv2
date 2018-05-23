@@ -28,8 +28,9 @@ public class DAOBus {
                 int busID = myRs.getInt("busID");
                 String busName = myRs.getString("busName");
                 int assignedDriver = myRs.getInt("assignedDriver");
-                Bus tempBus = new Bus(busID, busName, assignedDriver);
-                buses.add(tempBus);
+//                Bus tempBus = new Bus(busID, busName, assignedDriver);
+                if (busID != 0)
+                    buses.add(new Bus(busID, busName, assignedDriver));
             }
         } catch (Exception e) {
             logError("Failed go get buses list. DAOBus.getbuses().", e);

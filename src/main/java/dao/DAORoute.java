@@ -16,7 +16,6 @@ public class DAORoute {
     public static int getRouteIDByBusID(int busID) {
         int routeID = -1;
         String sql = "select * from route where assignedBus=" + busID;
-        System.out.println(sql);
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
              ResultSet myRs = myStmt.executeQuery(sql)) {

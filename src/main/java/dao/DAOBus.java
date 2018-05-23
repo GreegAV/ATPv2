@@ -13,6 +13,22 @@ import static service.ErrorLog.logInfo;
 
 public class DAOBus {
 
+    public static String getDriverNameByID(int assignedBus) {
+        String driverName = "";
+        String sql = "select * from bus where busid=" + assignedBus;
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             Statement myStmt = myConn.createStatement();
+             ResultSet myRs = myStmt.executeQuery(sql)) {
+            logInfo("Received connection for getting id of the driver by assignedBus.");
+            while (myRs.next()) {
+                driverName = DAODriver.getDriverNameByID(myRs.getInt("assignedDriver"));
+            }
+        } catch (Exception e) {
+            logError("Failed go get name of the driver by id. DAODriver.getDriverNameByID().", e);
+        }
+        return driverName;
+    }
+
     public List<Bus> getBuses() {
 
         List<Bus> buses = new ArrayList<>();
@@ -28,9 +44,9 @@ public class DAOBus {
                 int busID = myRs.getInt("busID");
                 String busName = myRs.getString("busName");
                 int assignedDriver = myRs.getInt("assignedDriver");
-//                Bus tempBus = new Bus(busID, busName, assignedDriver);
+                Bus tempBus = new Bus(busID, busName, assignedDriver);
                 if (busID != 0)
-                    buses.add(new Bus(busID, busName, assignedDriver));
+                    buses.add(tempBus);
             }
         } catch (Exception e) {
             logError("Failed go get buses list. DAOBus.getbuses().", e);

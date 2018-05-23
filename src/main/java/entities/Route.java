@@ -10,7 +10,7 @@ public class Route {
     private String routeName;
     private int assignedBus;
 
-    private int driverID;
+//    private int driverID;
     private String driverName;
     private String busName;
 
@@ -18,9 +18,9 @@ public class Route {
         this.routeID = routeID;
         this.routeName = routeName;
         this.assignedBus = assignedBus;
-        setDriverID(routeID);
-        setDriverNameByID(this.driverID);
-        setBusNameByID(this.assignedBus);
+//        setDriverID(routeID);
+        setDriverNameByID(assignedBus);
+        setBusNameByID(assignedBus);
     }
 
     public int getRouteID() {
@@ -35,9 +35,9 @@ public class Route {
         return assignedBus;
     }
 
-    public int getDriverID() {
-        return driverID;
-    }
+//    public int getDriverID() {
+//        return driverID;
+//    }
 
     public String getBusName() {
         return busName;
@@ -47,7 +47,6 @@ public class Route {
         return driverName;
     }
 
-    ///////////
     public void setRouteID(int routeID) {
         this.routeID = routeID;
     }
@@ -59,34 +58,22 @@ public class Route {
     public void setAssignedBus(int assignedBus) {
         this.assignedBus = assignedBus;
     }
-    ///////////
 
     /////////////////////////////////
-    private void setDriverNameByID(int driverID) {
-        this.driverName = DAODriver.getDriverNameByID(driverID);
+    private void setDriverNameByID(int assignedBus) {
+        this.driverName = (assignedBus == 0) ? "Admin" : DAOBus.getDriverNameByID(assignedBus);
     }
 
-    private void setDriverID(int routeID) {
-        this.driverID = DAODriver.getDriverIDByRouteID(routeID);
-    }
+//    private void setDriverID(int routeID) {
+//        System.out.println("Route.setDriverID(routeID) "+routeID);
+//        this.driverID = (routeID == 0) ? 0 : DAODriver.getDriverIDByRouteID(routeID);
+//    }
 
     private void setBusNameByID(int busID) {
-        this.busName = DAOBus.getBusNameByID(busID);
+        this.busName = (busID == 0) ? "Admin bus" : DAOBus.getBusNameByID(busID);
     }
     ///////////////////////////////
 
-
-    @Override
-    public String toString() {
-        return "Route{" +
-                "routeID=" + routeID +
-                ", routeName='" + routeName + '\'' +
-                ", assignedBus=" + assignedBus +
-                ", driverID=" + driverID +
-                ", driverName='" + driverName + '\'' +
-                ", busName='" + busName + '\'' +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -95,7 +82,6 @@ public class Route {
         Route route = (Route) o;
         return routeID == route.routeID &&
                 assignedBus == route.assignedBus &&
-                driverID == route.driverID &&
                 Objects.equals(routeName, route.routeName) &&
                 Objects.equals(driverName, route.driverName) &&
                 Objects.equals(busName, route.busName);
@@ -104,6 +90,18 @@ public class Route {
     @Override
     public int hashCode() {
 
-        return Objects.hash(routeID, routeName, assignedBus, driverID, driverName, busName);
+        return Objects.hash(routeID, routeName, assignedBus, driverName, busName);
     }
+
+    @Override
+    public String toString() {
+        return "Route{" +
+                "routeID=" + routeID +
+                ", routeName='" + routeName + '\'' +
+                ", assignedBus=" + assignedBus +
+                ", driverName='" + driverName + '\'' +
+                ", busName='" + busName + '\'' +
+                '}';
+    }
+
 }

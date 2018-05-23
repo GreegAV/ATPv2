@@ -56,8 +56,8 @@
                 <tr>
                     <td align="center"> ${tempDriver.userID} </td>
                     <td>&nbsp;</td>
-                    <td> ${tempDriver.busName} </td>
                     <td> ${tempDriver.driverName} </td>
+                    <td> ${tempDriver.busName} </td>
                     <td> ${tempDriver.routeName} </td>
                     <td>
                         <a class="btn-danger btn-block" href="${deleteLink}">

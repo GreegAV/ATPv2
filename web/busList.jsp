@@ -56,8 +56,8 @@
                 <tr>
                     <td align="center"> ${tempBus.busID} </td>
                     <td>&nbsp;</td>
-                    <td> ${tempBus.busName} </td>
                     <td> ${tempBus.driverName} </td>
+                    <td> ${tempBus.busName} </td>
                     <td> ${tempBus.routeName} </td>
                     <td>
                         <a class="btn-danger btn-block" href="${deleteLink}">

@@ -48,6 +48,23 @@ public class DAODriver {
         return drivers;
     }
 
+    public static int getDriverIDByRouteID(int routeID) {
+        int driverID=0;
+        String sql = "select * from driver where routeid=" + routeID;
+
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             Statement myStmt = myConn.createStatement();
+             ResultSet myRs = myStmt.executeQuery(sql)) {
+            logInfo("Received connection for getting ID of the driver by routeid.");
+            while (myRs.next()) {
+                driverID = myRs.getInt("userID");
+            }
+        } catch (Exception e) {
+            logError("Failed go get name of the driver by id. DAODriver.getDriverIDByRouteID().", e);
+        }
+        return driverID;
+    }
+
     public static String getDriverNameByID(int driverID) {
         String driverName = "";
         String sql = "select * from driver where userid=" + driverID;

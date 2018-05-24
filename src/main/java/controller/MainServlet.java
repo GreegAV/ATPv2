@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.List;
 
 import static dao.DAODriver.prepareListDrivers;
@@ -83,16 +84,24 @@ public class MainServlet extends HttpServlet {
 
     private void setBus(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String queryString = request.getQueryString();
-        String busIDString=queryString.substring(queryString.indexOf("busID")+6);
-        int busID = Integer.parseInt(busIDString.substring(0,busIDString.length()-queryString.substring(queryString.indexOf("routeID")+7).length()-10));
-        String routeIDString=queryString.substring(queryString.indexOf("routeID")+10);
-        int routeID=Integer.parseInt(queryString.substring(queryString.indexOf("routeID")+10 ,queryString.indexOf("command")-1));
-//        System.out.println("queryString " + queryString);
+        String qString[] = queryString.split("&command=SETBUS&");
+        int busID = Integer.parseInt(queryString.substring(6, queryString.indexOf("routeID")-3));
+        int routeID = Integer.parseInt(queryString.substring(queryString.indexOf("routeID") + 10, queryString.indexOf("command") - 1));
+        System.out.println("queryString " + queryString);
 //        System.out.println("busIDString " + busIDString);
         System.out.println("busID " + busID);
 //        System.out.println("routeIDString "+routeIDString);
-        System.out.println("routeID "+routeID);
+        System.out.println("routeID " + routeID);
+        System.out.println(qString.length);
 
+    }
+
+    private int getBusID(String queryString) {
+        String part1 =queryString.substring(queryString.indexOf("busID") + 6);
+        int parsedbusid = Integer.parseInt(
+                queryString.substring(queryString.indexOf("busID") + 6).substring(0, part1.length() -
+                        queryString.substring(queryString.indexOf("routeID") + 7).length() - 10));
+        return parsedbusid;
     }
 
 

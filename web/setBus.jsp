@@ -52,15 +52,15 @@
                 <th width="57%" align="center"><fmt:message key="label.routename"/></th>
                 <th width="5%" align="center">&nbsp;</th>
             </tr>
+            <form method="get" action="MainServlet">
+                <c:forEach var="tempBus" items="${BUSES_LIST}">
+                    <tr>
+                        <td align="center"> ${tempBus.busID} </td>
+                        <td>&nbsp;</td>
+                        <td> ${tempBus.driverName} </td>
+                        <td> ${tempBus.busName} </td>
+                        <td>
 
-            <c:forEach var="tempBus" items="${BUSES_LIST}">
-                <tr>
-                    <td align="center"> ${tempBus.busID} </td>
-                    <td>&nbsp;</td>
-                    <td> ${tempBus.driverName} </td>
-                    <td> ${tempBus.busName} </td>
-                    <td>
-                        <form method="get" action="MainServlet">
                             <select name="busID">
 
                                 <c:forEach var="tempRoute" items="${ROUTES_LIST}">
@@ -72,15 +72,16 @@
 
                                 </c:forEach>
                             </select>
-                        </form>
-                    </td>
-                    <td>
-                        <input name="command" value="SETBUS" type="hidden">
-                        <input class="btn-block btn-info" type="submit" value="<fmt:message key="label.setbutton"/>">
-                    </td>
-                </tr>
-            </c:forEach>
 
+                        </td>
+                        <td>
+                            <input name="command" value="SETBUS" type="hidden">
+                            <input class="btn-block btn-info" type="submit"
+                                   value="<fmt:message key="label.setbutton"/>">
+                        </td>
+                    </tr>
+                </c:forEach>
+            </form>
         </table>
         <br/>
         <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>

@@ -83,13 +83,15 @@ public class MainServlet extends HttpServlet {
 
     private void setBus(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String queryString = request.getQueryString();
-        String busIDString=queryString.substring(queryString.indexOf("busID")+5);
-//        String busIDStringInt = queryString.substring(queryString.indexOf("routeID"), queryString.indexOf("routeID") - 7);
-//        String routeIDString=queryString.substring(queryString.lastIndexOf("routeID")-7);
-        System.out.println("queryString " + queryString);
-        System.out.println("busIDString " + busIDString);
-//        System.out.println("busIDStringInt " + busIDStringInt);
+        String busIDString=queryString.substring(queryString.indexOf("busID")+6);
+        int busID = Integer.parseInt(busIDString.substring(0,busIDString.length()-queryString.substring(queryString.indexOf("routeID")+7).length()-10));
+        String routeIDString=queryString.substring(queryString.indexOf("routeID")+10);
+        int routeID=Integer.parseInt(queryString.substring(queryString.indexOf("routeID")+10 ,queryString.indexOf("command")-1));
+//        System.out.println("queryString " + queryString);
+//        System.out.println("busIDString " + busIDString);
+        System.out.println("busID " + busID);
 //        System.out.println("routeIDString "+routeIDString);
+        System.out.println("routeID "+routeID);
 
     }
 

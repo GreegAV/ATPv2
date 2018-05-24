@@ -84,15 +84,30 @@ public class MainServlet extends HttpServlet {
 
     private void setBus(HttpServletRequest request, HttpServletResponse response) {
 
-        String queryString =request.getQueryString()+"&";
+        String queryString = request.getQueryString() + "&";
         String qString[] = queryString.split("&command=SETBUS&");
         System.out.println(qString.length);
-//        int busID = parsedBusID(queryString);
-//        int routeID = parsedRouteID(queryString);
-        for (String tString:qString) {
-            System.out.println("busID "+parsedBusID(tString)+"\t"+"routeID "+parsedRouteID(tString));
-        }
 
+        int routeIDbase = parsedRouteID(qString[0]);
+        int searchedBusID = 0;
+        int searchedRouteID = 0;
+        for (int i = 1; i < qString.length; i++) {
+            if (routeIDbase != parsedRouteID(qString[i])) {
+                System.out.println(i+" routeIDbase " + routeIDbase + "\t" + "searchingrouteID " + parsedRouteID(qString[i]));
+                if (i < qString.length - 1) {
+                    if (routeIDbase == parsedRouteID(qString[i + 1])) {
+                        searchedRouteID = parsedRouteID(qString[i]);
+                        searchedBusID = parsedBusID(qString[i]);
+                        break;
+                    }
+                } else {
+                    searchedRouteID = routeIDbase;
+                    searchedBusID = parsedBusID(qString[0]);
+                    break;
+                }
+            }
+        }
+        System.out.println("busID " + searchedBusID + "\t" + "routeID " + searchedRouteID);
     }
 
     private int parsedRouteID(String queryString) {
@@ -100,10 +115,8 @@ public class MainServlet extends HttpServlet {
     }
 
     private int parsedBusID(String queryString) {
-        return Integer.parseInt(queryString.substring(6, queryString.indexOf("routeID")-3));
+        return Integer.parseInt(queryString.substring(6, queryString.indexOf("routeID") - 3));
     }
-
-
 
 
     private void deleteBus(HttpServletRequest request, HttpServletResponse response) {

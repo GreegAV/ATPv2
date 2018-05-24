@@ -68,6 +68,10 @@ public class MainServlet extends HttpServlet {
                     addRoute(request, response);
                     break;
 
+                case "SETBUS":
+                    setBus(request, response);
+                    break;
+
                 default:
                     request.getRequestDispatcher("error.jsp").forward(request, response);
             }
@@ -75,6 +79,18 @@ public class MainServlet extends HttpServlet {
         } catch (Exception e) {
             logError("Failed to process command.", e);
         }
+    }
+
+    private void setBus(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String queryString = request.getQueryString();
+        String busIDString=queryString.substring(queryString.indexOf("busID")+5);
+//        String busIDStringInt = queryString.substring(queryString.indexOf("routeID"), queryString.indexOf("routeID") - 7);
+//        String routeIDString=queryString.substring(queryString.lastIndexOf("routeID")-7);
+        System.out.println("queryString " + queryString);
+        System.out.println("busIDString " + busIDString);
+//        System.out.println("busIDStringInt " + busIDStringInt);
+//        System.out.println("routeIDString "+routeIDString);
+
     }
 
 
@@ -122,7 +138,6 @@ public class MainServlet extends HttpServlet {
             logError("Failed go delete route from the list.", e);
         }
     }
-
 
     private void addBus(HttpServletRequest request, HttpServletResponse response) {
         String busModel = request.getParameter("busModel");

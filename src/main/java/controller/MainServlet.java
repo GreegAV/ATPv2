@@ -82,27 +82,28 @@ public class MainServlet extends HttpServlet {
         }
     }
 
-    private void setBus(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String queryString = request.getQueryString();
+    private void setBus(HttpServletRequest request, HttpServletResponse response) {
+
+        String queryString =request.getQueryString()+"&";
         String qString[] = queryString.split("&command=SETBUS&");
-        int busID = Integer.parseInt(queryString.substring(6, queryString.indexOf("routeID")-3));
-        int routeID = Integer.parseInt(queryString.substring(queryString.indexOf("routeID") + 10, queryString.indexOf("command") - 1));
-        System.out.println("queryString " + queryString);
-//        System.out.println("busIDString " + busIDString);
-        System.out.println("busID " + busID);
-//        System.out.println("routeIDString "+routeIDString);
-        System.out.println("routeID " + routeID);
         System.out.println(qString.length);
+//        int busID = parsedBusID(queryString);
+//        int routeID = parsedRouteID(queryString);
+        for (String tString:qString) {
+            System.out.println("busID "+parsedBusID(tString)+"\t"+"routeID "+parsedRouteID(tString));
+        }
 
     }
 
-    private int getBusID(String queryString) {
-        String part1 =queryString.substring(queryString.indexOf("busID") + 6);
-        int parsedbusid = Integer.parseInt(
-                queryString.substring(queryString.indexOf("busID") + 6).substring(0, part1.length() -
-                        queryString.substring(queryString.indexOf("routeID") + 7).length() - 10));
-        return parsedbusid;
+    private int parsedRouteID(String queryString) {
+        return Integer.parseInt(queryString.substring(queryString.indexOf("routeID") + 10));
     }
+
+    private int parsedBusID(String queryString) {
+        return Integer.parseInt(queryString.substring(6, queryString.indexOf("routeID")-3));
+    }
+
+
 
 
     private void deleteBus(HttpServletRequest request, HttpServletResponse response) {

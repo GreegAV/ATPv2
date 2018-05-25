@@ -35,8 +35,8 @@ public class UserUtil {
         return null;
     }
 
-    public static String getDriverPassword(String driverName) {
-        return new StringBuilder(driverName).reverse().toString();
+    public static String getDriverPassword(String driverPassword) {
+        return driverPassword;
     }
 
     private boolean checkUserPass(String loginPassword, String driverPass) {

@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Driver;
+import service.UserUtil;
 
 import static service.ErrorLog.logError;
 import static service.ErrorLog.logInfo;
-import static service.UserUtil.getDriverPassword;
 
 public class DAODriver {
 
@@ -61,7 +61,7 @@ public class DAODriver {
             logInfo("Received connection for adding new driver.");
 
             myStmt.setString(1, driverName);
-            myStmt.setString(2, driverPassword);
+            myStmt.setString(2, UserUtil.getDriverPassword(driverPassword));
             myStmt.setInt(3, 0);
             myStmt.setInt(4, 0);
             myStmt.execute();

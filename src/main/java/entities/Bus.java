@@ -72,18 +72,6 @@ public class Bus {
     }
 
     @Override
-    public String toString() {
-        return "Bus{" +
-                "busID=" + busID +
-                ", busName='" + busName + '\'' +
-                ", driverID=" + driverID +
-                ", routeID=" + routeID +
-                ", routeName='" + routeName + '\'' +
-                ", driverName='" + driverName + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -102,4 +90,15 @@ public class Bus {
         return Objects.hash(busID, busName, driverID, routeID, routeName, driverName);
     }
 
+    @Override
+    public String toString() {
+        return "Bus{" +
+                "busID=" + busID +
+                ", busName='" + busName + '\'' +
+                ", driverID=" + driverID +
+                ", routeID=" + routeID +
+                ", routeName='" + routeName + '\'' +
+                ", driverName='" + driverName + '\'' +
+                '}';
+    }
 }

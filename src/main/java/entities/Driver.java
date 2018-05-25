@@ -91,4 +91,39 @@ public class Driver {
     public void setConfirmed(int confirmed) {
         this.confirmed = confirmed;
     }
+
+    @Override
+    public String toString() {
+        return "Driver{" +
+                "userID=" + userID +
+                ", driverName='" + driverName + '\'' +
+                ", driverPassword='" + driverPassword + '\'' +
+                ", busID=" + busID +
+                ", confirmed=" + confirmed +
+                ", routeID=" + routeID +
+                ", routeName='" + routeName + '\'' +
+                ", busName='" + busName + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Driver driver = (Driver) o;
+        return userID == driver.userID &&
+                busID == driver.busID &&
+                confirmed == driver.confirmed &&
+                routeID == driver.routeID &&
+                Objects.equals(driverName, driver.driverName) &&
+                Objects.equals(driverPassword, driver.driverPassword) &&
+                Objects.equals(routeName, driver.routeName) &&
+                Objects.equals(busName, driver.busName);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(userID, driverName, driverPassword, busID, confirmed, routeID, routeName, busName);
+    }
 }

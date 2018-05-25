@@ -37,7 +37,7 @@
         <table width="33%" border="0">
             <tr>
                 <td align="center">
-                    <fmt:message key="label.login"/><br> <input type="text" name="driverName" required><br>
+                    <fmt:message key="label.name"/><br> <input type="text" name="driverName" required><br>
                     <fmt:message key="label.password"/><br> <input type="text" name="driverPassword" required><br>
                 </td>
             </tr>

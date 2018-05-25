@@ -13,7 +13,7 @@ import static service.ErrorLog.logInfo;
 
 public class DAOBus {
 
-    public List<Bus> getBuses() {
+    public static List<Bus> getBuses() {
 
         List<Bus> buses = new ArrayList<>();
 
@@ -28,13 +28,13 @@ public class DAOBus {
                 int busID = myRs.getInt("busID");
                 String busName = myRs.getString("busName");
                 Bus tempBus = new Bus(busID, busName);
-//                if (busID != 0)
+                if (busID != 0)
                     buses.add(tempBus);
             }
         } catch (Exception e) {
             logError("Failed go get buses list. DAOBus.getbuses().", e);
         }
-        logInfo("List of buses received. Total buses: "+buses.size());
+        logInfo("List of buses received. Total buses: " + buses.size());
         return buses;
     }
 
@@ -52,7 +52,7 @@ public class DAOBus {
         } catch (Exception e) {
             logError("Failed go get name of the bus by id. DAOBus.getBusNameByID().", e);
         }
-        logInfo("Received busName "+busName+ " by busID "+busID);
+        logInfo("Received busName " + busName + " by busID " + busID);
         return busName;
     }
 
@@ -92,12 +92,8 @@ public class DAOBus {
 
     public static void prepareListBuses(HttpServletRequest request, HttpServletResponse response) {
         try {
-            DAOBus daoBus = new DAOBus();
-            List<Bus> buses = daoBus.getBuses();
-
-            // add buses to the request
+            List<Bus> buses = DAOBus.getBuses();
             request.getServletContext().setAttribute("BUSES_LIST", buses);
-
         } catch (Exception e) {
             logError("Failed go get buses list.", e);
         }

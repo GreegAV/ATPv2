@@ -29,15 +29,15 @@ public class Driver {
     }
 
     private String setBusNameByID(int busID) {
-        return DAOBus.getBusNameByID(busID);
+        return (busID == 0) ? "Admin bus" : DAOBus.getBusNameByID(busID);
     }
 
     private String setRouteNameByID(int routeID) {
-        return DAORoute.getRouteNameByID(routeID);
+        return (routeID == 0) ? "Admin route" : DAORoute.getRouteNameByID(routeID);
     }
 
     private int setRouteID(int busID) {
-        return DAORoute.getRouteIDByBusID(busID);
+        return (busID == 0) ? 0 : DAORoute.getRouteIDByBusID(busID);
     }
 
     public int getRouteID() {

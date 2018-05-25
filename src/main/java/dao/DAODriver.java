@@ -15,7 +15,7 @@ import static service.UserUtil.getDriverPassword;
 public class DAODriver {
 
     public static int getDriverIDByBusID(int busID) {
-        int driverID=0;
+        int driverID = 0;
         String sql = "select * from driver where bus_busID=" + busID;
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
@@ -28,12 +28,12 @@ public class DAODriver {
         } catch (Exception e) {
             logError("Failed go get name of the driver by id. DAODriver.getRouteIDByDriverID().", e);
         }
-        logInfo("Received driverID "+driverID+" by busID "+busID);
+        logInfo("Received driverID " + driverID + " by busID " + busID);
         return driverID;
     }
 
     public static String getDriverNameByID(int driverID) {
-        String driverName="-1";
+        String driverName = "-1";
 
         String sql = "select * from driver where userID=" + driverID;
 
@@ -47,7 +47,7 @@ public class DAODriver {
         } catch (Exception e) {
             logError("Failed go get name of the driver by driverid. DAODriver.getRouteIDByDriverID().", e);
         }
-        logInfo("Received driverName "+driverName+" by driverID "+driverID);
+        logInfo("Received driverName " + driverName + " by driverID " + driverID);
         return driverName;
     }
 
@@ -88,12 +88,9 @@ public class DAODriver {
         }
     }
 
-    public List<Driver> getDrivers() {
-
+    public static List<Driver> getDrivers() {
         List<Driver> drivers = new ArrayList<>();
-
         String sql = "select * from driver";
-
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
              ResultSet myRs = myStmt.executeQuery(sql)) {
@@ -108,20 +105,19 @@ public class DAODriver {
                 int driverBusID = myRs.getInt("bus_busID");
                 int driverConfirmed = myRs.getInt("confirmed");
 
-//                if (driverID != 0)
-                drivers.add(new Driver(driverID, driverName, driverPassword, driverBusID, driverConfirmed));
+                if (driverID != 0)
+                    drivers.add(new Driver(driverID, driverName, driverPassword, driverBusID, driverConfirmed));
             }
         } catch (Exception e) {
             logError("Failed to get drivers list. DAODriver.getDrivers().", e);
         }
-        logInfo("Driverslist received. Total drivers: "+drivers.size());
+        logInfo("Driverslist received. Total drivers: " + drivers.size());
         return drivers;
     }
 
     public static void prepareListDrivers(HttpServletRequest request, HttpServletResponse response) {
         try {
-            DAODriver daoDriver = new DAODriver();
-            List<Driver> drivers = daoDriver.getDrivers();
+            List<Driver> drivers = DAODriver.getDrivers();
 
             // add drivers to the request
             request.getServletContext().setAttribute("DRIVER_LIST", drivers);

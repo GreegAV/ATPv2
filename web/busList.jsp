@@ -50,6 +50,7 @@
                 <c:url var="deleteLink" value="MainServlet">
                     <c:param name="command" value="DELETEBUS"/>
                     <c:param name="busID" value="${tempBus.busID}"/>
+                    <c:param name="driverID" value="${tempBus.driverID}"/>
                     <c:param name="theLocale" value="${theLocale}"/>
                 </c:url>
 

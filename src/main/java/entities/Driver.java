@@ -1,5 +1,6 @@
 package entities;
 
+
 import dao.DAOBus;
 import dao.DAORoute;
 
@@ -9,48 +10,38 @@ public class Driver {
     private int userID;
     private String driverName;
     private String driverPassword;
-    private int routeID;
     private int busID;
     private int confirmed;
+
+    private int routeID;
     private String routeName;
     private String busName;
 
-    public Driver(int userID, String driverName, String driverPassword, int routeID, int busID, int confirmed) {
+    public Driver(int userID, String driverName, String driverPassword, int busID, int confirmed) {
         this.userID = userID;
         this.driverName = driverName;
         this.driverPassword = driverPassword;
-        this.routeID = routeID;
         this.busID = busID;
         this.confirmed = confirmed;
-        setRouteNameByID(routeID);
-        setBusNameByID(busID);
+        this.routeID = setRouteID(busID);
+        this.routeName = setRouteNameByID(routeID);
+        this.busName = setBusNameByID(busID);
     }
 
-    public Driver(int userID, String driverName, String driverPassword, int routeID, int busID, int confirmed, String routeName, String busName) {
-        this.userID = userID;
-        this.driverName = driverName;
-        this.driverPassword = driverPassword;
-        this.routeID = routeID;
-        this.busID = busID;
-        this.confirmed = confirmed;
-        this.routeName = routeName;
-        this.busName = busName;
+    private String setBusNameByID(int busID) {
+        return DAOBus.getBusNameByID(busID);
     }
 
-    public void setBusName(String busName) {
-        this.busName = busName;
+    private String setRouteNameByID(int routeID) {
+        return DAORoute.getRouteNameByID(routeID);
     }
 
-    public void setRouteName(String routeName) {
-        this.routeName = routeName;
+    private int setRouteID(int busID) {
+        return DAORoute.getRouteIDByBusID(busID);
     }
 
-    public void setBusNameByID(int busID) {
-        this.busName = DAOBus.getBusNameByID(busID);
-    }
-
-    public void setRouteNameByID(int routeID) {
-        this.routeName = DAORoute.getRouteNameByID(routeID);
+    public int getRouteID() {
+        return routeID;
     }
 
     public String getRouteName() {
@@ -59,34 +50,6 @@ public class Driver {
 
     public String getBusName() {
         return busName;
-    }
-
-    public String getDriverPassword() {
-        return driverPassword;
-    }
-
-    public void setDriverPassword(String driverPassword) {
-        this.driverPassword = driverPassword;
-    }
-
-    public int getConfirmed() {
-        return confirmed;
-    }
-
-    public boolean isConfirmed() {
-        return confirmed > 0;
-    }
-
-    public void setConfirmed(int confirmed) {
-        this.confirmed = confirmed;
-    }
-
-    public int getBusID() {
-        return busID;
-    }
-
-    public void setBusID(int busID) {
-        this.busID = busID;
     }
 
     public int getUserID() {
@@ -105,48 +68,27 @@ public class Driver {
         this.driverName = driverName;
     }
 
-    public int getRouteID() {
-        return routeID;
+    public String getDriverPassword() {
+        return driverPassword;
     }
 
-    public void setRouteID(int routeID) {
-        this.routeID = routeID;
+    public void setDriverPassword(String driverPassword) {
+        this.driverPassword = driverPassword;
     }
 
-    @Override
-    public String toString() {
-        String tostring = "Driver{" +
-                "userID=" + userID +
-                ", driverName='" + driverName + '\'' +
-                ", driverPassword='" + driverPassword + '\'' +
-                ", routeName='" + routeName + '\'' +
-                ", busName='" + busName + '\'';
-        if (confirmed > 0)
-            tostring += " Busy ";
-        else tostring += " Free ";
-        tostring += '}';
-        return tostring;
+    public int getBusID() {
+        return busID;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Driver driver = (Driver) o;
-        return userID == driver.userID &&
-                routeID == driver.routeID &&
-                busID == driver.busID &&
-                confirmed == driver.confirmed &&
-                Objects.equals(driverName, driver.driverName) &&
-                Objects.equals(driverPassword, driver.driverPassword) &&
-                Objects.equals(routeName, driver.routeName) &&
-                Objects.equals(busName, driver.busName);
+    public void setBusID(int busID) {
+        this.busID = busID;
     }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(userID, driverName, driverPassword, routeID, busID, confirmed, routeName, busName);
+    public int getConfirmed() {
+        return confirmed;
     }
 
+    public void setConfirmed(int confirmed) {
+        this.confirmed = confirmed;
+    }
 }

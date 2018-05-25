@@ -13,22 +13,6 @@ import static service.ErrorLog.logInfo;
 
 public class DAOBus {
 
-    public static String getDriverNameByID(int assignedBus) {
-        String driverName = "";
-        String sql = "select * from bus where busid=" + assignedBus;
-        try (Connection myConn = ConnectionPool.getInstance().getConnection();
-             Statement myStmt = myConn.createStatement();
-             ResultSet myRs = myStmt.executeQuery(sql)) {
-            logInfo("Received connection for getting id of the driver by assignedBus.");
-            while (myRs.next()) {
-                driverName = DAODriver.getDriverNameByID(myRs.getInt("assignedDriver"));
-            }
-        } catch (Exception e) {
-            logError("Failed go get name of the driver by id. DAODriver.getDriverNameByID().", e);
-        }
-        return driverName;
-    }
-
     public List<Bus> getBuses() {
 
         List<Bus> buses = new ArrayList<>();
@@ -43,19 +27,19 @@ public class DAOBus {
             while (myRs.next()) {
                 int busID = myRs.getInt("busID");
                 String busName = myRs.getString("busName");
-                int assignedDriver = myRs.getInt("assignedDriver");
-                Bus tempBus = new Bus(busID, busName, assignedDriver);
-                if (busID != 0)
+                Bus tempBus = new Bus(busID, busName);
+//                if (busID != 0)
                     buses.add(tempBus);
             }
         } catch (Exception e) {
             logError("Failed go get buses list. DAOBus.getbuses().", e);
         }
+        logInfo("List of buses received. Total buses: "+buses.size());
         return buses;
     }
 
     public static String getBusNameByID(int busID) {
-        String busName = "";
+        String busName = "-1";
         String sql = "select * from bus where busid=" + busID;
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
@@ -66,23 +50,22 @@ public class DAOBus {
                 busName = myRs.getString("busName");
             }
         } catch (Exception e) {
-            logError("Failed go get name of the busby id. DAOBus.getBusNameByID().", e);
+            logError("Failed go get name of the bus by id. DAOBus.getBusNameByID().", e);
         }
+        logInfo("Received busName "+busName+ " by busID "+busID);
         return busName;
     }
 
     public String addBus(String busModel) {
         String sql = "insert into bus "
-                + "(busName, assignedDriver) "
-                + "values (?,?)";
+                + "(busName) "
+                + "values (?)";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              PreparedStatement myStmt = myConn.prepareStatement(sql)) {
             logInfo("Received connection for adding new bus.");
 
-            // set the param values for the student
             myStmt.setString(1, busModel);
-            myStmt.setInt(2, 0);
             myStmt.execute();
 
         } catch (SQLException e) {

@@ -10,107 +10,60 @@ import entities.Driver;
 
 import static service.ErrorLog.logError;
 import static service.ErrorLog.logInfo;
+import static service.UserUtil.getDriverPassword;
 
 public class DAODriver {
 
-    public static int getRouteIDByDriverID(int assignedDriver) {
-        int routeID = -1;
-        String sql = "select * from driver where userid=" + assignedDriver;
+    public static int getDriverIDByBusID(int busID) {
+        int driverID=0;
+        String sql = "select * from driver where bus_busID=" + busID;
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
              ResultSet myRs = myStmt.executeQuery(sql)) {
-            logInfo("Received connection for getting ID of the driver by routeid.");
-            while (myRs.next()) {
-                routeID = myRs.getInt("routeID");
-            }
-        } catch (Exception e) {
-            logError("Failed go get name of the driver by id. DAODriver.getRouteIDByDriverID().", e);
-        }
-        return routeID;
-    }
-
-    public List<Driver> getDrivers() {
-
-        List<Driver> drivers = new ArrayList<>();
-
-        String sql = "select * from driver";
-
-        try (Connection myConn = ConnectionPool.getInstance().getConnection();
-             Statement myStmt = myConn.createStatement();
-             ResultSet myRs = myStmt.executeQuery(sql)) {
-            logInfo("Received connection for getting list of drivers.");
-
-            // process result set
-            while (myRs.next()) {
-                // retrieve data from result set row
-                int driverID = myRs.getInt("userID");
-                String driverName = myRs.getString("driverName");
-                String driverPassword = myRs.getString("driverPassword");
-                int driverRouteID = myRs.getInt("routeID");
-                String driverRoute = DAORoute.getRouteNameByID(driverRouteID);
-                int driverBusID = myRs.getInt("busID");
-                String driverBus = DAOBus.getBusNameByID(driverBusID);
-                int driverConfirmed = myRs.getInt("confirmed");
-
-//                Driver tempDriver = new Driver(driverID, driverName, driverPassword, driverRouteID, driverBusID, driverConfirmed);
-                if (driverID != 0)
-                    drivers.add(new Driver(driverID, driverName, driverPassword, driverRouteID, driverBusID, driverConfirmed));
-            }
-        } catch (Exception e) {
-            logError("Failed to get drivers list. DAODriver.getDrivers().", e);
-        }
-        return drivers;
-    }
-
-    public static int getDriverIDByRouteID(int routeID) {
-        int driverID = -1;
-        String sql = "select * from driver where routeid=" + routeID;
-
-        try (Connection myConn = ConnectionPool.getInstance().getConnection();
-             Statement myStmt = myConn.createStatement();
-             ResultSet myRs = myStmt.executeQuery(sql)) {
-            logInfo("Received connection for getting ID of the driver by routeid.");
+            logInfo("DAODriver.getDriverIDByBusID: Received connection for getting driverID by busID.");
             while (myRs.next()) {
                 driverID = myRs.getInt("userID");
             }
         } catch (Exception e) {
-            logError("Failed go get name of the driver by id. DAODriver.getDriverIDByRouteID().", e);
+            logError("Failed go get name of the driver by id. DAODriver.getRouteIDByDriverID().", e);
         }
+        logInfo("Received driverID "+driverID+" by busID "+busID);
         return driverID;
     }
 
     public static String getDriverNameByID(int driverID) {
-        String driverName = "";
-        String sql = "select * from driver where userid=" + driverID;
+        String driverName="-1";
+
+        String sql = "select * from driver where userID=" + driverID;
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
              ResultSet myRs = myStmt.executeQuery(sql)) {
-            logInfo("Received connection for getting name of the driver by id.");
+            logInfo("DAODriver.getDriverNameByID: Received connection for getting driverName by driverID.");
             while (myRs.next()) {
                 driverName = myRs.getString("driverName");
             }
         } catch (Exception e) {
-            logError("Failed go get name of the driver by id. DAODriver.getDriverNameByID().", e);
+            logError("Failed go get name of the driver by driverid. DAODriver.getRouteIDByDriverID().", e);
         }
+        logInfo("Received driverName "+driverName+" by driverID "+driverID);
         return driverName;
     }
 
-    public String addDriver(String driverName) {
+    public String addDriver(String driverName, String driverPassword) {
         String sql = "insert into driver "
-                + "(driverName, driverPassword, routeID, busID, confirmed) "
-                + "values (?,?,?,?,?)";
+                + "(driverName, driverPassword, bus_busID, confirmed) "
+                + "values (?,?,?,?)";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              PreparedStatement myStmt = myConn.prepareStatement(sql)) {
             logInfo("Received connection for adding new driver.");
 
             myStmt.setString(1, driverName);
-            myStmt.setString(2, new StringBuilder(driverName).reverse().toString());
+            myStmt.setString(2, driverPassword);
             myStmt.setInt(3, 0);
             myStmt.setInt(4, 0);
-            myStmt.setInt(5, 0);
             myStmt.execute();
 
         } catch (SQLException e) {
@@ -135,6 +88,36 @@ public class DAODriver {
         }
     }
 
+    public List<Driver> getDrivers() {
+
+        List<Driver> drivers = new ArrayList<>();
+
+        String sql = "select * from driver";
+
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             Statement myStmt = myConn.createStatement();
+             ResultSet myRs = myStmt.executeQuery(sql)) {
+            logInfo("Received connection for getting list of drivers.");
+
+            // process result set
+            while (myRs.next()) {
+                // retrieve data from result set row
+                int driverID = myRs.getInt("userID");
+                String driverName = myRs.getString("driverName");
+                String driverPassword = myRs.getString("driverPassword");
+                int driverBusID = myRs.getInt("bus_busID");
+                int driverConfirmed = myRs.getInt("confirmed");
+
+//                if (driverID != 0)
+                drivers.add(new Driver(driverID, driverName, driverPassword, driverBusID, driverConfirmed));
+            }
+        } catch (Exception e) {
+            logError("Failed to get drivers list. DAODriver.getDrivers().", e);
+        }
+        logInfo("Driverslist received. Total drivers: "+drivers.size());
+        return drivers;
+    }
+
     public static void prepareListDrivers(HttpServletRequest request, HttpServletResponse response) {
         try {
             DAODriver daoDriver = new DAODriver();
@@ -144,7 +127,7 @@ public class DAODriver {
             request.getServletContext().setAttribute("DRIVER_LIST", drivers);
 
         } catch (Exception e) {
-            logError("Failed go get drivers list.", e);
+            logError("Failed go get drivers list. DAODriver.prepareListDrivers", e);
         }
         logInfo("Drivers list updated.");
     }

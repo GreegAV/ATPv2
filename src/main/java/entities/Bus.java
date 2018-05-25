@@ -8,69 +8,79 @@ import java.util.Objects;
 public class Bus {
     private int busID;
     private String busName;
-    private int assignedDriver;
 
+    private int driverID;
     private int routeID;
     private String routeName;
     private String driverName;
 
-    public Bus(int busID, String busName, int assignedDriver) {
+    public Bus(int busID, String busName) {
         this.busID = busID;
         this.busName = busName;
-        this.assignedDriver = assignedDriver;
-        setRouteID(assignedDriver);
-        setRouteNameByID(routeID);
-        setDriverNameByID(assignedDriver);
-    }
-
-    public int getBusID() {
-        return busID;
-    }
-
-    public String getBusName() {
-        return busName;
-    }
-
-    public int getAssignedDriver() {
-        return assignedDriver;
-    }
-
-    public int getRouteID() {
-        return routeID;
+        this.driverID=setDriverID(busID);
+        this.routeID=setRouteID(busID);
+        this.driverName=setDriverNameByID(driverID);
+        this.routeName=setRouteNameByID(routeID);
     }
 
     public String getRouteName() {
         return routeName;
     }
 
+    private String setRouteNameByID(int routeID) {
+        return DAORoute.getRouteNameByID(routeID);
+    }
+
     public String getDriverName() {
         return driverName;
+    }
+
+    private String setDriverNameByID(int driverID) {
+        return DAODriver.getDriverNameByID(driverID);
+    }
+
+    public int getRouteID() {
+        return routeID;
+    }
+
+    private int setRouteID(int busID) {
+        return DAORoute.getRouteIDByBusID(busID);
+    }
+
+    public int getDriverID() {
+        return driverID;
+    }
+
+    private int setDriverID(int busID) {
+        return DAODriver.getDriverIDByBusID(busID);
+    }
+
+    public int getBusID() {
+        return busID;
     }
 
     public void setBusID(int busID) {
         this.busID = busID;
     }
 
+    public String getBusName() {
+        return busName;
+    }
+
     public void setBusName(String busName) {
         this.busName = busName;
     }
 
-    public void setAssignedDriver(int assignedDriver) {
-        this.assignedDriver = assignedDriver;
-    }
-
-    public void setRouteID(int assignedDriver) {
-//        this.routeID = (assignedDriver == 0) ? 0 : DAODriver.getRouteIDByDriverID(assignedDriver);
-        this.routeID =DAODriver.getRouteIDByDriverID(assignedDriver);
-    }
-
-    private void setRouteNameByID(int routeID) {
-//        this.routeName = (routeID == 0) ? "Admin route" : DAORoute.getRouteNameByID(routeID);
-        this.routeName =DAORoute.getRouteNameByID(routeID);
-    }
-
-    private void setDriverNameByID(int assignedDriver) {
-        this.driverName = (assignedDriver == 0) ? "Admin" : DAODriver.getDriverNameByID(assignedDriver);
+    @Override
+    public String toString() {
+        return "Bus{" +
+                "busID=" + busID +
+                ", busName='" + busName + '\'' +
+                ", driverID=" + driverID +
+                ", routeID=" + routeID +
+                ", routeName='" + routeName + '\'' +
+                ", driverName='" + driverName + '\'' +
+                '}';
     }
 
     @Override
@@ -79,7 +89,7 @@ public class Bus {
         if (o == null || getClass() != o.getClass()) return false;
         Bus bus = (Bus) o;
         return busID == bus.busID &&
-                assignedDriver == bus.assignedDriver &&
+                driverID == bus.driverID &&
                 routeID == bus.routeID &&
                 Objects.equals(busName, bus.busName) &&
                 Objects.equals(routeName, bus.routeName) &&
@@ -89,18 +99,7 @@ public class Bus {
     @Override
     public int hashCode() {
 
-        return Objects.hash(busID, busName, assignedDriver, routeID, routeName, driverName);
+        return Objects.hash(busID, busName, driverID, routeID, routeName, driverName);
     }
 
-    @Override
-    public String toString() {
-        return "Bus{" +
-                "busID=" + busID +
-                ", busName='" + busName + '\'' +
-                ", assignedDriver=" + assignedDriver +
-                ", routeID=" + routeID +
-                ", routeName='" + routeName + '\'' +
-                ", driverName='" + driverName + '\'' +
-                '}';
-    }
 }

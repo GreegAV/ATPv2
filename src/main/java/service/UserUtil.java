@@ -17,17 +17,15 @@ public class UserUtil {
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
              ResultSet myRs = myStmt.executeQuery("select * from driver")) {
-
             while (myRs.next()) {
                 String driverName = myRs.getString("driverName");
                 if (driverName.equalsIgnoreCase(loginName)) {
                     String driverPass = myRs.getString("driverPassword");
                     if (checkUserPass(loginPassword, driverPass)) {
                         int userID = myRs.getInt("userID");
-                        int routeID = myRs.getInt("routeID");
-                        int busID = myRs.getInt("busID");
+                        int busID = myRs.getInt("bus_busID");
                         int confirmed = myRs.getInt("confirmed");
-                        return new Driver(userID, driverName, driverPass, routeID, busID, confirmed);
+                        return new Driver(userID, driverName, driverPass, busID, confirmed);
                     }
                 }
             }
@@ -37,9 +35,13 @@ public class UserUtil {
         return null;
     }
 
+    public static String getDriverPassword(String driverName) {
+        return new StringBuilder(driverName).reverse().toString();
+    }
+
     private boolean checkUserPass(String loginPassword, String driverPass) {
         // страшная проверка валидности пароля.
-        return loginPassword.equals(new StringBuilder(driverPass).reverse().toString());
+        return loginPassword.equals(driverPass);
     }
 
     public String getUserPage(String loginName, String loginPassword) {

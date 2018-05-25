@@ -189,8 +189,9 @@ public class MainServlet extends HttpServlet {
 
     private void addDriver(HttpServletRequest request, HttpServletResponse response) {
         String driverName = request.getParameter("driverName");
+        String driverPassword = request.getParameter("driverPassword");
         DAODriver daoDriver = new DAODriver();
-        String page = daoDriver.addDriver(driverName);
+        String page = daoDriver.addDriver(driverName,driverPassword);
         //renew drivers list
         prepareListDrivers(request, response);
         try {

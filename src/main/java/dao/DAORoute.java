@@ -120,7 +120,6 @@ public class DAORoute {
         logInfo("Route list updated.");
     }
 
-
     public String setRouteID(int searchedBusID, int searchedRouteID) {
         String sql = "update route set assignedBus=? where routeID=?";
 

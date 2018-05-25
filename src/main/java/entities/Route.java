@@ -10,7 +10,7 @@ public class Route {
     private String routeName;
     private int assignedBus;
 
-//    private int driverID;
+    //    private int driverID;
     private String driverName;
     private String busName;
 
@@ -61,16 +61,11 @@ public class Route {
 
     /////////////////////////////////
     private void setDriverNameByID(int assignedBus) {
-        this.driverName = (assignedBus == 0) ? "Admin" : DAOBus.getDriverNameByID(assignedBus);
+//        this.driverName = (assignedBus == 0) ? "Admin" : DAOBus.getDriverNameByID(assignedBus);
+        this.driverName = DAOBus.getDriverNameByID(assignedBus);
     }
-
-//    private void setDriverID(int routeID) {
-//        System.out.println("Route.setDriverID(routeID) "+routeID);
-//        this.driverID = (routeID == 0) ? 0 : DAODriver.getDriverIDByRouteID(routeID);
-//    }
-
     private void setBusNameByID(int busID) {
-        this.busName = (busID == 0) ? "Admin bus" : DAOBus.getBusNameByID(busID);
+        this.busName =DAOBus.getBusNameByID(busID);
     }
     ///////////////////////////////
 

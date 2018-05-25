@@ -60,11 +60,13 @@ public class Bus {
     }
 
     public void setRouteID(int assignedDriver) {
-        this.routeID = (assignedDriver == 0) ? 0 : DAODriver.getRouteIDByDriverID(assignedDriver);
+//        this.routeID = (assignedDriver == 0) ? 0 : DAODriver.getRouteIDByDriverID(assignedDriver);
+        this.routeID =DAODriver.getRouteIDByDriverID(assignedDriver);
     }
 
     private void setRouteNameByID(int routeID) {
-        this.routeName = (routeID == 0) ? "Admin route" : DAORoute.getRouteNameByID(routeID);
+//        this.routeName = (routeID == 0) ? "Admin route" : DAORoute.getRouteNameByID(routeID);
+        this.routeName =DAORoute.getRouteNameByID(routeID);
     }
 
     private void setDriverNameByID(int assignedDriver) {

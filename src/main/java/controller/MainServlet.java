@@ -83,17 +83,13 @@ public class MainServlet extends HttpServlet {
     }
 
     private void setBus(HttpServletRequest request, HttpServletResponse response) {
-
-        String queryString = request.getQueryString() + "&";
-        String qString[] = queryString.split("&command=SETBUS&");
-        System.out.println(qString.length);
-
-        int routeIDbase = parsedRouteID(qString[0]);
         int searchedBusID = 0;
         int searchedRouteID = 0;
+        String queryString = request.getQueryString() + "&";
+        String qString[] = queryString.split("&command=SETBUS&");
+        int routeIDbase = parsedRouteID(qString[0]);
         for (int i = 1; i < qString.length; i++) {
             if (routeIDbase != parsedRouteID(qString[i])) {
-                System.out.println(i+" routeIDbase " + routeIDbase + "\t" + "searchingrouteID " + parsedRouteID(qString[i]));
                 if (i < qString.length - 1) {
                     if (routeIDbase == parsedRouteID(qString[i + 1])) {
                         searchedRouteID = parsedRouteID(qString[i]);
@@ -108,6 +104,19 @@ public class MainServlet extends HttpServlet {
             }
         }
         System.out.println("busID " + searchedBusID + "\t" + "routeID " + searchedRouteID);
+
+        DAORoute daoRoute = new DAORoute();
+        String page=daoRoute.setRouteID(searchedBusID,searchedRouteID);
+        System.out.println(page);
+        prepareListBuses(request, response);
+        prepareListRoutes(request,response);
+
+        try {
+            request.getRequestDispatcher(page).forward(request, response);
+        } catch (Exception e) {
+            logError("Failed go delete driver from the list.", e);
+        }
+        System.out.println("complete");
     }
 
     private int parsedRouteID(String queryString) {

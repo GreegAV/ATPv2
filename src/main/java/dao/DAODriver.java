@@ -146,5 +146,6 @@ public class DAODriver {
         } catch (Exception e) {
             logError("Failed go get drivers list.", e);
         }
+        logInfo("Drivers list updated.");
     }
 }

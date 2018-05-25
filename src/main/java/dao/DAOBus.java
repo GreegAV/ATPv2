@@ -118,5 +118,8 @@ public class DAOBus {
         } catch (Exception e) {
             logError("Failed go get buses list.", e);
         }
+        logInfo("Bus list updated.");
     }
+
+
 }

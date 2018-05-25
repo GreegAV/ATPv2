@@ -117,7 +117,25 @@ public class DAORoute {
         } catch (Exception e) {
             logError("Failed go get routes list.", e);
         }
+        logInfo("Route list updated.");
     }
 
 
+    public String setRouteID(int searchedBusID, int searchedRouteID) {
+        String sql = "update route set assignedBus=? where routeID=?";
+
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             PreparedStatement myStmt = myConn.prepareStatement(sql)) {
+            logInfo("Received connection for setting new route for thebus.");
+
+            myStmt.setInt(1, searchedBusID);
+            myStmt.setInt(2, searchedRouteID);
+            myStmt.execute();
+
+        } catch (SQLException e) {
+            logError("Failed to set new route for the bus.", e);
+            return "error.jsp";
+        }
+        return "admin.jsp";
+    }
 }

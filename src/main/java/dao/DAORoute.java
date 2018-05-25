@@ -21,10 +21,10 @@ public class DAORoute {
              ResultSet myRs = myStmt.executeQuery(sql)) {
             logInfo("DAORoute.getRouteIDByBusID.\n\r Received connection for getting routeID by busID.");
             while (myRs.next()) {
-                routeID = myRs.getInt("bus_busid");
+                routeID = myRs.getInt("routeID");
             }
         } catch (Exception e) {
-            logError("Failed go getroute id by bus id. DAODriver.getRouteIDByBusID().", e);
+            logError("Failed go getroute id by bus id. DAORoute.getRouteIDByBusID().", e);
         }
         logInfo("Received routeID " + routeID + " by busID " + busID);
         return routeID;
@@ -32,20 +32,19 @@ public class DAORoute {
 
     public static String getRouteNameByID(int routeID) {
         String routeName = "-1";
-
         String sql = "select * from route where routeID=" + routeID;
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
              ResultSet myRs = myStmt.executeQuery(sql)) {
-            logInfo("DAORoute.getRouteNameByID: Received connection for getting driverName by routeID.");
+            logInfo("DAORoute.getRouteNameByID: Received connection for getting routeName by routeID.");
             while (myRs.next()) {
                 routeName = myRs.getString("routeName");
             }
         } catch (Exception e) {
             logError("Failed go get name of the route by routeID. DAORoute.getRouteNameByID().\n\r", e);
         }
-        logInfo("Received driverName " + routeName + " by driverID " + routeID);
+        logInfo("Received routeName " + routeName + " by routeID " + routeID);
         return routeName;
     }
 
@@ -120,7 +119,7 @@ public class DAORoute {
     }
 
     public String setRouteID(int searchedBusID, int searchedRouteID) {
-        String sql = "update route set assignedBus=? where routeID=?";
+        String sql = "update route set bus_busID=? where routeID=?";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              PreparedStatement myStmt = myConn.prepareStatement(sql)) {

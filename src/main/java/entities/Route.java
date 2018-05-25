@@ -21,7 +21,7 @@ public class Route {
 
         this.busName = setBusNameByID(busID);
         this.driverID = setDriverID(busID);
-        this.driverName = setDriverNameByID(driverID);
+        this.driverName = setDriverNameByID(this.driverID);
     }
 
     private String setDriverNameByID(int driverID) {

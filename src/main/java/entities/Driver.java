@@ -24,7 +24,7 @@ public class Driver {
         this.busID = busID;
         this.confirmed = confirmed;
         this.routeID = setRouteID(busID);
-        this.routeName = setRouteNameByID(routeID);
+        this.routeName = setRouteNameByID(this.routeID);
         this.busName = setBusNameByID(busID);
     }
 

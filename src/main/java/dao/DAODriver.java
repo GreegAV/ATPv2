@@ -26,7 +26,7 @@ public class DAODriver {
                 driverID = myRs.getInt("userID");
             }
         } catch (Exception e) {
-            logError("Failed go get name of the driver by id. DAODriver.getRouteIDByDriverID().", e);
+            logError("Failed to get DriverID By BusID. DAODriver.getDriverIDByBusID().", e);
         }
         logInfo("Received driverID " + driverID + " by busID " + busID);
         return driverID;

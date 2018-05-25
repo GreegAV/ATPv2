@@ -107,14 +107,13 @@ public class MainServlet extends HttpServlet {
 
         DAORoute daoRoute = new DAORoute();
         String page=daoRoute.setRouteID(searchedBusID,searchedRouteID);
-        System.out.println(page);
         prepareListBuses(request, response);
         prepareListRoutes(request,response);
 
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (Exception e) {
-            logError("Failed go delete driver from the list.", e);
+            logError("Failed go set bus to the route.", e);
         }
         System.out.println("complete");
     }

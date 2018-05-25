@@ -67,8 +67,7 @@
                                     <c:url var="setLink" value="${tempBus.busID}">
                                         <c:param name="routeID" value="${tempRoute.routeID}"/>
                                     </c:url>
-                                    <option value="${setLink}"> ${tempRoute.routeName}
-                                    </option>
+                                    <option value="${setLink}"> ${tempRoute.routeName} </option>
 
                                 </c:forEach>
                             </select>
@@ -76,6 +75,7 @@
                         </td>
                         <td>
                             <input name="command" value="SETBUS" type="hidden">
+                            <input value="${setLink}" type="hidden">
                             <input class="btn-block btn-info" type="submit"
                                    value="<fmt:message key="label.setbutton"/>">
                         </td>

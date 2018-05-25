@@ -17,10 +17,10 @@ public class Bus {
     public Bus(int busID, String busName) {
         this.busID = busID;
         this.busName = busName;
-        this.driverID=setDriverID(busID);
-        this.routeID=setRouteID(busID);
-        this.driverName=setDriverNameByID(driverID);
-        this.routeName=setRouteNameByID(routeID);
+        this.driverID = setDriverID(busID);
+        this.routeID = setRouteID(busID);
+        this.driverName = setDriverNameByID(this.driverID);
+        this.routeName = setRouteNameByID(this.routeID);
     }
 
     public String getRouteName() {
@@ -28,7 +28,7 @@ public class Bus {
     }
 
     private String setRouteNameByID(int routeID) {
-        return (routeID==0)?"Admin route":DAORoute.getRouteNameByID(routeID);
+        return (routeID == 0) ? "Admin route" : DAORoute.getRouteNameByID(routeID);
     }
 
     public String getDriverName() {
@@ -36,7 +36,7 @@ public class Bus {
     }
 
     private String setDriverNameByID(int driverID) {
-        return (driverID==0)?"Admin":DAODriver.getDriverNameByID(driverID);
+        return (driverID == 0) ? "Admin" : DAODriver.getDriverNameByID(driverID);
     }
 
     public int getRouteID() {
@@ -44,7 +44,7 @@ public class Bus {
     }
 
     private int setRouteID(int busID) {
-        return (busID==0)?0:DAORoute.getRouteIDByBusID(busID);
+        return (busID == 0) ? 0 : DAORoute.getRouteIDByBusID(busID);
     }
 
     public int getDriverID() {
@@ -52,7 +52,7 @@ public class Bus {
     }
 
     private int setDriverID(int busID) {
-        return (busID==0)?0:DAODriver.getDriverIDByBusID(busID);
+        return (busID == 0) ? 0 : DAODriver.getDriverIDByBusID(busID);
     }
 
     public int getBusID() {

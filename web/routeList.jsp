@@ -39,9 +39,9 @@
             <tr>
                 <th width="5%" align="center">№№</th>
                 <th width="3%" align="center">&nbsp;</th>
+                <th width="57%" align="center"><fmt:message key="label.routename"/></th>
                 <th width="15%" align="center"><fmt:message key="label.busname"/></th>
                 <th width="15%" align="center"><fmt:message key="label.drivername"/></th>
-                <th width="57%" align="center"><fmt:message key="label.routename"/></th>
                 <th width="5%" align="center">&nbsp;</th>
             </tr>
 
@@ -56,9 +56,9 @@
                 <tr>
                     <td align="center"> ${tempRoute.routeID} </td>
                     <td>&nbsp;</td>
+                    <td> ${tempRoute.routeName} </td>
                     <td> ${tempRoute.busName} </td>
                     <td> ${tempRoute.driverName} </td>
-                    <td> ${tempRoute.routeName} </td>
                     <td>
                         <a class="btn-danger btn-block" href="${deleteLink}">
                             &nbsp;<fmt:message key="label.delete"/>&nbsp;</a>

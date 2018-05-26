@@ -51,7 +51,7 @@ public class DAODriver {
         return driverName;
     }
 
-    public String addDriver(String driverName, String driverPassword) {
+    public static String addDriver(String driverName, String driverPassword) {
         String sql = "insert into driver "
                 + "(driverName, driverPassword, bus_busID, confirmed) "
                 + "values (?,?,?,?)";
@@ -73,7 +73,7 @@ public class DAODriver {
         return "admin.jsp";
     }
 
-    public void deleteDriver(int driverID) {
+    public static void deleteDriver(int driverID) {
         String sql = "delete from driver where userid=?";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
@@ -88,7 +88,7 @@ public class DAODriver {
         }
     }
 
-    public static List<Driver> getDrivers() {
+    private static List<Driver> getDrivers() {
         List<Driver> drivers = new ArrayList<>();
         String sql = "select * from driver";
         try (Connection myConn = ConnectionPool.getInstance().getConnection();

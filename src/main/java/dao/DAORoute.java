@@ -48,7 +48,7 @@ public class DAORoute {
         return routeName;
     }
 
-    public static List<Route> getRoutes() {
+    private static List<Route> getRoutes() {
         List<Route> routes = new ArrayList<>();
 
         String sql = "select * from route";
@@ -73,7 +73,7 @@ public class DAORoute {
         return routes;
     }
 
-    public String addRoute(String routeName) {
+    public static String addRoute(String routeName) {
         String sql = "insert into route "
                 + "(routeName, bus_busID) "
                 + "values (?, ?)";
@@ -93,7 +93,7 @@ public class DAORoute {
         return "admin.jsp";
     }
 
-    public void deleteRoute(int routeID) {
+    public static void deleteRoute(int routeID) {
         String sql = "delete from route where routeid=?";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
@@ -118,7 +118,7 @@ public class DAORoute {
         logInfo("Route list updated.");
     }
 
-    public String setRouteID(int searchedBusID, int searchedRouteID) {
+    public static String setRouteID(int searchedBusID, int searchedRouteID) {
         String sql = "update route set bus_busID=? where routeID=?";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();

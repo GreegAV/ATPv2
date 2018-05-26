@@ -13,10 +13,8 @@ import static service.ErrorLog.logInfo;
 
 public class DAOBus {
 
-    public static List<Bus> getBuses() {
-
+    private static List<Bus> getBuses() {
         List<Bus> buses = new ArrayList<>();
-
         String sql = "select * from bus";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
@@ -56,7 +54,7 @@ public class DAOBus {
         return busName;
     }
 
-    public String addBus(String busModel) {
+    public static String addBus(String busModel) {
         String sql = "insert into bus "
                 + "(busName) "
                 + "values (?)";
@@ -75,7 +73,7 @@ public class DAOBus {
         return "admin.jsp";
     }
 
-    public void deleteBus(int busID) {
+    public static void deleteBus(int busID) {
         String sql = "delete from bus where busid=?";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
@@ -99,6 +97,5 @@ public class DAOBus {
         }
         logInfo("Bus list updated.");
     }
-
 
 }

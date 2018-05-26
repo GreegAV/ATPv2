@@ -45,12 +45,11 @@
         <br/>
         <table class="table-striped" width="70%">
             <tr>
-                <th width="5%" align="center">№№</th>
-                <th width="3%" align="center">&nbsp;</th>
+                <th width="10%" align="center">№№</th>
+                <th width="5%" align="center">&nbsp;</th>
                 <th width="15%" align="center"><fmt:message key="label.drivername"/></th>
                 <th width="15%" align="center"><fmt:message key="label.busname"/></th>
-                <th width="57%" align="center"><fmt:message key="label.routename"/></th>
-                <th width="5%" align="center">&nbsp;</th>
+                <th width="60%" align="center"><fmt:message key="label.routename"/></th>
             </tr>
             <c:forEach var="tempBus" items="${BUSES_LIST}">
                 <tr>
@@ -68,12 +67,6 @@
                                 <option value="${setLink}"> ${tempRoute.routeName} </option>
                         </c:forEach>
                     </select></td>
-                    <td>
-                        <a class="btn-info btn-block" href="${setLink}"> <fmt:message key="label.setbutton"/></a>
-                        <%--<input class="btn-info btn-block" type="button"--%>
-                               <%--value="<fmt:message key="label.setbutton"/>"--%>
-                               <%--onclick="window.location.href='${setLink}'; return false;"/>--%>
-                    </td>
                 </tr>
             </c:forEach>
         </table>

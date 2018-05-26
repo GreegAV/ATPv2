@@ -43,28 +43,24 @@
                 <th width="15%" align="center"><fmt:message key="label.drivername"/></th>
                 <th width="15%" align="center"><fmt:message key="label.busname"/></th>
             </tr>
-            <c:forEach var="tempBus" items="${BUSES_LIST}">
-
-                <c:url var="setLink" value="MainServlet">
-                    <c:param name="command" value="SETDRIVER"/>
-                    <c:param name="busID" value="${tempBus.busID}"/>
-                    <c:param name="theLocale" value="${theLocale}"/>
-                </c:url>
-
+            <c:forEach var="tempDriver" items="${DRIVER_LIST}">
                 <tr>
-                    <td align="center"> ${tempBus.routeID} </td>
+                    <td align="center"> ${tempDriver.userID} </td>
                     <td>&nbsp;</td>
-                    <td> ${tempBus.routeName} </td>
-                    <td> ${tempBus.busName} </td>
-                    <td> ${tempBus.driverName} </td>
-                    <td>
-                        <a class="btn-danger btn-block" href="${setLink}">
-                            &nbsp;<fmt:message key="label.setdriver"/>&nbsp;</a>
-                    </td>
+                    <td> ${tempDriver.routeName} </td>
+                    <td> ${tempDriver.driverName} </td>
+                    <td><select name="busID" onchange="document.location=this.options[this.selectedIndex].value">
+                        <c:forEach var="tempBus" items="${BUSES_LIST}">
+                            <c:url var="setLink" value="MainServlet">
+                                <c:param name="driverID" value="${tempDriver.userID}"/>
+                                <c:param name="busID" value="${tempBus.busID}"/>
+                                <c:param name="command" value="SETDRIVER"/>
+                            </c:url>
+                            <option value="${setLink}"> ${tempBus.busName} </option>
+                        </c:forEach>
+                    </select></td>
                 </tr>
-
             </c:forEach>
-
         </table>
         <br/>
         <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>

@@ -73,6 +73,10 @@ public class MainServlet extends HttpServlet {
                     setBus(request, response);
                     break;
 
+                case "SETDRIVER":
+                    setDriver(request, response);
+                    break;
+
                 default:
                     request.getRequestDispatcher("error.jsp").forward(request, response);
             }
@@ -82,11 +86,16 @@ public class MainServlet extends HttpServlet {
         }
     }
 
-    private void setBus(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void setDriver(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int busID=Integer.parseInt(request.getParameter("busID"));
-        int routeID=Integer.parseInt(request.getParameter("routeID"));
+        int driverID=Integer.parseInt(request.getParameter("driverID"));
         response.getWriter().write("Bus ID "+busID);
-        response.getWriter().write("Route ID "+routeID);
+        response.getWriter().write("Driver ID "+driverID);
+    }
+
+    private void setBus(HttpServletRequest request, HttpServletResponse response) {
+        int busID = Integer.parseInt(request.getParameter("busID"));
+        int routeID = Integer.parseInt(request.getParameter("routeID"));
 
         String page = DAORoute.setRouteID(busID, routeID);
         prepareListBuses(request, response);

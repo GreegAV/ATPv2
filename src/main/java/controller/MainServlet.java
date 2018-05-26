@@ -17,6 +17,7 @@ import static dao.DAODriver.prepareListDrivers;
 import static dao.DAOBus.prepareListBuses;
 import static dao.DAORoute.prepareListRoutes;
 import static service.ErrorLog.logError;
+import static service.ErrorLog.logInfo;
 
 @WebServlet("/MainServlet")
 public class MainServlet extends HttpServlet {
@@ -89,8 +90,16 @@ public class MainServlet extends HttpServlet {
     private void setDriver(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int busID=Integer.parseInt(request.getParameter("busID"));
         int driverID=Integer.parseInt(request.getParameter("driverID"));
-        response.getWriter().write("Bus ID "+busID);
-        response.getWriter().write("Driver ID "+driverID);
+        String page = DAODriver.setBusID(busID, driverID);
+        prepareListBuses(request, response);
+        prepareListRoutes(request, response);
+
+        try {
+            request.getRequestDispatcher(page).forward(request, response);
+        } catch (Exception e) {
+            logError("Failed go set bus to the route.", e);
+        }
+        logInfo("Bus "+busID+ "is set to the driver "+driverID);
     }
 
     private void setBus(HttpServletRequest request, HttpServletResponse response) {
@@ -106,7 +115,7 @@ public class MainServlet extends HttpServlet {
         } catch (Exception e) {
             logError("Failed go set bus to the route.", e);
         }
-        System.out.println("complete");
+        logInfo("Route "+routeID+ "is set to the bus "+busID);
     }
 
     private void deleteBus(HttpServletRequest request, HttpServletResponse response) {

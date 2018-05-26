@@ -127,4 +127,22 @@ public class DAODriver {
         }
         logInfo("Drivers list updated.");
     }
+
+    public static String setBusID(int busID, int driverID) {
+        String sql = "update driver set bus_busID=? where userID=?";
+
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             PreparedStatement myStmt = myConn.prepareStatement(sql)) {
+            logInfo("Received connection for setting new bus(busID=" + busID + ") for the driver(driverID=" + driverID + ").");
+
+            myStmt.setInt(1, busID);
+            myStmt.setInt(2, driverID);
+            myStmt.execute();
+
+        } catch (SQLException e) {
+            logError("Failed to set new route for the bus.", e);
+            return "error.jsp";
+        }
+        return "admin.jsp";
+    }
 }

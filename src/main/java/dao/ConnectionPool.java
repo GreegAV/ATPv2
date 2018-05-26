@@ -20,7 +20,7 @@ public class ConnectionPool {
         }
     }
 
-    public static synchronized ConnectionPool getInstance() {
+    public static ConnectionPool getInstance() {
         if (instance == null) {
             logInfo("ConnectioPool instance creation.");
             instance = new ConnectionPool();

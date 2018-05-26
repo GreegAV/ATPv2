@@ -52,36 +52,30 @@
                 <th width="57%" align="center"><fmt:message key="label.routename"/></th>
                 <th width="5%" align="center">&nbsp;</th>
             </tr>
-            <form method="get" action="MainServlet">
-                <c:forEach var="tempBus" items="${BUSES_LIST}">
-                    <tr>
-                        <td align="center"> ${tempBus.busID} </td>
-                        <td>&nbsp;</td>
-                        <td> ${tempBus.driverName} </td>
-                        <td> ${tempBus.busName} </td>
-                        <td>
-
-                            <select name="busID">
-
-                                <c:forEach var="tempRoute" items="${ROUTES_LIST}">
-                                    <c:url var="setLink" value="${tempBus.busID}">
-                                        <c:param name="routeID" value="${tempRoute.routeID}"/>
-                                    </c:url>
-                                    <option value="${setLink}"> ${tempRoute.routeName} </option>
-
-                                </c:forEach>
-                            </select>
-
-                        </td>
-                        <td>
-                            <input name="command" value="SETBUS" type="hidden">
-                            <input value="${setLink}" type="hidden">
-                            <input class="btn-block btn-info" type="submit"
-                                   value="<fmt:message key="label.setbutton"/>">
-                        </td>
-                    </tr>
-                </c:forEach>
-            </form>
+            <c:forEach var="tempBus" items="${BUSES_LIST}">
+                <tr>
+                    <td align="center"> ${tempBus.busID} </td>
+                    <td>&nbsp;</td>
+                    <td> ${tempBus.driverName} </td>
+                    <td> ${tempBus.busName} </td>
+                    <td><select name="busID" onchange="document.location=this.options[this.selectedIndex].value">
+                        <c:forEach var="tempRoute" items="${ROUTES_LIST}">
+                            <c:url var="setLink" value="MainServlet">
+                                <c:param name="busID" value="${tempBus.busID}"/>
+                                <c:param name="routeID" value="${tempRoute.routeID}"/>
+                                <c:param name="command" value="SETBUS"/>
+                            </c:url>
+                                <option value="${setLink}"> ${tempRoute.routeName} </option>
+                        </c:forEach>
+                    </select></td>
+                    <td>
+                        <a class="btn-info btn-block" href="${setLink}"> <fmt:message key="label.setbutton"/></a>
+                        <%--<input class="btn-info btn-block" type="button"--%>
+                               <%--value="<fmt:message key="label.setbutton"/>"--%>
+                               <%--onclick="window.location.href='${setLink}'; return false;"/>--%>
+                    </td>
+                </tr>
+            </c:forEach>
         </table>
         <br/>
         <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>

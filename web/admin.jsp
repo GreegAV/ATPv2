@@ -70,7 +70,6 @@
                                 <center><fmt:message key="label.routename"/></center>
                             </th>
                         </tr>
-
                         <c:forEach var="tempBus" items="${BUSES_LIST}">
                             <tr>
                                 <td>&nbsp; ${tempBus.busName} </td>

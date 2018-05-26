@@ -82,40 +82,46 @@ public class MainServlet extends HttpServlet {
         }
     }
 
-    private void setBus(HttpServletRequest request, HttpServletResponse response) {
-        int searchedBusID = 0;
-        int searchedRouteID = 0;
-        String queryString = request.getQueryString() + "&";
-        String qString[] = queryString.split("&command=SETBUS&");
-        int routeIDbase = parsedRouteID(qString[0]);
-        for (int i = 1; i < qString.length; i++) {
-            if (routeIDbase != parsedRouteID(qString[i])) {
-                if (i < qString.length - 1) {
-                    if (routeIDbase == parsedRouteID(qString[i + 1])) {
-                        searchedRouteID = parsedRouteID(qString[i]);
-                        searchedBusID = parsedBusID(qString[i]);
-                        break;
-                    }
-                } else {
-                    searchedRouteID = routeIDbase;
-                    searchedBusID = parsedBusID(qString[0]);
-                    break;
-                }
-            }
-        }
-        System.out.println("busID " + searchedBusID + "\t" + "routeID " + searchedRouteID);
+    private void setBus(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println(request.getQueryString());
+        int busID=Integer.parseInt(request.getParameter("busID"));
+        int routeID=Integer.parseInt(request.getParameter("routeID"));
+        response.getWriter().write("Bus ID "+busID);
+        response.getWriter().write("Route ID "+routeID);
 
-        DAORoute daoRoute = new DAORoute();
-        String page=daoRoute.setRouteID(searchedBusID,searchedRouteID);
-        prepareListBuses(request, response);
-        prepareListRoutes(request,response);
-
-        try {
-            request.getRequestDispatcher(page).forward(request, response);
-        } catch (Exception e) {
-            logError("Failed go set bus to the route.", e);
-        }
-        System.out.println("complete");
+//        int searchedBusID = 0;
+//        int searchedRouteID = 0;
+//        String queryString = request.getQueryString() + "&";
+//        String qString[] = queryString.split("&command=SETBUS&");
+//        int routeIDbase = parsedRouteID(qString[0]);
+//        for (int i = 1; i < qString.length; i++) {
+//            if (routeIDbase != parsedRouteID(qString[i])) {
+//                if (i < qString.length - 1) {
+//                    if (routeIDbase == parsedRouteID(qString[i + 1])) {
+//                        searchedRouteID = parsedRouteID(qString[i]);
+//                        searchedBusID = parsedBusID(qString[i]);
+//                        break;
+//                    }
+//                } else {
+//                    searchedRouteID = routeIDbase;
+//                    searchedBusID = parsedBusID(qString[0]);
+//                    break;
+//                }
+//            }
+//        }
+//        System.out.println("busID " + searchedBusID + "\t" + "routeID " + searchedRouteID);
+//
+//        DAORoute daoRoute = new DAORoute();
+//        String page = daoRoute.setRouteID(searchedBusID, searchedRouteID);
+//        prepareListBuses(request, response);
+//        prepareListRoutes(request, response);
+//
+//        try {
+//            request.getRequestDispatcher(page).forward(request, response);
+//        } catch (Exception e) {
+//            logError("Failed go set bus to the route.", e);
+//        }
+//        System.out.println("complete");
     }
 
     private int parsedRouteID(String queryString) {
@@ -190,7 +196,7 @@ public class MainServlet extends HttpServlet {
         String driverName = request.getParameter("driverName");
         String driverPassword = request.getParameter("driverPassword");
         DAODriver daoDriver = new DAODriver();
-        String page = daoDriver.addDriver(driverName,driverPassword);
+        String page = daoDriver.addDriver(driverName, driverPassword);
         //renew drivers list
         prepareListDrivers(request, response);
         try {

@@ -82,12 +82,48 @@ public class MainServlet extends HttpServlet {
                     freeBus(request, response);
                     break;
 
+                case "FREEDRIVER":
+                    freeDriver(request, response);
+                    break;
+
+                case "FREEROUTE":
+                    freeRoute(request, response);
+                    break;
+
                 default:
                     request.getRequestDispatcher("error.jsp").forward(request, response);
             }
 
         } catch (Exception e) {
             logError("Failed to process command.", e);
+        }
+    }
+
+    private void freeRoute(HttpServletRequest request, HttpServletResponse response) {
+        int routeID = Integer.parseInt(request.getParameter("routeID"));
+
+        DAORoute.setRouteID(0,routeID);
+
+        // renew routes list
+        prepareListRoutes(request, response);
+        try {
+            request.getRequestDispatcher("routeList.jsp").forward(request, response);
+        } catch (Exception e) {
+            logError("Failed to free driver.", e);
+        }
+    }
+
+    private void freeDriver(HttpServletRequest request, HttpServletResponse response) {
+        int driverID = Integer.parseInt(request.getParameter("driverID"));
+
+        DAODriver.setBusID(0,driverID);
+
+        // renew drivers list
+        prepareListDrivers(request, response);
+        try {
+            request.getRequestDispatcher("driverList.jsp").forward(request, response);
+        } catch (Exception e) {
+            logError("Failed to free driver.", e);
         }
     }
 
@@ -138,7 +174,6 @@ public class MainServlet extends HttpServlet {
 
     private void freeBus(HttpServletRequest request, HttpServletResponse response) {
 
-        int busID = Integer.parseInt(request.getParameter("busID"));
         int driverID = Integer.parseInt(request.getParameter("driverID"));
         int routeID = Integer.parseInt(request.getParameter("routeID"));
 

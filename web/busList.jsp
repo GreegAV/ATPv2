@@ -57,7 +57,6 @@
 
                 <c:url var="freeLink" value="MainServlet">
                     <c:param name="command" value="FREEBUS"/>
-                    <c:param name="busID" value="${tempBus.busID}"/>
                     <c:param name="driverID" value="${tempBus.driverID}"/>
                     <c:param name="routeID" value="${tempBus.routeID}"/>
                     <c:param name="theLocale" value="${theLocale}"/>
@@ -76,7 +75,7 @@
                                 <fmt:message key="label.delete"/></a>
                             &nbsp;&nbsp;|&nbsp;&nbsp;
                             <a class="btn-warning" href="${freeLink}">
-                            <fmt:message key="label.freebus"/></a>
+                            <fmt:message key="label.free"/></a>
                         </div>
                     </td>
                 </tr>

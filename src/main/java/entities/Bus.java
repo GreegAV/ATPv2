@@ -28,7 +28,7 @@ public class Bus {
     }
 
     private String setRouteNameByID(int routeID) {
-        return (routeID == 0) ? "Admin route" : DAORoute.getRouteNameByID(routeID);
+        return DAORoute.getRouteNameByID(routeID);
     }
 
     public String getDriverName() {
@@ -36,7 +36,7 @@ public class Bus {
     }
 
     private String setDriverNameByID(int driverID) {
-        return (driverID == 0) ? "Admin" : DAODriver.getDriverNameByID(driverID);
+        return DAODriver.getDriverNameByID(driverID);
     }
 
     public int getRouteID() {

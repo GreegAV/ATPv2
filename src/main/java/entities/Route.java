@@ -25,11 +25,11 @@ public class Route {
     }
 
     private String setDriverNameByID(int driverID) {
-        return (driverID == 0) ? "Admin" : DAODriver.getDriverNameByID(driverID);
+        return DAODriver.getDriverNameByID(driverID);
     }
 
     private String setBusNameByID(int busID) {
-        return (busID == 0) ? "Admin bus" : DAOBus.getBusNameByID(busID);
+        return DAOBus.getBusNameByID(busID);
     }
 
     public int setDriverID(int busID) {

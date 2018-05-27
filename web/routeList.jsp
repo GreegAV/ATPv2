@@ -37,12 +37,13 @@
         <br/>
         <table class="table-striped" width="70%">
             <tr>
-                <th width="5%" align="center">№№</th>
-                <th width="3%" align="center">&nbsp;</th>
-                <th width="57%" align="center"><fmt:message key="label.routename"/></th>
-                <th width="15%" align="center"><fmt:message key="label.busname"/></th>
-                <th width="15%" align="center"><fmt:message key="label.drivername"/></th>
-                <th width="5%" align="center">&nbsp;</th>
+                <th ><center>№№</center></th>
+                <th >&nbsp;</th>
+                <th ><center><fmt:message key="label.routename"/></center></th>
+                <th ><center><fmt:message key="label.busname"/></center></th>
+                <th ><center><fmt:message key="label.drivername"/></center></th>
+                <th >&nbsp;</th>
+                <th ><center><fmt:message key="label.action"/></center></th>
             </tr>
 
             <c:forEach var="tempRoute" items="${ROUTES_LIST}">
@@ -53,6 +54,11 @@
                     <c:param name="theLocale" value="${theLocale}"/>
                 </c:url>
 
+                <c:url var="freeLink" value="MainServlet">
+                    <c:param name="command" value="FREEROUTE"/>
+                    <c:param name="routeID" value="${tempRoute.routeID}"/>
+                    <c:param name="theLocale" value="${theLocale}"/>
+                </c:url>
                 <tr>
                     <td align="center"> ${tempRoute.routeID} </td>
                     <td>&nbsp;</td>
@@ -60,8 +66,13 @@
                     <td> ${tempRoute.busName} </td>
                     <td> ${tempRoute.driverName} </td>
                     <td>
-                        <a class="btn-danger btn-block" href="${deleteLink}">
-                            &nbsp;<fmt:message key="label.delete"/>&nbsp;</a>
+                        <div class="btn-block">
+                            <a class="btn-danger" href="${deleteLink}">
+                                <fmt:message key="label.delete"/></a>
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            <a class="btn-warning" href="${freeLink}">
+                                <fmt:message key="label.free"/></a>
+                        </div>
                     </td>
                 </tr>
 

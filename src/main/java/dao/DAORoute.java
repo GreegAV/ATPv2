@@ -63,7 +63,7 @@ public class DAORoute {
                 String routeName = myRs.getString("routeName");
                 int busID = myRs.getInt("bus_busid");
 
-                if (routeID != 0)
+//                if (routeID != 0)
                     routes.add(new Route(routeID, routeName, busID));
             }
         } catch (Exception e) {

@@ -25,15 +25,27 @@ public class DAOBus {
             while (myRs.next()) {
                 int busID = myRs.getInt("busID");
                 String busName = myRs.getString("busName");
-                Bus tempBus = new Bus(busID, busName);
-                if (busID != 0)
-                    buses.add(tempBus);
+//                if (busID != 0)
+                buses.add(new Bus(busID, busName));
             }
         } catch (Exception e) {
             logError("Failed go get buses list. DAOBus.getbuses().", e);
         }
         logInfo("List of buses received. Total buses: " + buses.size());
         return buses;
+    }
+
+    private static List<Bus> getFreeBuses() {
+        List<Bus> freeBuses = new ArrayList<>();
+        List<Bus> buses = getBuses();
+
+        for (Bus tempBus : buses) {
+            if (tempBus.getRouteID() == 0)
+                buses.add(tempBus);
+        }
+
+        logInfo("List of free buses received. Total freebuses: " + freeBuses.size());
+        return freeBuses;
     }
 
     public static String getBusNameByID(int busID) {

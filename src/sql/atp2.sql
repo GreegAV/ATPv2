@@ -53,10 +53,10 @@ CREATE TABLE IF NOT EXISTS `atp2`.`route` (
 ENGINE = InnoDB
 AUTO_INCREMENT = 0;
 
-INSERT INTO `atp2`.`bus` (`busID`, `busName`) VALUES ('0', 'Admin bus');
+INSERT INTO `atp2`.`bus` (`busID`, `busName`) VALUES ('0', '----------');
 UPDATE `atp2`.`bus` SET `busID`='0' WHERE `busID`='1';
 
-INSERT INTO `atp2`.`route` (`routeID`, `routeName`, `bus_busID`) VALUES ('0', 'Admin route', '0');
+INSERT INTO `atp2`.`route` (`routeID`, `routeName`, `bus_busID`) VALUES ('0', '----------', '0');
 UPDATE `atp2`.`route` SET `routeID`='0' WHERE `routeID`='1';
 
 INSERT INTO `atp2`.`driver` (`userID`, `driverName`, `driverPassword`, `bus_busID`, `confirmed`) VALUES ('0', 'Admin', 'nimda', '0',  '1');

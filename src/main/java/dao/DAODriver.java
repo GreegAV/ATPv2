@@ -105,7 +105,7 @@ public class DAODriver {
                 int driverBusID = myRs.getInt("bus_busID");
                 int driverConfirmed = myRs.getInt("confirmed");
 
-                if (driverID != 0)
+//                if (driverID != 0)
                     drivers.add(new Driver(driverID, driverName, driverPassword, driverBusID, driverConfirmed));
             }
         } catch (Exception e) {

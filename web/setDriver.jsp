@@ -56,7 +56,15 @@
                                 <c:param name="busID" value="${tempBus.busID}"/>
                                 <c:param name="command" value="SETDRIVER"/>
                             </c:url>
-                            <option value="${setLink}"> ${tempBus.busName} </option>
+                            <c:choose>
+                                <c:when test="${tempDriver.busID==tempBus.busID}">
+                                    <option value="${setLink}" selected> ${tempBus.busName} </option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${setLink}"> ${tempBus.busName} </option>
+                                </c:otherwise>
+                            </c:choose>
+                            <%--<option value="${setLink}"> ${tempBus.busName} </option>--%>
                         </c:forEach>
                     </select></td>
                 </tr>

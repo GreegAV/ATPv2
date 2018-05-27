@@ -64,7 +64,15 @@
                                 <c:param name="routeID" value="${tempRoute.routeID}"/>
                                 <c:param name="command" value="SETBUS"/>
                             </c:url>
-                                <option value="${setLink}"> ${tempRoute.routeName} </option>
+                            <c:choose>
+                                <c:when test="${tempDriver.busID==tempBus.busID}">
+                                    <option value="${setLink}" selected> ${tempBus.busName} </option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${setLink}"> ${tempRoute.routeName} </option>
+                                </c:otherwise>
+                            </c:choose>
+
                         </c:forEach>
                     </select></td>
                 </tr>

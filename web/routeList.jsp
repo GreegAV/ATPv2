@@ -37,13 +37,13 @@
         <br/>
         <table class="table-striped" width="70%">
             <tr>
-                <th ><center>№№</center></th>
-                <th >&nbsp;</th>
-                <th ><center><fmt:message key="label.routename"/></center></th>
-                <th ><center><fmt:message key="label.busname"/></center></th>
-                <th ><center><fmt:message key="label.drivername"/></center></th>
-                <th >&nbsp;</th>
-                <th ><center><fmt:message key="label.action"/></center></th>
+                <th align="center">№№</th>
+                <th>&nbsp;</th>
+                <th align="center"><fmt:message key="label.routename"/></th>
+                <th align="center"><fmt:message key="label.busname"/></th>
+                <th align="center"><fmt:message key="label.drivername"/></th>
+                <th>&nbsp;</th>
+                <th align="center"><fmt:message key="label.action"/></th>
             </tr>
 
             <c:forEach var="tempRoute" items="${ROUTES_LIST}">
@@ -75,15 +75,12 @@
                         </div>
                     </td>
                 </tr>
-
             </c:forEach>
-
         </table>
         <br/>
         <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>
     </div>
 </form>
-
 
 <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <div class="footer" align="center">

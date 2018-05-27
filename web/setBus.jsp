@@ -45,15 +45,15 @@
         <br/>
         <table class="table-striped" width="70%">
             <tr>
-                <th width="10%" align="center">№№</th>
-                <th width="5%" align="center">&nbsp;</th>
-                <th width="15%" align="center"><fmt:message key="label.drivername"/></th>
-                <th width="15%" align="center"><fmt:message key="label.busname"/></th>
-                <th width="60%" align="center"><fmt:message key="label.routename"/></th>
+                <th align="center">№№</th>
+                <th align="center">&nbsp;</th>
+                <th align="center"><fmt:message key="label.drivername"/></th>
+                <th align="center"><fmt:message key="label.busname"/></th>
+                <th align="center"><fmt:message key="label.routename"/></th>
             </tr>
-            <c:forEach var="tempBus" items="${FREEBUSES_LIST}">
+            <c:forEach var="tempBus" items="${BUSES_LIST}">
                 <tr>
-                    <td align="center"> ${tempBus.busID} </td>
+                    <td> ${tempBus.busID} </td>
                     <td>&nbsp;</td>
                     <td> ${tempBus.driverName} </td>
                     <td> ${tempBus.busName} </td>
@@ -65,14 +65,13 @@
                                 <c:param name="command" value="SETBUS"/>
                             </c:url>
                             <c:choose>
-                                <c:when test="${tempDriver.busID==tempBus.busID}">
-                                    <option value="${setLink}" selected> ${tempBus.busName} </option>
+                                <c:when test="${tempRoute.busID==tempBus.busID}">
+                                    <option value="${setLink}" selected> ${tempRoute.routeName} </option>
                                 </c:when>
                                 <c:otherwise>
                                     <option value="${setLink}"> ${tempRoute.routeName} </option>
                                 </c:otherwise>
                             </c:choose>
-
                         </c:forEach>
                     </select></td>
                 </tr>

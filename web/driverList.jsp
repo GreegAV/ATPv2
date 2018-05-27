@@ -45,21 +45,17 @@
                 <th >&nbsp;</th>
                 <th ><center><fmt:message key="label.action"/></center></th>
             </tr>
-
             <c:forEach var="tempDriver" items="${DRIVER_LIST}">
-
                 <c:url var="deleteLink" value="MainServlet">
                     <c:param name="command" value="DELETEDRIVER"/>
                     <c:param name="driverID" value="${tempDriver.userID}"/>
                     <c:param name="theLocale" value="${theLocale}"/>
                 </c:url>
-
                 <c:url var="freeLink" value="MainServlet">
                     <c:param name="command" value="FREEDRIVER"/>
                     <c:param name="driverID" value="${tempDriver.userID}"/>
                     <c:param name="theLocale" value="${theLocale}"/>
                 </c:url>
-
                 <tr>
                     <td align="center"> ${tempDriver.userID} </td>
                     <td>&nbsp;</td>
@@ -76,15 +72,12 @@
                         </div>
                     </td>
                 </tr>
-
             </c:forEach>
-
         </table>
         <br/>
         <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>
     </div>
 </form>
-
 
 <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <div class="footer" align="center">

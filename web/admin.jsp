@@ -60,18 +60,22 @@
                 <td width="70%" class="centertable">
                     <table class="table-striped" align="center" width="90%" border="1">
                         <tr>
-                            <th width="20%">
+                            <th>
+                                <center>№№</center>
+                            </th>
+                            <th>
                                 <center><fmt:message key="label.busname"/></center>
                             </th>
-                            <th width="20%">
+                            <th>
                                 <center><fmt:message key="label.drivername"/></center>
                             </th>
-                            <th width="60%">
+                            <th>
                                 <center><fmt:message key="label.routename"/></center>
                             </th>
                         </tr>
-                        <c:forEach var="tempBus" items="${BUSES_LIST}">
+                        <c:forEach var="tempBus" items="${FULLBUSES_LIST}">
                             <tr>
+                                <td>&nbsp; ${tempBus.busID} </td>
                                 <td>&nbsp; ${tempBus.busName} </td>
                                 <td>&nbsp; ${tempBus.driverName} </td>
                                 <td>&nbsp; ${tempBus.routeName} </td>

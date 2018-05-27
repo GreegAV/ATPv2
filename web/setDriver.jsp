@@ -37,11 +37,11 @@
         <br/>
         <table class="table-striped" width="70%">
             <tr>
-                <th width="10%" align="center">№№</th>
-                <th width="5%" align="center">&nbsp;</th>
-                <th width="60%" align="center"><fmt:message key="label.routename"/></th>
-                <th width="15%" align="center"><fmt:message key="label.drivername"/></th>
-                <th width="15%" align="center"><fmt:message key="label.busname"/></th>
+                <th align="center">№№</th>
+                <th align="center">&nbsp;</th>
+                <th align="center"><fmt:message key="label.routename"/></th>
+                <th align="center"><fmt:message key="label.drivername"/></th>
+                <th align="center"><fmt:message key="label.busname"/></th>
             </tr>
             <c:forEach var="tempDriver" items="${DRIVER_LIST}">
                 <tr>
@@ -64,7 +64,6 @@
                                     <option value="${setLink}"> ${tempBus.busName} </option>
                                 </c:otherwise>
                             </c:choose>
-                            <%--<option value="${setLink}"> ${tempBus.busName} </option>--%>
                         </c:forEach>
                     </select></td>
                 </tr>

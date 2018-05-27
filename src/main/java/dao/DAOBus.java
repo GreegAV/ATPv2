@@ -25,7 +25,7 @@ public class DAOBus {
             while (myRs.next()) {
                 int busID = myRs.getInt("busID");
                 String busName = myRs.getString("busName");
-//                if (busID != 0)
+                if (busID != 0)
                 buses.add(new Bus(busID, busName));
             }
         } catch (Exception e) {
@@ -35,18 +35,18 @@ public class DAOBus {
         return buses;
     }
 
-    private static List<Bus> getFreeBuses() {
-        List<Bus> freeBuses = new ArrayList<>();
-        List<Bus> buses = getBuses();
-
-        for (Bus tempBus : buses) {
-            if (tempBus.getRouteID() == 0)
-                freeBuses.add(tempBus);
-        }
-
-        logInfo("List of free buses received. Total freebuses: " + freeBuses.size());
-        return freeBuses;
-    }
+//    private static List<Bus> getFullBuses() {
+//        List<Bus> freeBuses = new ArrayList<>();
+//        List<Bus> buses = getBuses();
+//
+//        for (Bus tempBus : buses) {
+//            if (tempBus.getRouteID() == 0)
+//                freeBuses.add(tempBus);
+//        }
+//
+//        logInfo("List of free buses received. Total freebuses: " + freeBuses.size());
+//        return freeBuses;
+//    }
 
     public static String getBusNameByID(int busID) {
         String busName = "-1";
@@ -67,6 +67,7 @@ public class DAOBus {
     }
 
     public static String addBus(String busModel) {
+
         String sql = "insert into bus "
                 + "(busName) "
                 + "values (?)";
@@ -86,6 +87,8 @@ public class DAOBus {
     }
 
     public static void deleteBus(int busID) {
+        DAODriver.setBusID(0, DAODriver.getDriverIDByBusID(busID));
+        DAORoute.setRouteID(0, DAORoute.getRouteIDByBusID(busID));
         String sql = "delete from bus where busid=?";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
@@ -100,12 +103,13 @@ public class DAOBus {
         }
     }
 
-    public static void prepareListFreeBuses(HttpServletRequest request, HttpServletResponse response) {
+    public static void prepareFullListBuses(HttpServletRequest request, HttpServletResponse response) {
         try {
-            List<Bus> freeBuses = DAOBus.getFreeBuses();
-            request.getServletContext().setAttribute("FREEBUSES_LIST", freeBuses);
+            List<Bus> fullBuses = DAOBus.getBuses();
+            fullBuses.add(0, new Bus(0,DAOBus.getBusNameByID(0)));
+            request.getServletContext().setAttribute("FULLBUSES_LIST", fullBuses);
         } catch (Exception e) {
-            logError("Failed go get buses list.", e);
+            logError("Failed go get full  buses list.", e);
         }
         logInfo("Bus list updated.");
     }

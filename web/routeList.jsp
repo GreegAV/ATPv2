@@ -35,25 +35,20 @@
         <br/>
         <h3><fmt:message key="label.removeroute"/></h3>
         <br/>
-        <table class="table-striped" width="70%">
-            <tr>
-                <th align="center">№№</th>
-                <th>&nbsp;</th>
-                <th align="center"><fmt:message key="label.routename"/></th>
-                <th align="center"><fmt:message key="label.busname"/></th>
-                <th align="center"><fmt:message key="label.drivername"/></th>
-                <th>&nbsp;</th>
-                <th align="center"><fmt:message key="label.action"/></th>
+        <table class="table-striped" width="70%" border="0">
+            <tr align="center">
+                <th>№№</th>
+                <th><fmt:message key="label.routename"/></th>
+                <th><fmt:message key="label.busname"/></th>
+                <th><fmt:message key="label.drivername"/></th>
+                <th><fmt:message key="label.action"/></th>
             </tr>
-
             <c:forEach var="tempRoute" items="${ROUTES_LIST}">
-
                 <c:url var="deleteLink" value="MainServlet">
                     <c:param name="command" value="DELETEROUTE"/>
                     <c:param name="routeID" value="${tempRoute.routeID}"/>
                     <c:param name="theLocale" value="${theLocale}"/>
                 </c:url>
-
                 <c:url var="freeLink" value="MainServlet">
                     <c:param name="command" value="FREEROUTE"/>
                     <c:param name="routeID" value="${tempRoute.routeID}"/>
@@ -61,11 +56,10 @@
                 </c:url>
                 <tr>
                     <td align="center"> ${tempRoute.routeID} </td>
-                    <td>&nbsp;</td>
-                    <td> ${tempRoute.routeName} </td>
-                    <td> ${tempRoute.busName} </td>
-                    <td> ${tempRoute.driverName} </td>
-                    <td>
+                    <td align="center"> ${tempRoute.routeName} </td>
+                    <td align="center"> ${tempRoute.busName} </td>
+                    <td align="center"> ${tempRoute.driverName} </td>
+                    <td align="center">
                         <div class="btn-block">
                             <a class="btn-danger" href="${deleteLink}">
                                 <fmt:message key="label.delete"/></a>

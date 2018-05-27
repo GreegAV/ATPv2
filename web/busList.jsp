@@ -36,14 +36,12 @@
         <h3><fmt:message key="label.removebus"/></h3>
         <br/>
         <table class="table-striped" width="70%" border="0">
-            <tr>
-                <th align="center">№№</th>
-                <th>&nbsp;</th>
-                <th align="center"><fmt:message key="label.busname"/></th>
-                <th align="center"><fmt:message key="label.drivername"/></th>
-                <th align="center"><fmt:message key="label.routename"/></th>
-                <th>&nbsp;</th>
-                <th align="center"><fmt:message key="label.action"/></th>
+            <tr align="center">
+                <th>№№</th>
+                <th><fmt:message key="label.busname"/></th>
+                <th><fmt:message key="label.drivername"/></th>
+                <th><fmt:message key="label.routename"/></th>
+                <th><fmt:message key="label.action"/></th>
             </tr>
             <c:forEach var="tempBus" items="${BUSES_LIST}">
                 <c:url var="deleteLink" value="MainServlet">
@@ -60,13 +58,11 @@
                 </c:url>
                 <tr>
                     <td align="center"> ${tempBus.busID} </td>
-                    <td align="center">&nbsp;</td>
                     <td align="center"> ${tempBus.busName} </td>
                     <td align="center"> ${tempBus.driverName} </td>
                     <td align="center"> ${tempBus.routeName} </td>
-                    <td align="center">&nbsp;</td>
                     <td align="center">
-                        <div class="btn-block">
+                        <div align="center" class="btn-block">
                             <a class="btn-danger" href="${deleteLink}">
                                 <fmt:message key="label.delete"/></a>
                             &nbsp;&nbsp;|&nbsp;&nbsp;

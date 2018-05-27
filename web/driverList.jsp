@@ -35,15 +35,13 @@
         <br/>
         <h3><fmt:message key="label.removedriver"/></h3>
         <br/>
-        <table class="table-striped" width="70%">
-            <tr>
-                <th><center>№№</center></th>
-                <th>&nbsp;</th>
-                <th><center><fmt:message key="label.drivername"/></center></th>
-                <th><center><fmt:message key="label.busname"/></center></th>
-                <th><center><fmt:message key="label.routename"/></center></th>
-                <th >&nbsp;</th>
-                <th ><center><fmt:message key="label.action"/></center></th>
+        <table class="table-striped" width="70%" border="0">
+            <tr align="center">
+                <th>№№</th>
+                <th><fmt:message key="label.drivername"/></th>
+                <th><fmt:message key="label.busname"/></th>
+                <th><fmt:message key="label.routename"/></th>
+                <th><fmt:message key="label.action"/></th>
             </tr>
             <c:forEach var="tempDriver" items="${DRIVER_LIST}">
                 <c:url var="deleteLink" value="MainServlet">
@@ -58,12 +56,11 @@
                 </c:url>
                 <tr>
                     <td align="center"> ${tempDriver.userID} </td>
-                    <td>&nbsp;</td>
-                    <td> ${tempDriver.driverName} </td>
-                    <td> ${tempDriver.busName} </td>
-                    <td> ${tempDriver.routeName} </td>
-                    <td>
-                        <div class="btn-block">
+                    <td align="center"> ${tempDriver.driverName} </td>
+                    <td align="center"> ${tempDriver.busName} </td>
+                    <td align="center"> ${tempDriver.routeName} </td>
+                    <td align="center">
+                        <div align="center" class="btn-block">
                             <a class="btn-danger" href="${deleteLink}">
                                 <fmt:message key="label.delete"/></a>
                             &nbsp;&nbsp;|&nbsp;&nbsp;

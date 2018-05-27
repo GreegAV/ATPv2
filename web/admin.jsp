@@ -7,7 +7,6 @@
 <fmt:setLocale value="${theLocale}"/>
 
 <fmt:setBundle basename="mylabels"/>
-
 <html>
 <head>
     <title>ATP - Admin page</title>
@@ -72,14 +71,44 @@
                             <th>
                                 <center><fmt:message key="label.routename"/></center>
                             </th>
+
                         </tr>
+                        А ЧТО ЕСЛИ СЮДА ВКОРЯЧИТЬ ДРАЙВЕРС_ЛИСТ?!
                         <c:forEach var="tempBus" items="${FULLBUSES_LIST}">
-                            <tr>
-                                <td>&nbsp; ${tempBus.busID} </td>
-                                <td>&nbsp; ${tempBus.busName} </td>
-                                <td>&nbsp; ${tempBus.driverName} </td>
-                                <td>&nbsp; ${tempBus.routeName} </td>
-                            </tr>
+                            //
+                            //  А ЧТО ЕСЛИ СЮДА ВКОРЯЧИТЬ ДРАЙВЕРС_ЛИСТ?!
+                            //
+                            <%--<c:forEach var="tempDriver" items="${DRIVER_LIST}">--%>
+                                <%--<c:if test="${tempBus.busID==tempDriver.busID}">--%>
+                                    <%--<c:if test="${tempDriver.confirmed!=0}">--%>
+                                        <%--<div class="bg-transparent">&nbsp; ${tempBus.driverName}&nbsp;</div></c:if>--%>
+                                    <%--<c:if test="${tempDriver.confirmed==0}">--%>
+                                        <%--<div class="bg-danger">&nbsp; ${tempDriver.driverName}&nbsp;</div>--%>
+                                    <%--</c:if>--%>
+                                <%--</c:if>--%>
+                                <%--<c:choose>--%>
+                                <%--<c:when test="${tempBus.busID==tempDriver.busID && tempDriver.confirmed==0}">--%>
+                                <%--<tr class="badge-danger">--%>
+                                    <%--<td>&nbsp; ${tempBus.busID} </td>--%>
+                                    <%--<td>&nbsp; ${tempBus.busName} </td>--%>
+                                    <%--<td>&nbsp; ${tempBus.driverName} </td>--%>
+                                    <%--<td>&nbsp; ${tempBus.routeName} </td>--%>
+                                <%--</tr>--%>
+                                <%--</c:when>--%>
+                                <%--<c:otherwise>--%>
+                                    <%--<c:if test="${tempBus.busID==tempDriver.busID}">--%>
+                                   <%----%>
+                                    <%--</c:if>--%>
+                                <%--</c:otherwise>--%>
+                                <%--</c:choose>--%>
+                                <tr>
+                                    <td>&nbsp; ${tempBus.busID} </td>
+                                    <td>&nbsp; ${tempBus.busName} </td>
+                                    <td>&nbsp; ${tempBus.driverName} </td>
+                                    <td>&nbsp; ${tempBus.routeName} </td>
+                                </tr>
+
+                            <%--</c:forEach>--%>
                         </c:forEach>
                     </table>
                 </td>

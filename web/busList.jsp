@@ -35,14 +35,15 @@
         <br/>
         <h3><fmt:message key="label.removebus"/></h3>
         <br/>
-        <table class="table-striped" width="70%">
+        <table class="table-striped" width="70%" border="0" >
             <tr>
-                <th width="5%" align="center">№№</th>
-                <th width="3%" align="center">&nbsp;</th>
-                <th width="15%" align="center"><fmt:message key="label.busname"/></th>
-                <th width="15%" align="center"><fmt:message key="label.drivername"/></th>
-                <th width="57%" align="center"><fmt:message key="label.routename"/></th>
-                <th width="5%" align="center">&nbsp;</th>
+                <th><center>№№</center></th>
+                <th >&nbsp;</th>
+                <th ><center><fmt:message key="label.busname"/></center></th>
+                <th ><center><fmt:message key="label.drivername"/></center></th>
+                <th ><center><fmt:message key="label.routename"/></center></th>
+                <th >&nbsp;</th>
+                <th ><center><fmt:message key="label.action"/></center></th>
             </tr>
 
             <c:forEach var="tempBus" items="${BUSES_LIST}">
@@ -54,15 +55,29 @@
                     <c:param name="theLocale" value="${theLocale}"/>
                 </c:url>
 
+                <c:url var="freeLink" value="MainServlet">
+                    <c:param name="command" value="FREEBUS"/>
+                    <c:param name="busID" value="${tempBus.busID}"/>
+                    <c:param name="driverID" value="${tempBus.driverID}"/>
+                    <c:param name="routeID" value="${tempBus.routeID}"/>
+                    <c:param name="theLocale" value="${theLocale}"/>
+                </c:url>
+
                 <tr>
                     <td align="center"> ${tempBus.busID} </td>
-                    <td>&nbsp;</td>
-                    <td> ${tempBus.busName} </td>
-                    <td> ${tempBus.driverName} </td>
-                    <td> ${tempBus.routeName} </td>
-                    <td>
-                        <a class="btn-danger btn-block" href="${deleteLink}">
-                            &nbsp;<fmt:message key="label.delete"/>&nbsp;</a>
+                    <td align="center">&nbsp;</td>
+                    <td align="center"> ${tempBus.busName} </td>
+                    <td align="center"> ${tempBus.driverName} </td>
+                    <td align="center"> ${tempBus.routeName} </td>
+                    <td align="center">&nbsp;</td>
+                    <td align="center">
+                        <div class="btn-block">
+                            <a class="btn-danger" href="${deleteLink}">
+                                <fmt:message key="label.delete"/></a>
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            <a class="btn-warning" href="${freeLink}">
+                            <fmt:message key="label.freebus"/></a>
+                        </div>
                     </td>
                 </tr>
 

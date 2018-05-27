@@ -118,15 +118,15 @@ public class DAORoute {
         logInfo("Route list updated.");
     }
 
-    public static String setRouteID(int searchedBusID, int searchedRouteID) {
+    public static String setRouteID(int busID, int routeID) {
         String sql = "update route set bus_busID=? where routeID=?";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              PreparedStatement myStmt = myConn.prepareStatement(sql)) {
-            logInfo("Received connection for setting new route for thebus.");
+            logInfo("Received connection for setting new route for the bus.");
 
-            myStmt.setInt(1, searchedBusID);
-            myStmt.setInt(2, searchedRouteID);
+            myStmt.setInt(1, busID);
+            myStmt.setInt(2, routeID);
             myStmt.execute();
 
         } catch (SQLException e) {

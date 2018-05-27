@@ -78,6 +78,10 @@ public class MainServlet extends HttpServlet {
                     setDriver(request, response);
                     break;
 
+                case "FREEBUS":
+                    freeBus(request, response);
+                    break;
+
                 default:
                     request.getRequestDispatcher("error.jsp").forward(request, response);
             }
@@ -88,8 +92,8 @@ public class MainServlet extends HttpServlet {
     }
 
     private void setDriver(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int busID=Integer.parseInt(request.getParameter("busID"));
-        int driverID=Integer.parseInt(request.getParameter("driverID"));
+        int busID = Integer.parseInt(request.getParameter("busID"));
+        int driverID = Integer.parseInt(request.getParameter("driverID"));
         String page = DAODriver.setBusID(busID, driverID);
         prepareListBuses(request, response);
         prepareListRoutes(request, response);
@@ -99,7 +103,7 @@ public class MainServlet extends HttpServlet {
         } catch (Exception e) {
             logError("Failed go set bus to the route.", e);
         }
-        logInfo("Bus "+busID+ "is set to the driver "+driverID);
+        logInfo("Bus " + busID + "is set to the driver " + driverID);
     }
 
     private void setBus(HttpServletRequest request, HttpServletResponse response) {
@@ -115,7 +119,7 @@ public class MainServlet extends HttpServlet {
         } catch (Exception e) {
             logError("Failed go set bus to the route.", e);
         }
-        logInfo("Route "+routeID+ "is set to the bus "+busID);
+        logInfo("Route " + routeID + "is set to the bus " + busID);
     }
 
     private void deleteBus(HttpServletRequest request, HttpServletResponse response) {
@@ -129,6 +133,24 @@ public class MainServlet extends HttpServlet {
             request.getRequestDispatcher("busList.jsp").forward(request, response);
         } catch (Exception e) {
             logError("Failed go delete driver from the list.", e);
+        }
+    }
+
+    private void freeBus(HttpServletRequest request, HttpServletResponse response) {
+
+        int busID = Integer.parseInt(request.getParameter("busID"));
+        int driverID = Integer.parseInt(request.getParameter("driverID"));
+        int routeID = Integer.parseInt(request.getParameter("routeID"));
+
+        DAODriver.setBusID(0,driverID);
+        DAORoute.setRouteID(0,routeID);
+
+        // renew buses list
+        prepareListBuses(request, response);
+        try {
+            request.getRequestDispatcher("busList.jsp").forward(request, response);
+        } catch (Exception e) {
+            logError("Failed to free bus.", e);
         }
     }
 

@@ -115,6 +115,26 @@ public class DAODriver {
         return drivers;
     }
 
+    private static List<Driver> getFreeDrivers() {
+        List<Driver> drivers = DAODriver.getDrivers();
+        List<Driver> freeDrivers = new ArrayList<>();
+        for (Driver tempDriver : drivers) {
+            if (tempDriver.getBusID() == 0)
+                freeDrivers.add(tempDriver);
+        }
+        logInfo("Free driverslist received. Total free drivers: " + freeDrivers.size());
+        return freeDrivers;
+    }
+
+    public static void prepareListFreeDrivers(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            List<Driver> drivers = DAODriver.getFreeDrivers();
+            request.getServletContext().setAttribute("FREEDRIVER_LIST", drivers);
+        } catch (Exception e) {
+            logError("Failed go get free drivers list. DAODriver.prepareListFreeDrivers", e);
+        }
+        logInfo("Drivers list updated.");
+    }
     public static void prepareListDrivers(HttpServletRequest request, HttpServletResponse response) {
         try {
             List<Driver> drivers = DAODriver.getDrivers();

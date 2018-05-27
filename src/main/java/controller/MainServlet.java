@@ -1,7 +1,6 @@
 package controller;
 
 import dao.*;
-import entities.*;
 import service.*;
 
 import javax.servlet.ServletException;
@@ -10,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.List;
 
+import static dao.DAOBus.prepareListFreeBuses;
 import static dao.DAODriver.prepareListDrivers;
 import static dao.DAOBus.prepareListBuses;
 import static dao.DAORoute.prepareListRoutes;
@@ -28,7 +26,7 @@ public class MainServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         try {
             // saving locale for the future
             String locale = request.getParameter("theLocale");
@@ -105,7 +103,7 @@ public class MainServlet extends HttpServlet {
         DAORoute.setRouteID(0,routeID);
 
         // renew routes list
-        prepareListRoutes(request, response);
+        renewLists(request, response);
         try {
             request.getRequestDispatcher("routeList.jsp").forward(request, response);
         } catch (Exception e) {
@@ -119,7 +117,7 @@ public class MainServlet extends HttpServlet {
         DAODriver.setBusID(0,driverID);
 
         // renew drivers list
-        prepareListDrivers(request, response);
+        renewLists(request, response);
         try {
             request.getRequestDispatcher("driverList.jsp").forward(request, response);
         } catch (Exception e) {
@@ -131,8 +129,7 @@ public class MainServlet extends HttpServlet {
         int busID = Integer.parseInt(request.getParameter("busID"));
         int driverID = Integer.parseInt(request.getParameter("driverID"));
         String page = DAODriver.setBusID(busID, driverID);
-        prepareListBuses(request, response);
-        prepareListRoutes(request, response);
+        renewLists(request, response);
 
         try {
             request.getRequestDispatcher(page).forward(request, response);
@@ -147,8 +144,7 @@ public class MainServlet extends HttpServlet {
         int routeID = Integer.parseInt(request.getParameter("routeID"));
 
         String page = DAORoute.setRouteID(busID, routeID);
-        prepareListBuses(request, response);
-        prepareListRoutes(request, response);
+        renewLists(request, response);
 
         try {
             request.getRequestDispatcher(page).forward(request, response);
@@ -164,7 +160,7 @@ public class MainServlet extends HttpServlet {
         DAOBus.deleteBus(busID);
 
         // renew buses list
-        prepareListBuses(request, response);
+        renewLists(request, response);
         try {
             request.getRequestDispatcher("busList.jsp").forward(request, response);
         } catch (Exception e) {
@@ -181,7 +177,7 @@ public class MainServlet extends HttpServlet {
         DAORoute.setRouteID(0,routeID);
 
         // renew buses list
-        prepareListBuses(request, response);
+        renewLists(request, response);
         try {
             request.getRequestDispatcher("busList.jsp").forward(request, response);
         } catch (Exception e) {
@@ -195,7 +191,7 @@ public class MainServlet extends HttpServlet {
         DAODriver.deleteDriver(driverID);
 
         // renew drivers list
-        prepareListDrivers(request, response);
+        renewLists(request, response);
         try {
             request.getRequestDispatcher("driverList.jsp").forward(request, response);
         } catch (Exception e) {
@@ -208,7 +204,7 @@ public class MainServlet extends HttpServlet {
         DAORoute.deleteRoute(routeID);
 
         // renew routes list
-        prepareListRoutes(request, response);
+        renewLists(request, response);
         try {
             request.getRequestDispatcher("routeList.jsp").forward(request, response);
         } catch (Exception e) {
@@ -220,8 +216,8 @@ public class MainServlet extends HttpServlet {
         String busModel = request.getParameter("busModel");
         String page = DAOBus.addBus(busModel);
 
-        // renew buses list
-        prepareListBuses(request, response);
+        // renew list
+        renewLists(request, response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (Exception e) {
@@ -234,7 +230,7 @@ public class MainServlet extends HttpServlet {
         String driverPassword = request.getParameter("driverPassword");
         String page = DAODriver.addDriver(driverName, driverPassword);
         //renew drivers list
-        prepareListDrivers(request, response);
+        renewLists(request, response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (Exception e) {
@@ -246,7 +242,7 @@ public class MainServlet extends HttpServlet {
         String routeStart = request.getParameter("routeStart");
         String routeFinish = request.getParameter("routeFinish");
         String page = DAORoute.addRoute(routeStart + " - " + routeFinish);
-        prepareListRoutes(request, response);
+        renewLists(request, response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (Exception e) {
@@ -262,14 +258,19 @@ public class MainServlet extends HttpServlet {
 
         String page = userUtil.getUserPage(loginName, loginPassword);
         if (!page.equalsIgnoreCase("userNotFound.jsp")) {
-            prepareListDrivers(request, response);
-            prepareListBuses(request, response);
-            prepareListRoutes(request, response);
+            renewLists(request, response);
         }
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (Exception e) {
             logError("Failed to login.", e);
         }
+    }
+
+    private void renewLists(HttpServletRequest request, HttpServletResponse response) {
+        prepareListDrivers(request, response);
+        prepareListBuses(request, response);
+        prepareListFreeBuses(request, response);
+        prepareListRoutes(request, response);
     }
 }

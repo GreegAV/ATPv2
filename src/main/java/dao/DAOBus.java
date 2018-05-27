@@ -41,7 +41,7 @@ public class DAOBus {
 
         for (Bus tempBus : buses) {
             if (tempBus.getRouteID() == 0)
-                buses.add(tempBus);
+                freeBuses.add(tempBus);
         }
 
         logInfo("List of free buses received. Total freebuses: " + freeBuses.size());
@@ -98,6 +98,16 @@ public class DAOBus {
         } catch (SQLException e) {
             logError("Failed to delete bus.", e);
         }
+    }
+
+    public static void prepareListFreeBuses(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            List<Bus> freeBuses = DAOBus.getFreeBuses();
+            request.getServletContext().setAttribute("FREEBUSES_LIST", freeBuses);
+        } catch (Exception e) {
+            logError("Failed go get buses list.", e);
+        }
+        logInfo("Bus list updated.");
     }
 
     public static void prepareListBuses(HttpServletRequest request, HttpServletResponse response) {

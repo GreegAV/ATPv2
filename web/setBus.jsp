@@ -51,7 +51,7 @@
                 <th width="15%" align="center"><fmt:message key="label.busname"/></th>
                 <th width="60%" align="center"><fmt:message key="label.routename"/></th>
             </tr>
-            <c:forEach var="tempBus" items="${BUSES_LIST}">
+            <c:forEach var="tempBus" items="${FREEBUSES_LIST}">
                 <tr>
                     <td align="center"> ${tempBus.busID} </td>
                     <td>&nbsp;</td>

@@ -111,7 +111,7 @@ public class DAOBus {
         } catch (Exception e) {
             logError("Failed go get full  buses list.", e);
         }
-        logInfo("Bus list updated.");
+        logInfo("Full bus list updated.");
     }
 
     public static void prepareListBuses(HttpServletRequest request, HttpServletResponse response) {

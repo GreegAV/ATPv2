@@ -115,6 +115,26 @@ public class DAODriver {
         return drivers;
     }
 
+    private static Driver getDriver(int driverID) {
+        String sql = "select * from driver where userID=" + driverID;
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             Statement myStmt = myConn.createStatement();
+             ResultSet myRs = myStmt.executeQuery(sql)) {
+            logInfo("Received connection for getting one driver by driverID.");
+
+            while (myRs.next()) {
+                String driverName = myRs.getString("driverName");
+                String driverPassword = myRs.getString("driverPassword");
+                int driverBusID = myRs.getInt("bus_busID");
+                int driverConfirmed = myRs.getInt("confirmed");
+                return new Driver(driverID, driverName, driverPassword, driverBusID, driverConfirmed);
+            }
+        } catch (Exception e) {
+            logError("Failed to get drivers list. DAODriver.getDrivers().", e);
+        }
+        return null;
+    }
+
     private static List<Driver> getFreeDrivers() {
         List<Driver> drivers = DAODriver.getDrivers();
         List<Driver> freeDrivers = new ArrayList<>();
@@ -135,6 +155,7 @@ public class DAODriver {
         }
         logInfo("Drivers list updated.");
     }
+
     public static void prepareListDrivers(HttpServletRequest request, HttpServletResponse response) {
         try {
             List<Driver> drivers = DAODriver.getDrivers();
@@ -144,6 +165,19 @@ public class DAODriver {
 
         } catch (Exception e) {
             logError("Failed go get drivers list. DAODriver.prepareListDrivers", e);
+        }
+        logInfo("Drivers list updated.");
+    }
+
+    public static void prepareFullListDrivers(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            List<Driver> drivers = DAODriver.getDrivers();
+            drivers.add(0, DAODriver.getDriver(0));
+            // add list to the request
+            request.getServletContext().setAttribute("FULLDRIVER_LIST", drivers);
+
+        } catch (Exception e) {
+            logError("Failed go get drivers list. DAODriver.prepareFullListDrivers", e);
         }
         logInfo("Drivers list updated.");
     }

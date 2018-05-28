@@ -23,7 +23,7 @@
         .centertable {
             vertical-align: top;
             horiz-align: center;
-            text-align: center;
+            /*text-align: center;*/
         }
     </style>
     <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
@@ -39,116 +39,99 @@
     <br/>
     <h1><fmt:message key="label.welcome"/></h1>
     <br/>
-    <div align="center">
-        <table width="85%" border="0">
-            <tr>
-                <td width="15%">
-                    <input class="btn btn-outline-success btn-block" type="button"
-                           value="<fmt:message key="label.addnewdriver"/>"
-                           onclick="window.location.href='addNewDriver.jsp?theLocale=${theLocale}'; return false;"/>
-                    <br/><br/><br/>
-                    <input class="btn btn-outline-success btn-block" type="button"
-                           value="<fmt:message key="label.addnewbus"/>"
-                           onclick="window.location.href='addNewBus.jsp?theLocale=${theLocale}' ; return false;"/>
-                    <br/><br/><br/>
-                    <input class="btn btn-outline-success btn-block" type="button"
-                           value="<fmt:message key="label.addnewroute"/>"
-                           onclick="window.location.href='addNewRoute.jsp?theLocale=${theLocale}' ; return false;"/>
-                </td>
+    <table width="85%" border="0">
+        <tr>
+            <td width="15%">
+                <input class="btn btn-outline-success btn-block" type="button"
+                       value="<fmt:message key="label.addnewdriver"/>"
+                       onclick="window.location.href='addNewDriver.jsp?theLocale=${theLocale}'; return false;"/>
+                <br/><br/><br/>
+                <input class="btn btn-outline-success btn-block" type="button"
+                       value="<fmt:message key="label.addnewbus"/>"
+                       onclick="window.location.href='addNewBus.jsp?theLocale=${theLocale}' ; return false;"/>
+                <br/><br/><br/>
+                <input class="btn btn-outline-success btn-block" type="button"
+                       value="<fmt:message key="label.addnewroute"/>"
+                       onclick="window.location.href='addNewRoute.jsp?theLocale=${theLocale}' ; return false;"/>
+            </td>
 
-                <td width="70%" class="centertable">
-                    <table class="table-striped" align="center" width="90%" border="1">
+            <td width="70%" class="centertable">
+                <table class="table-striped" align="center" width="95%" border="1">
+                    <tr>
+                        <th width="10%">
+                            <div align="center">№№</div>
+                        </th>
+                        <th width="20%">
+                            <div align="center"><fmt:message key="label.busname"/></div>
+                        </th>
+                        <th width="20%">
+                            <div align="center"><fmt:message key="label.drivername"/></div>
+                        </th>
+                        <th width="50%">
+                            <div align="center"><fmt:message key="label.routename"/></div>
+                        </th>
+                    </tr>
+                    <%--А ЧТО ЕСЛИ СЮДА ВКОРЯЧИТЬ ДРАЙВЕРС_ЛИСТ?!--%>
+                    <c:forEach var="tempDriver" items="${FULLDRIVER_LIST}">
                         <tr>
-                            <th>
-                                <center>№№</center>
-                            </th>
-                            <th>
-                                <center><fmt:message key="label.busname"/></center>
-                            </th>
-                            <th>
-                                <center><fmt:message key="label.drivername"/></center>
-                            </th>
-                            <th>
-                                <center><fmt:message key="label.routename"/></center>
-                            </th>
+                            <td>
+                                <div align="center"> ${tempDriver.busID}</div>
+                            </td>
+                            <td>&nbsp; ${tempDriver.busName} </td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${tempDriver.confirmed==0}">
+                                        <div class="bg-danger">&nbsp;${tempDriver.driverName}</div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        &nbsp;${tempDriver.driverName}
+                                    </c:otherwise>
+                                </c:choose>
 
+                            </td>
+                            <td>&nbsp; ${tempDriver.routeName} </td>
                         </tr>
-                        А ЧТО ЕСЛИ СЮДА ВКОРЯЧИТЬ ДРАЙВЕРС_ЛИСТ?!
-                        <c:forEach var="tempBus" items="${FULLBUSES_LIST}">
-                            //
-                            //  А ЧТО ЕСЛИ СЮДА ВКОРЯЧИТЬ ДРАЙВЕРС_ЛИСТ?!
-                            //
-                            <%--<c:forEach var="tempDriver" items="${DRIVER_LIST}">--%>
-                                <%--<c:if test="${tempBus.busID==tempDriver.busID}">--%>
-                                    <%--<c:if test="${tempDriver.confirmed!=0}">--%>
-                                        <%--<div class="bg-transparent">&nbsp; ${tempBus.driverName}&nbsp;</div></c:if>--%>
-                                    <%--<c:if test="${tempDriver.confirmed==0}">--%>
-                                        <%--<div class="bg-danger">&nbsp; ${tempDriver.driverName}&nbsp;</div>--%>
-                                    <%--</c:if>--%>
-                                <%--</c:if>--%>
-                                <%--<c:choose>--%>
-                                <%--<c:when test="${tempBus.busID==tempDriver.busID && tempDriver.confirmed==0}">--%>
-                                <%--<tr class="badge-danger">--%>
-                                    <%--<td>&nbsp; ${tempBus.busID} </td>--%>
-                                    <%--<td>&nbsp; ${tempBus.busName} </td>--%>
-                                    <%--<td>&nbsp; ${tempBus.driverName} </td>--%>
-                                    <%--<td>&nbsp; ${tempBus.routeName} </td>--%>
-                                <%--</tr>--%>
-                                <%--</c:when>--%>
-                                <%--<c:otherwise>--%>
-                                    <%--<c:if test="${tempBus.busID==tempDriver.busID}">--%>
-                                   <%----%>
-                                    <%--</c:if>--%>
-                                <%--</c:otherwise>--%>
-                                <%--</c:choose>--%>
-                                <tr>
-                                    <td>&nbsp; ${tempBus.busID} </td>
-                                    <td>&nbsp; ${tempBus.busName} </td>
-                                    <td>&nbsp; ${tempBus.driverName} </td>
-                                    <td>&nbsp; ${tempBus.routeName} </td>
-                                </tr>
 
-                            <%--</c:forEach>--%>
-                        </c:forEach>
-                    </table>
-                </td>
+                        <%--</c:forEach>--%>
+                    </c:forEach>
+                </table>
+            </td>
 
-                <td width="15%">
-                    <input class="btn btn-outline-danger btn-block" type="button"
-                           value="<fmt:message key="label.removedriver"/>"
-                           onclick="window.location.href='driverList.jsp?theLocale=${theLocale}'; return false;"/>
-                    <br/><br/><br/>
-                    <input class="btn btn-outline-danger btn-block" type="button"
-                           value="<fmt:message key="label.removebus"/>"
-                           onclick="window.location.href='busList.jsp?theLocale=${theLocale}' ; return false;"/>
-                    <br/><br/><br/>
-                    <input class="btn btn-outline-danger btn-block" type="button"
-                           value="<fmt:message key="label.removeroute"/>"
-                           onclick="window.location.href='routeList.jsp?theLocale=${theLocale}' ; return false;"/>
-                </td>
-            </tr>
-        </table>
+            <td width="15%">
+                <input class="btn btn-outline-danger btn-block" type="button"
+                       value="<fmt:message key="label.removedriver"/>"
+                       onclick="window.location.href='driverList.jsp?theLocale=${theLocale}'; return false;"/>
+                <br/><br/><br/>
+                <input class="btn btn-outline-danger btn-block" type="button"
+                       value="<fmt:message key="label.removebus"/>"
+                       onclick="window.location.href='busList.jsp?theLocale=${theLocale}' ; return false;"/>
+                <br/><br/><br/>
+                <input class="btn btn-outline-danger btn-block" type="button"
+                       value="<fmt:message key="label.removeroute"/>"
+                       onclick="window.location.href='routeList.jsp?theLocale=${theLocale}' ; return false;"/>
+            </td>
+        </tr>
+    </table>
 
-        <br/>
-        <table width="85%" border="0">
-            <tr>
-                <td width="10%">&nbsp;</td>
-                <td width="35%">
-                    <input class="btn btn-outline-info btn-block" type="button"
-                           value="<fmt:message key="label.setbus"/>"
-                           onclick="window.location.href='setBus.jsp?theLocale=${theLocale}' ; return false;"/>
-                </td>
-                <td width="10%">&nbsp;</td>
-                <td width="35%">
-                    <input class="btn btn-outline-info btn-block" type="button"
-                           value="<fmt:message key="label.setdriver"/>"
-                           onclick="window.location.href='setDriver.jsp?theLocale=${theLocale}' ; return false;"/>
-                </td>
-                <td width="10%">&nbsp;</td>
-            </tr>
-        </table>
+    <br/>
+    <table width="85%" border="0">
+        <tr>
+            <td width="10%">&nbsp;</td>
+            <td width="35%">
+                <input class="btn btn-outline-info btn-block" type="button"
+                       value="<fmt:message key="label.setbus"/>"
+                       onclick="window.location.href='setBus.jsp?theLocale=${theLocale}' ; return false;"/>
+            </td>
+            <td width="10%">&nbsp;</td>
+            <td width="35%">
+                <input class="btn btn-outline-info btn-block" type="button"
+                       value="<fmt:message key="label.setdriver"/>"
+                       onclick="window.location.href='setDriver.jsp?theLocale=${theLocale}' ; return false;"/>
+            </td>
+            <td width="10%">&nbsp;</td>
+        </tr>
+    </table>
 
-    </div>
 </div>
 
 <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>

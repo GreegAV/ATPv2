@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static dao.DAOBus.prepareFullListBuses;
+import static dao.DAODriver.prepareFullListDrivers;
 import static dao.DAODriver.prepareListDrivers;
 import static dao.DAOBus.prepareListBuses;
 import static dao.DAORoute.prepareListRoutes;
@@ -269,6 +270,7 @@ public class MainServlet extends HttpServlet {
 
     private void renewLists(HttpServletRequest request, HttpServletResponse response) {
         prepareListDrivers(request, response);
+        prepareFullListDrivers(request, response);
         prepareListBuses(request, response);
         prepareFullListBuses(request, response);
         prepareListRoutes(request, response);

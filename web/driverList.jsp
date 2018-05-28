@@ -56,7 +56,14 @@
                 </c:url>
                 <tr>
                     <td align="center"> ${tempDriver.userID} </td>
-                    <td align="center"> ${tempDriver.driverName} </td>
+                    <td align="center"><c:choose>
+                        <c:when test="${tempDriver.confirmed==0}">
+                            <div class="bg-danger">&nbsp;${tempDriver.driverName}</div>
+                        </c:when>
+                        <c:otherwise>
+                            &nbsp;${tempDriver.driverName}
+                        </c:otherwise>
+                    </c:choose> </td>
                     <td align="center"> ${tempDriver.busName} </td>
                     <td align="center"> ${tempDriver.routeName} </td>
                     <td align="center">

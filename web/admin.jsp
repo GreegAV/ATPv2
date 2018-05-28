@@ -71,7 +71,6 @@
                             <div align="center"><fmt:message key="label.routename"/></div>
                         </th>
                     </tr>
-                    <%--А ЧТО ЕСЛИ СЮДА ВКОРЯЧИТЬ ДРАЙВЕРС_ЛИСТ?!--%>
                     <c:forEach var="tempDriver" items="${FULLDRIVER_LIST}">
                         <tr>
                             <td>
@@ -87,12 +86,9 @@
                                         &nbsp;${tempDriver.driverName}
                                     </c:otherwise>
                                 </c:choose>
-
                             </td>
                             <td>&nbsp; ${tempDriver.routeName} </td>
                         </tr>
-
-                        <%--</c:forEach>--%>
                     </c:forEach>
                 </table>
             </td>

@@ -8,11 +8,14 @@ import java.sql.Statement;
 import dao.ConnectionPool;
 import entities.Driver;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import static service.ErrorLog.logError;
 
 public class UserUtil {
 
-    public Driver checkUserInDB(String loginName, String loginPassword) {
+    private static Driver checkUserInDB(String loginName, String loginPassword) {
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
@@ -36,17 +39,21 @@ public class UserUtil {
     }
 
     public static String getDriverPassword(String driverPassword) {
+        // Страшная модификация полученного из базы значения и получение из него пароля пользователя.
         return driverPassword;
     }
 
-    private boolean checkUserPass(String loginPassword, String driverPass) {
+    private static boolean checkUserPass(String loginPassword, String driverPass) {
         // страшная проверка валидности пароля.
         return loginPassword.equals(driverPass);
     }
 
-    public String getUserPage(String loginName, String loginPassword) {
+    public static String getUserPage(HttpServletRequest request, HttpServletResponse response) {
+        String loginName = request.getParameter("nameInput");
+        String loginPassword = request.getParameter("passInput");
         Driver driver = checkUserInDB(loginName, loginPassword);
         if (driver != null) {
+            request.getServletContext().setAttribute("LOGGED_USER", driver);
             if (isUserAdmin(driver)) {
                 return "admin.jsp";
             }
@@ -55,7 +62,7 @@ public class UserUtil {
         return "userNotFound.jsp";
     }
 
-    private boolean isUserAdmin(Driver driver) {
+    private static boolean isUserAdmin(Driver driver) {
         return driver.getUserID() == 0;
     }
 }

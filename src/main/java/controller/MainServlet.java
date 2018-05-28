@@ -252,12 +252,10 @@ public class MainServlet extends HttpServlet {
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) {
-        UserUtil userUtil = new UserUtil();
 
-        String loginName = request.getParameter("nameInput");
-        String loginPassword = request.getParameter("passInput");
 
-        String page = userUtil.getUserPage(loginName, loginPassword);
+
+        String page = UserUtil.getUserPage(request, response);
         if (!page.equalsIgnoreCase("userNotFound.jsp")) {
             renewLists(request, response);
         }

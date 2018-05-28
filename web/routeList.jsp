@@ -77,8 +77,11 @@
 </form>
 
 <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<div class="footer" align="center">
-    <font size="-1"> &copy; GreegAV 2018</font>
+<div class="footer" align="right">
+    <input class="btn btn-secondary" type="button"
+           value="<fmt:message key="label.logout"/>"
+           onclick="window.location.href='MainServlet?command=LOGOUT' ; return false;"/>&nbsp;&nbsp;&nbsp;
+    <div align="center"><font size="-1"> &copy; GreegAV 2018</font></div>
 </div>
 
 </body>

@@ -26,7 +26,7 @@
 
 <body>
 <form method="get" action="MainServlet">
-<jsp:include page="locale.jsp"/>
+    <jsp:include page="locale.jsp"/>
     <div align="center">
 
         <table align="center" width="25%" border="0">
@@ -47,10 +47,13 @@
                 </td>
             </tr>
         </table>
+    </div>
 </form>
-</div>
-<div class="footer" align="center">
-    <font size="-1"> &copy; GreegAV 2018</font>
+<div class="footer" align="right">
+    <input class="btn btn-secondary" type="button"
+           value="<fmt:message key="label.logout"/>"
+           onclick="window.location.href='MainServlet?command=LOGOUT' ; return false;"/>&nbsp;&nbsp;&nbsp;
+    <div align="center"><font size="-1"> &copy; GreegAV 2018</font></div>
 </div>
 <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
 <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>

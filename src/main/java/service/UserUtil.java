@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static service.ErrorLog.logError;
+import static service.ErrorLog.logInfo;
 
 public class UserUtil {
 
@@ -54,15 +55,20 @@ public class UserUtil {
         Driver driver = checkUserInDB(loginName, loginPassword);
         if (driver != null) {
             request.getServletContext().setAttribute("LOGGED_USER", driver);
-//            if (isUserAdmin(driver)) {
                 return (isUserAdmin(driver))?"admin.jsp":"user.jsp";
-//            }
-//            return "user.jsp";
         }
         return "userNotFound.jsp";
     }
 
+
     private static boolean isUserAdmin(Driver driver) {
         return driver.getUserID() == 0;
+    }
+
+    public static String logout(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().invalidate();
+        request.getSession(false);
+        logInfo("Logout passed!!!");
+        return "index.jsp";
     }
 }

@@ -57,6 +57,10 @@ public class MainServlet extends HttpServlet {
                     login(request, response);
                     break;
 
+                case "LOGOUT":
+                    logout(request, response);
+                    break;
+
                 case "ADDBUS":
                     addBus(request, response);
                     break;
@@ -102,10 +106,19 @@ public class MainServlet extends HttpServlet {
         }
     }
 
+    private void logout(HttpServletRequest request, HttpServletResponse response) {
+        String page = UserUtil.logout(request, response);
+        try {
+            request.getRequestDispatcher(page).forward(request, response);
+        } catch (Exception e) {
+            logError("Failed to logout.", e);
+        }
+    }
+
     private void confirmRoute(HttpServletRequest request, HttpServletResponse response) {
-        int driverID=Integer.parseInt(request.getParameter("driverID"));
-        String page=DAODriver.setConfirmed(driverID);
-        renewLists(request,response);
+        int driverID = Integer.parseInt(request.getParameter("driverID"));
+        String page = DAODriver.setConfirmed(driverID);
+        renewLists(request, response);
         try {
             request.getRequestDispatcher(page).forward(request, response);
         } catch (Exception e) {
@@ -141,7 +154,7 @@ public class MainServlet extends HttpServlet {
         }
     }
 
-    private void setDriver(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void setDriver(HttpServletRequest request, HttpServletResponse response)  {
         int busID = Integer.parseInt(request.getParameter("busID"));
         int driverID = Integer.parseInt(request.getParameter("driverID"));
         String page = DAODriver.setBusID(busID, driverID);
@@ -267,7 +280,6 @@ public class MainServlet extends HttpServlet {
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) {
-
 
         String page = UserUtil.getUserPage(request, response);
         if (!page.equalsIgnoreCase("userNotFound.jsp")) {

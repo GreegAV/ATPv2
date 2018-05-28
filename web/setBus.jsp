@@ -21,11 +21,6 @@
             background-color: #f5f5f5;
         }
 
-        .centertable {
-            vertical-align: top;
-            horiz-align: center;
-            text-align: center;
-        }
     </style>
     <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
 </head>
@@ -81,10 +76,13 @@
         <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>
     </div>
 
-
+</form>
     <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <div class="footer" align="center">
-        <font size="-1"> &copy; GreegAV 2018</font>
+    <div class="footer" align="right">
+        <input class="btn btn-secondary" type="button"
+               value="<fmt:message key="label.logout"/>"
+               onclick="window.location.href='MainServlet?command=LOGOUT' ; return false;"/>&nbsp;&nbsp;&nbsp;
+        <div align="center"><font size="-1"> &copy; GreegAV 2018</font></div>
     </div>
 
 </body>

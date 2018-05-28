@@ -19,18 +19,12 @@
 <div align="center">
     <br /> <br /> <br />
     <img src="img\error.png"><br />
-    <%--Что-то пошло не так.<br />--%>
-    <%--Попробуйте еще раз.<br /><br />--%>
-   <%--<font size="+1"> На этот раз внимательно :)</font>--%>
-    <%--<br /><br /><br />--%>
-    <%--<a href="index.jsp">--%>
-        <%--<input  method="post" onclick="history.back(); return false;" type="button" value="<fmt:message key="label.stepback"/>"  >--%>
-            <a onclick="javascript:history.back(); return false;"><img src="img\back.png"></a>
-    <%--</a>--%>
-    <div class="footer" align="center">
-        <br/>
-        <br/>
-        <font size="-1"> &copy; GreegAV 2018</font>
+            <a onclick="history.back(); return false;"><img src="img\back.png"></a>
+    <div class="footer" align="right">
+        <input class="btn btn-secondary" type="button"
+               value="<fmt:message key="label.logout"/>"
+               onclick="window.location.href='MainServlet?command=LOGOUT' ; return false;"/>&nbsp;&nbsp;&nbsp;
+        <div align="center"><font size="-1"> &copy; GreegAV 2018</font></div>
     </div>
 </div>
 

@@ -20,6 +20,10 @@
             height: 60px;
             background-color: #f5f5f5;
         }
+
+        .inline {
+            display: inline-block;
+        }
     </style>
     <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
 </head>
@@ -27,9 +31,9 @@
 <body>
 <form method="get" action="MainServlet">
     <div align=right>
-        <a href="user.jsp?theLocale=en_US"><img src="img\us.png"></a>&nbsp;&nbsp;
-        <a href="user.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
-        <a href="user.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
+        <a href="userConfirmed.jsp?theLocale=en_US"><img src="img\us.png"></a>&nbsp;&nbsp;
+        <a href="userConfirmed.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
+        <a href="userConfirmed.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
     </div>
     <div align="center">
         <c:set var="loggedUser" value="${LOGGED_USER}" scope="session"/>
@@ -66,18 +70,7 @@
         </table>
         <br/>
 
-        <c:choose>
-            <c:when test="${loggedUser.confirmed==0}">
-                <input name="command" value="CONFIRM" type="hidden">
-                <input name="theLocale" value="${theLocale}" type="hidden">
-                <input name="driverID" value="${loggedUser.userID}" type="hidden">
-                <input type="submit" class="btn btn-info" value="<fmt:message key="label.confirm"/>"
-                       onclick="location.reload(true)">
-            </c:when>
-            <c:otherwise>
-                <div class="btn btn-success"><fmt:message key="label.confirmed"/></div>
-            </c:otherwise>
-        </c:choose>
+        <div class="btn btn-success"><fmt:message key="label.confirmed"/></div>
     </div>
 </form>
 

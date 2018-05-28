@@ -54,10 +54,10 @@ public class UserUtil {
         Driver driver = checkUserInDB(loginName, loginPassword);
         if (driver != null) {
             request.getServletContext().setAttribute("LOGGED_USER", driver);
-            if (isUserAdmin(driver)) {
-                return "admin.jsp";
-            }
-            return "user.jsp";
+//            if (isUserAdmin(driver)) {
+                return (isUserAdmin(driver))?"admin.jsp":"user.jsp";
+//            }
+//            return "user.jsp";
         }
         return "userNotFound.jsp";
     }

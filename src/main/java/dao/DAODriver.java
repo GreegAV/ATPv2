@@ -199,4 +199,22 @@ public class DAODriver {
         }
         return "admin.jsp";
     }
+
+    public static String setConfirmed(int driverID) {
+        String sql = "update driver set confirmed=? where userID=?";
+
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             PreparedStatement myStmt = myConn.prepareStatement(sql)) {
+            logInfo("Received connection for confirmation for the driver(driverID=" + driverID + ").");
+
+            myStmt.setInt(1, 1);
+            myStmt.setInt(2, driverID);
+            myStmt.execute();
+
+        } catch (SQLException e) {
+            logError("Failed to confirm setting.", e);
+            return "error.jsp";
+        }
+        return "userConfirmed.jsp";
+    }
 }

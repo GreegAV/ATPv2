@@ -6,7 +6,7 @@
 <body>
 <div align="center">
     <br />
-    <img src="error.png"><br />
+    <img src="img\error.png"><br />
     <br/>    <br/>
     Такой пользователь не найден.<br />
     Или пароль неправильный. <br />

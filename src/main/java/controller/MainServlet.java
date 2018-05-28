@@ -27,7 +27,7 @@ public class MainServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // saving locale for the future
             String locale = request.getParameter("theLocale");
@@ -89,6 +89,10 @@ public class MainServlet extends HttpServlet {
                     freeRoute(request, response);
                     break;
 
+                case "CONFIRM":
+                    confirmRoute(request, response);
+                    break;
+
                 default:
                     request.getRequestDispatcher("error.jsp").forward(request, response);
             }
@@ -98,10 +102,21 @@ public class MainServlet extends HttpServlet {
         }
     }
 
+    private void confirmRoute(HttpServletRequest request, HttpServletResponse response) {
+        int driverID=Integer.parseInt(request.getParameter("driverID"));
+        String page=DAODriver.setConfirmed(driverID);
+        renewLists(request,response);
+        try {
+            request.getRequestDispatcher(page).forward(request, response);
+        } catch (Exception e) {
+            logError("Failed to confirm by driver.", e);
+        }
+    }
+
     private void freeRoute(HttpServletRequest request, HttpServletResponse response) {
         int routeID = Integer.parseInt(request.getParameter("routeID"));
 
-        DAORoute.setRouteID(0,routeID);
+        DAORoute.setRouteID(0, routeID);
 
         // renew routes list
         renewLists(request, response);
@@ -115,7 +130,7 @@ public class MainServlet extends HttpServlet {
     private void freeDriver(HttpServletRequest request, HttpServletResponse response) {
         int driverID = Integer.parseInt(request.getParameter("driverID"));
 
-        DAODriver.setBusID(0,driverID);
+        DAODriver.setBusID(0, driverID);
 
         // renew drivers list
         renewLists(request, response);
@@ -174,8 +189,8 @@ public class MainServlet extends HttpServlet {
         int driverID = Integer.parseInt(request.getParameter("driverID"));
         int routeID = Integer.parseInt(request.getParameter("routeID"));
 
-        DAODriver.setBusID(0,driverID);
-        DAORoute.setRouteID(0,routeID);
+        DAODriver.setBusID(0, driverID);
+        DAORoute.setRouteID(0, routeID);
 
         // renew buses list
         renewLists(request, response);
@@ -252,7 +267,6 @@ public class MainServlet extends HttpServlet {
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) {
-
 
 
         String page = UserUtil.getUserPage(request, response);

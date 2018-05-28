@@ -63,7 +63,7 @@ public class DAODriver {
             myStmt.setString(1, driverName);
             myStmt.setString(2, UserUtil.getDriverPassword(driverPassword));
             myStmt.setInt(3, 0);
-            myStmt.setInt(4, 0);
+            myStmt.setInt(4, 1);  // new driver have nothing to confirm
             myStmt.execute();
 
         } catch (SQLException e) {
@@ -183,14 +183,15 @@ public class DAODriver {
     }
 
     public static String setBusID(int busID, int driverID) {
-        String sql = "update driver set bus_busID=? where userID=?";
+        String sql = "update driver set bus_busID=?, confirmed=? where userID=?";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              PreparedStatement myStmt = myConn.prepareStatement(sql)) {
             logInfo("Received connection for setting new bus(busID=" + busID + ") for the driver(driverID=" + driverID + ").");
 
             myStmt.setInt(1, busID);
-            myStmt.setInt(2, driverID);
+            myStmt.setInt(2, 0);
+            myStmt.setInt(3, driverID);
             myStmt.execute();
 
         } catch (SQLException e) {

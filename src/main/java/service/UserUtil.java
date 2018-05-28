@@ -40,12 +40,14 @@ public class UserUtil {
     }
 
     public static String getDriverPassword(String driverPassword) {
-        // Страшная модификация полученного из базы значения и получение из него пароля пользователя.
+        // Страшная модификация полученного пароля пользователя перед записью его в базу.
+        // MD5, Hashsums, fingerprint, timestamp and so on.... Оно тут НАДО!? REALLY?!?(с) Немчинский
         return driverPassword;
     }
 
     private static boolean checkUserPass(String loginPassword, String driverPass) {
         // страшная проверка валидности пароля.
+        // MD5, Hashsums, fingerprint, timestamp and so on.... Оно тут НАДО!? REALLY?!?(с) Немчинский
         return loginPassword.equals(driverPass);
     }
 

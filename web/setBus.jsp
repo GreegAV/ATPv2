@@ -32,7 +32,7 @@
     <a href="setBus.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
 </div>
 
-<form method="get" action="MainServlet">
+<form method="post" action="MainServlet">
 
     <div align="center">
         <br/>

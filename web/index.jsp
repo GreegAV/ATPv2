@@ -25,7 +25,7 @@
 </head>
 
 <body>
-<form method="get" action="MainServlet">
+<form method="post" action="MainServlet">
     <jsp:include page="locale.jsp"/>
     <div align="center">
 
@@ -50,9 +50,6 @@
     </div>
 </form>
 <div class="footer" align="right">
-    <input class="btn btn-secondary" type="button"
-           value="<fmt:message key="label.logout"/>"
-           onclick="window.location.href='MainServlet?command=LOGOUT' ; return false;"/>&nbsp;&nbsp;&nbsp;
     <div align="center"><font size="-1"> &copy; GreegAV 2018</font></div>
 </div>
 <script src="webjars/jquery/3.3.1/jquery.min.js"></script>

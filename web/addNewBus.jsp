@@ -26,33 +26,39 @@
 
 <body>
 <form method="post" action="MainServlet">
-<div align=right>
-    <a href="addNewBus.jsp?theLocale=en_US"><img src="img\us.png"></a>&nbsp;&nbsp;
-    <a href="addNewBus.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
-    <a href="addNewBus.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
-</div>
-<div align="center">
-    <br/><br/>
-    &nbsp;
-    <table width="33%" border="0">
-        <tr>
-            <td align="center">
-                <fmt:message key="label.addbusmodel"/><br> <input width="200" type="text" name="busModel" required><br>
-            </td>
-        </tr>
-        <tr>
-            <td align="center">
-                <br/>
-                <input name="command" value="ADDBUS" type="hidden">
-                <input name="theLocale" value="${theLocale}" type="hidden">
-                <input class="btn btn-secondary" type="submit" value="<fmt:message key="label.addnewbus"/>">
-            </td>
-        </tr>
-    </table>
-    <br/><br/>
+    <div align=right>
+        <a href="addNewBus.jsp?theLocale=en_US"><img src="img\us.png"></a>&nbsp;&nbsp;
+        <a href="addNewBus.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
+        <a href="addNewBus.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
+    </div>
+    <c:url var="homeLink" value="MainServlet">
+        <c:param name="command" value="CHANGEPAGE"/>
+        <c:param name="currentPage" value="0"/>
+        <c:param name="theLocale" value="${theLocale}"/>
+    </c:url>
+    <div align="center">
+        <br/><br/>
+        &nbsp;
+        <table width="33%" border="0">
+            <tr>
+                <td align="center">
+                    <fmt:message key="label.addbusmodel"/><br> <input width="200" type="text" name="busModel"
+                                                                      required><br>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <br/>
+                    <input name="command" value="ADDBUS" type="hidden">
+                    <input name="theLocale" value="${theLocale}" type="hidden">
+                    <input class="btn btn-secondary" type="submit" value="<fmt:message key="label.addnewbus"/>">
+                </td>
+            </tr>
+        </table>
+        <br/><br/>
 
-    <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>
-</div>
+        <a href="${homeLink}"><img src="img\back.png"></a>
+    </div>
 </form>
 
 

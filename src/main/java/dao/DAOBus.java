@@ -35,19 +35,6 @@ public class DAOBus {
         return buses;
     }
 
-//    private static List<Bus> getFullBuses() {
-//        List<Bus> freeBuses = new ArrayList<>();
-//        List<Bus> buses = getBuses();
-//
-//        for (Bus tempBus : buses) {
-//            if (tempBus.getRouteID() == 0)
-//                freeBuses.add(tempBus);
-//        }
-//
-//        logInfo("List of free buses received. Total freebuses: " + freeBuses.size());
-//        return freeBuses;
-//    }
-
     public static String getBusNameByID(int busID) {
         String busName = "-1";
         String sql = "select * from bus where busid=" + busID;

@@ -118,6 +118,36 @@ public class DAORoute {
         logInfo("Route list updated.");
     }
 
+    public static void prepareFullListRoutes(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            List<Route> routes = DAORoute.getRoutes();
+            routes.add(0, DAORoute.getRoute(0));
+            request.getServletContext().setAttribute("FULLROUTES_LIST", routes);
+        } catch (Exception e) {
+            logError("Failed go get routes list.", e);
+        }
+        logInfo("Route list updated.");
+    }
+
+    private static Route getRoute(int routeID) {
+        String sql = "select * from route where routeID=" + routeID;
+        // execute query
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             Statement myStmt = myConn.createStatement();
+             ResultSet myRs = myStmt.executeQuery(sql)) {
+            logInfo("Received connection for getting list of routes.");
+
+            while (myRs.next()) {
+                String routeName = myRs.getString("routeName");
+                int busID = myRs.getInt("bus_busid");
+                return new Route(routeID, routeName, busID);
+            }
+        } catch (Exception e) {
+            logError("Failed to get drivers list. DAODriver.getDrivers().", e);
+        }
+        return null;
+    }
+
     public static String setRouteID(int busID, int routeID) {
         String sql = "update route set bus_busID=? where routeID=?";
 

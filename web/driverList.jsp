@@ -31,6 +31,11 @@
         <a href="driverList.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
         <a href="driverList.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
     </div>
+    <c:url var="homeLink" value="MainServlet">
+        <c:param name="command" value="CHANGEPAGE"/>
+        <c:param name="currentPage" value="0"/>
+        <c:param name="theLocale" value="${theLocale}"/>
+    </c:url>
     <div align="center">
         <br/>
         <h3><fmt:message key="label.removedriver"/></h3>
@@ -63,7 +68,7 @@
                         <c:otherwise>
                             &nbsp;${tempDriver.driverName}
                         </c:otherwise>
-                    </c:choose> </td>
+                    </c:choose></td>
                     <td align="center"> ${tempDriver.busName} </td>
                     <td align="center"> ${tempDriver.routeName} </td>
                     <td align="center">
@@ -79,7 +84,7 @@
             </c:forEach>
         </table>
         <br/>
-        <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>
+        <a href="${homeLink}"><img src="img\back.png"></a>
     </div>
 </form>
 

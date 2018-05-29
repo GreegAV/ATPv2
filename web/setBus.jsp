@@ -31,7 +31,11 @@
     <a href="setBus.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
     <a href="setBus.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
 </div>
-
+<c:url var="homeLink" value="MainServlet">
+    <c:param name="command" value="CHANGEPAGE"/>
+    <c:param name="currentPage" value="0"/>
+    <c:param name="theLocale" value="${theLocale}"/>
+</c:url>
 <form method="post" action="MainServlet">
 
     <div align="center">
@@ -53,7 +57,7 @@
                     <td> ${tempBus.driverName} </td>
                     <td> ${tempBus.busName} </td>
                     <td><select name="busID" onchange="document.location=this.options[this.selectedIndex].value">
-                        <c:forEach var="tempRoute" items="${ROUTES_LIST}">
+                        <c:forEach var="tempRoute" items="${FULLROUTES_LIST}">
                             <c:url var="setLink" value="MainServlet">
                                 <c:param name="busID" value="${tempBus.busID}"/>
                                 <c:param name="routeID" value="${tempRoute.routeID}"/>
@@ -73,17 +77,17 @@
             </c:forEach>
         </table>
         <br/>
-        <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>
+        <a href="${homeLink}"><img src="img\back.png"></a>
     </div>
 
 </form>
-    <script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <div class="footer" align="right">
-        <input class="btn btn-secondary" type="button"
-               value="<fmt:message key="label.logout"/>"
-               onclick="window.location.href='MainServlet?command=LOGOUT' ; return false;"/>&nbsp;&nbsp;&nbsp;
-        <div align="center"><font size="-1"> &copy; GreegAV 2018</font></div>
-    </div>
+<script src="webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<div class="footer" align="right">
+    <input class="btn btn-secondary" type="button"
+           value="<fmt:message key="label.logout"/>"
+           onclick="window.location.href='MainServlet?command=LOGOUT' ; return false;"/>&nbsp;&nbsp;&nbsp;
+    <div align="center"><font size="-1"> &copy; GreegAV 2018</font></div>
+</div>
 
 </body>
 </html>

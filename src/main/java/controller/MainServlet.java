@@ -14,6 +14,7 @@ import static dao.DAOBus.prepareFullListBuses;
 import static dao.DAODriver.prepareFullListDrivers;
 import static dao.DAODriver.prepareListDrivers;
 import static dao.DAOBus.prepareListBuses;
+import static dao.DAORoute.prepareFullListRoutes;
 import static dao.DAORoute.prepareListRoutes;
 import static service.ErrorLog.logError;
 import static service.ErrorLog.logInfo;
@@ -112,7 +113,6 @@ public class MainServlet extends HttpServlet {
 
     private void changePage(HttpServletRequest request, HttpServletResponse response) {
         int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-        System.out.println(Integer.parseInt(request.getParameter("currentPage")));
         String theLocale = request.getParameter("theLocale");
         String page="admin.jsp?currentPage="+currentPage+"&theLocale="+theLocale;
         request.getServletContext().setAttribute("theLocale", theLocale);
@@ -318,6 +318,7 @@ public class MainServlet extends HttpServlet {
         prepareFullListDrivers(request, response);
         prepareListBuses(request, response);
         prepareFullListBuses(request, response);
+        prepareFullListRoutes(request, response);
         prepareListRoutes(request, response);
     }
 }

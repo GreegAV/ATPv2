@@ -31,6 +31,11 @@
         <a href="setDriver.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
         <a href="setDriver.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
     </div>
+    <c:url var="homeLink" value="MainServlet">
+        <c:param name="command" value="CHANGEPAGE"/>
+        <c:param name="currentPage" value="0"/>
+        <c:param name="theLocale" value="${theLocale}"/>
+    </c:url>
     <div align="center">
         <br/>
         <h3><fmt:message key="label.setdriver"/></h3>
@@ -50,7 +55,7 @@
                     <td> ${tempDriver.routeName} </td>
                     <td> ${tempDriver.driverName} </td>
                     <td><select name="busID" onchange="document.location=this.options[this.selectedIndex].value">
-                        <c:forEach var="tempBus" items="${BUSES_LIST}">
+                        <c:forEach var="tempBus" items="${FULLBUSES_LIST}">
                             <c:url var="setLink" value="MainServlet">
                                 <c:param name="driverID" value="${tempDriver.userID}"/>
                                 <c:param name="busID" value="${tempBus.busID}"/>
@@ -70,7 +75,7 @@
             </c:forEach>
         </table>
         <br/>
-        <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>
+        <a href="${homeLink}"><img src="img\back.png"></a>
     </div>
 </form>
 

@@ -31,6 +31,11 @@
         <a href="busList.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
         <a href="busList.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
     </div>
+    <c:url var="homeLink" value="MainServlet">
+        <c:param name="command" value="CHANGEPAGE"/>
+        <c:param name="currentPage" value="0"/>
+        <c:param name="theLocale" value="${theLocale}"/>
+    </c:url>
     <div align="center">
         <br/>
         <h3><fmt:message key="label.removebus"/></h3>
@@ -74,7 +79,7 @@
             </c:forEach>
         </table>
         <br/>
-        <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>
+        <a href="${homeLink}"><img src="img\back.png"></a>
     </div>
 </form>
 

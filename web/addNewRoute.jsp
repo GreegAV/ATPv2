@@ -31,6 +31,11 @@
         <a href="addNewRoute.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
         <a href="addNewRoute.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
     </div>
+    <c:url var="homeLink" value="MainServlet">
+        <c:param name="command" value="CHANGEPAGE"/>
+        <c:param name="currentPage" value="0"/>
+        <c:param name="theLocale" value="${theLocale}"/>
+    </c:url>
     <div align="center">
         <br/><br/>
         &nbsp;
@@ -70,7 +75,7 @@
         </table>
         <br/><br/>
 
-        <a href="admin.jsp?theLocale=${theLocale}"><img src="img\back.png"></a>
+        <a href="${homeLink}"><img src="img\back.png"></a>
     </div>
 </form>
 

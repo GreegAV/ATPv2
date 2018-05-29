@@ -31,10 +31,11 @@
 
 <body>
 <div align=right>
-    <a href="admin.jsp?theLocale=en_US"><img src="img\us.png"></a>&nbsp;&nbsp;
+    <a href="admin.jsp?theLocale=en_US" ><img src="img\us.png"></a>&nbsp;&nbsp;
     <a href="admin.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
     <a href="admin.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
 </div>
+
 <div align="center">
     <br/>
     <h1><fmt:message key="label.welcome"/></h1>
@@ -55,7 +56,7 @@
                        onclick="window.location.href='addNewRoute.jsp?theLocale=${theLocale}' ; return false;"/>
             </td>
 
-            <td width="70%" class="centertable">
+            <td width="70%" class="centertable" align="center">
                 <table class="table-striped" align="center" width="95%" border="1">
                     <tr>
                         <th width="10%">
@@ -91,6 +92,8 @@
                         </tr>
                     </c:forEach>
                 </table>
+                <br/>
+                <div class="btn btn-light">${paginator}</div>
             </td>
 
             <td width="15%">

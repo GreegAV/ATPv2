@@ -171,19 +171,34 @@ public class DAODriver {
 
     public static void prepareFullListDrivers(HttpServletRequest request, HttpServletResponse response) {
         try {
+            int rowsPerPage = 7;
             List<Driver> tempDrivers = DAODriver.getDrivers();
             List<Driver> drivers = new ArrayList<>();
             int currentPage = (int) request.getServletContext().getAttribute("currentPage");
+            String locale = (String) request.getServletContext().getAttribute("theLocale");
             tempDrivers.add(0, DAODriver.getDriver(0));
             // add list to the request
-            int startNumber = currentPage * 5;
-            int endNumber = (tempDrivers.size() < ((currentPage + 1) * 5) ? tempDrivers.size() : (currentPage + 1) * 5);
-            int numPages = tempDrivers.size() % 5 + 1;
-            System.out.println(startNumber + "\t" + numPages+"\t"+endNumber);
+
+            int startNumber = currentPage * rowsPerPage;
+            int totalRows = tempDrivers.size();
+            int endNumber = (totalRows < ((currentPage + 1) * rowsPerPage) ? totalRows : (currentPage + 1) * rowsPerPage);
+            int numPages = (totalRows > rowsPerPage) ? (totalRows / rowsPerPage + 1) : 1;
             for (int i = startNumber; i < endNumber; i++) {
                 drivers.add(tempDrivers.get(i));
             }
+            String pagline = "";
+            for (int i = 1; i < numPages; i++) {
+                pagline += "<a href=admin.jsp?currentPage=" + i + "&theLocale=" + locale + ">";
+                pagline += i;
+                pagline += "</a>";
+                pagline += "&nbsp;&nbsp;|&nbsp;&nbsp;";
+            }
+            pagline += "<a href=admin.jsp?currentPage=" + numPages + "&theLocale=" + locale + ">";
+            pagline += numPages;
+            pagline += "</a>";
+
             request.getServletContext().setAttribute("FULLDRIVER_LIST", drivers);
+            request.getServletContext().setAttribute("paginator", pagline);
 
         } catch (Exception e) {
             logError("Failed go get drivers list. DAODriver.prepareFullListDrivers", e);

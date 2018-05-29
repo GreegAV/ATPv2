@@ -26,7 +26,11 @@
 
 <body>
 <form method="post" action="MainServlet">
-    <jsp:include page="locale.jsp"/>
+    <div align=right>
+        <a href="index.jsp?theLocale=en_US"><img src="img\us.png"> </a>&nbsp;&nbsp;
+        <a href="index.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;
+        <a href="index.jsp?theLocale=uk_UA"><img src="img\ua.png"></a>&nbsp;&nbsp;
+    </div>
     <div align="center">
 
         <table align="center" width="25%" border="0">

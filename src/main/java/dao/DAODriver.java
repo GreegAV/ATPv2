@@ -33,10 +33,10 @@ public class DAODriver {
     }
 
     public static String getDriverNameByID(int driverID) {
+        // preparation
         String driverName = "-1";
-
         String sql = "select * from driver where userID=" + driverID;
-
+        // execution
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
              ResultSet myRs = myStmt.executeQuery(sql)) {
@@ -52,10 +52,11 @@ public class DAODriver {
     }
 
     public static String addDriver(String driverName, String driverPassword) {
+        // setting SQL query for adding new driver into DB
         String sql = "insert into driver "
                 + "(driverName, driverPassword, bus_busID, confirmed) "
                 + "values (?,?,?,?)";
-
+        // execution query
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              PreparedStatement myStmt = myConn.prepareStatement(sql)) {
             logInfo("Received connection for adding new driver.");
@@ -89,6 +90,7 @@ public class DAODriver {
     }
 
     private static List<Driver> getDrivers() {
+        //receiving full list of drivers
         List<Driver> drivers = new ArrayList<>();
         String sql = "select * from driver";
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
@@ -98,13 +100,12 @@ public class DAODriver {
 
             // process result set
             while (myRs.next()) {
-                // retrieve data from result set row
                 int driverID = myRs.getInt("userID");
                 String driverName = myRs.getString("driverName");
                 String driverPassword = myRs.getString("driverPassword");
                 int driverBusID = myRs.getInt("bus_busID");
                 int driverConfirmed = myRs.getInt("confirmed");
-
+            // Admin is not a driver :)
                 if (driverID != 0)
                     drivers.add(new Driver(driverID, driverName, driverPassword, driverBusID, driverConfirmed));
             }
@@ -116,12 +117,14 @@ public class DAODriver {
     }
 
     private static Driver getDriver(int driverID) {
+        // preparing SQL query string
         String sql = "select * from driver where userID=" + driverID;
+        // execute query
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();
              ResultSet myRs = myStmt.executeQuery(sql)) {
             logInfo("Received connection for getting one driver by driverID.");
-
+            //parsing results
             while (myRs.next()) {
                 String driverName = myRs.getString("driverName");
                 String driverPassword = myRs.getString("driverPassword");
@@ -135,16 +138,16 @@ public class DAODriver {
         return null;
     }
 
-    private static List<Driver> getFreeDrivers() {
-        List<Driver> drivers = DAODriver.getDrivers();
-        List<Driver> freeDrivers = new ArrayList<>();
-        for (Driver tempDriver : drivers) {
-            if (tempDriver.getBusID() == 0)
-                freeDrivers.add(tempDriver);
-        }
-        logInfo("Free driverslist received. Total free drivers: " + freeDrivers.size());
-        return freeDrivers;
-    }
+//    private static List<Driver> getFreeDrivers() {
+//        List<Driver> drivers = DAODriver.getDrivers();
+//        List<Driver> freeDrivers = new ArrayList<>();
+//        for (Driver tempDriver : drivers) {
+//            if (tempDriver.getBusID() == 0)
+//                freeDrivers.add(tempDriver);
+//        }
+//        logInfo("Free driverslist received. Total free drivers: " + freeDrivers.size());
+//        return freeDrivers;
+//    }
 
 //    public static void prepareListFreeDrivers(HttpServletRequest request, HttpServletResponse response) {
 //        try {
@@ -159,7 +162,6 @@ public class DAODriver {
     public static void prepareListDrivers(HttpServletRequest request, HttpServletResponse response) {
         try {
             List<Driver> drivers = DAODriver.getDrivers();
-
             // add drivers to the request
             request.getServletContext().setAttribute("DRIVER_LIST", drivers);
 
@@ -171,35 +173,39 @@ public class DAODriver {
 
     public static void prepareFullListDrivers(HttpServletRequest request, HttpServletResponse response) {
         try {
+            // getting  and setting initial setings
             int rowsPerPage = 7;
-            List<Driver> tempDrivers = DAODriver.getDrivers();
+            String pageLine = "";
             List<Driver> drivers = new ArrayList<>();
             int currentPage = (int) request.getServletContext().getAttribute("currentPage");
-            System.out.println(currentPage);
             String locale = (String) request.getServletContext().getAttribute("theLocale");
-            tempDrivers.add(0, DAODriver.getDriver(0));
-            // add list to the request
 
+            // preparing array of drivers
+            List<Driver> tempDrivers = DAODriver.getDrivers();
+            tempDrivers.add(0, DAODriver.getDriver(0));
+
+            // calculating pagination
             int startNumber = currentPage * rowsPerPage;
             int totalRows = tempDrivers.size();
             int endNumber = (totalRows < ((currentPage + 1) * rowsPerPage) ? totalRows : (currentPage + 1) * rowsPerPage);
             int numPages = (totalRows > rowsPerPage) ? (totalRows / rowsPerPage + 1) : 1;
+            //getting one-page list of drivers
             for (int i = startNumber; i < endNumber; i++) {
                 drivers.add(tempDrivers.get(i));
             }
-            String pagline = "";
+            //formatting pagination line
             for (int i = 1; i < numPages; i++) {
-                pagline += "<a href=?currentPage=" + (i-1) + "&theLocale=" + locale + "&command=CHANGEPAGE" + ">";
-                pagline += i;
-                pagline += "</a>";
-                pagline += "&nbsp;&nbsp;|&nbsp;&nbsp;";
+                pageLine += "<a href=?currentPage=" + (i - 1) + "&theLocale=" + locale + "&command=CHANGEPAGE" + ">";
+                pageLine += i;
+                pageLine += "</a>&nbsp;&nbsp;|&nbsp;&nbsp;";
             }
-            pagline += "<a href=?currentPage=" + (numPages-1) + "&theLocale=" + locale + "&command=CHANGEPAGE" + ">";
-            pagline += numPages;
-            pagline += "</a>";
+            pageLine += "<a href=?currentPage=" + (numPages - 1) + "&theLocale=" + locale + "&command=CHANGEPAGE" + ">";
+            pageLine += numPages;
+            pageLine += "</a>";
 
+            //sending results to servlet
             request.getServletContext().setAttribute("FULLDRIVER_LIST", drivers);
-            request.getServletContext().setAttribute("paginator", pagline);
+            request.getServletContext().setAttribute("paginator", pageLine);
 
         } catch (Exception e) {
             logError("Failed go get drivers list. DAODriver.prepareFullListDrivers", e);
@@ -208,17 +214,17 @@ public class DAODriver {
     }
 
     public static String setBusID(int busID, int driverID) {
+        //formatting SQL query
         String sql = "update driver set bus_busID=?, confirmed=? where userID=?";
 
+        // execute query
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              PreparedStatement myStmt = myConn.prepareStatement(sql)) {
             logInfo("Received connection for setting new bus(busID=" + busID + ") for the driver(driverID=" + driverID + ").");
-
             myStmt.setInt(1, busID);
             myStmt.setInt(2, 0);
             myStmt.setInt(3, driverID);
             myStmt.execute();
-
         } catch (SQLException e) {
             logError("Failed to set new route for the bus.", e);
             return "error.jsp";
@@ -227,18 +233,17 @@ public class DAODriver {
     }
 
     public static String setConfirmed(int driverID) {
+        //formatting SQL query
         String sql = "update driver set confirmed=? where userID=?";
-
+        // execute query
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              PreparedStatement myStmt = myConn.prepareStatement(sql)) {
             logInfo("Received connection for confirmation for the driver(driverID=" + driverID + ").");
-
             myStmt.setInt(1, 1);
             myStmt.setInt(2, driverID);
             myStmt.execute();
-
         } catch (SQLException e) {
-            logError("Failed to confirm setting.", e);
+            logError("Failed to set confirmation.", e);
             return "error.jsp";
         }
         return "userConfirmed.jsp";

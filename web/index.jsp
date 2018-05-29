@@ -25,7 +25,7 @@
 </head>
 
 <body>
-<form method="post" action="MainServlet">
+<form method="get" action="MainServlet">
     <div align=right>
         <a href="index.jsp?theLocale=en_US"><img src="img\us.png"> </a>&nbsp;&nbsp;
         <a href="index.jsp?theLocale=ru_RU"><img src="img\ru.png"></a>&nbsp;&nbsp;

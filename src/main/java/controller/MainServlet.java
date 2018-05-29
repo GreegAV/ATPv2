@@ -301,6 +301,7 @@ public class MainServlet extends HttpServlet {
     private void login(HttpServletRequest request, HttpServletResponse response) {
 
         String page = UserUtil.getUserPage(request, response);
+        System.out.println(page);
         if (!page.equalsIgnoreCase("userNotFound.jsp")) {
             int currentPage = 0;
             request.getServletContext().setAttribute("currentPage", currentPage);

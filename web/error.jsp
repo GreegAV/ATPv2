@@ -1,6 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<c:set var="theLocale"
+       value="${not empty param.theLocale ? param.theLocale : pageContext.request.locale}" scope="session"/>
+<fmt:setLocale value="${theLocale}"/>
+
+<fmt:setBundle basename="mylabels"/>
+
 <html>
 <head>
     <title>Error page</title><link href="webjars/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">

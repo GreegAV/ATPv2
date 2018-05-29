@@ -146,15 +146,15 @@ public class DAODriver {
         return freeDrivers;
     }
 
-    public static void prepareListFreeDrivers(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            List<Driver> drivers = DAODriver.getFreeDrivers();
-            request.getServletContext().setAttribute("FREEDRIVER_LIST", drivers);
-        } catch (Exception e) {
-            logError("Failed go get free drivers list. DAODriver.prepareListFreeDrivers", e);
-        }
-        logInfo("Drivers list updated.");
-    }
+//    public static void prepareListFreeDrivers(HttpServletRequest request, HttpServletResponse response) {
+//        try {
+//            List<Driver> drivers = DAODriver.getFreeDrivers();
+//            request.getServletContext().setAttribute("FREEDRIVER_LIST", drivers);
+//        } catch (Exception e) {
+//            logError("Failed go get free drivers list. DAODriver.prepareListFreeDrivers", e);
+//        }
+//        logInfo("Drivers list updated.");
+//    }
 
     public static void prepareListDrivers(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -171,9 +171,18 @@ public class DAODriver {
 
     public static void prepareFullListDrivers(HttpServletRequest request, HttpServletResponse response) {
         try {
-            List<Driver> drivers = DAODriver.getDrivers();
-            drivers.add(0, DAODriver.getDriver(0));
+            List<Driver> tempDrivers = DAODriver.getDrivers();
+            List<Driver> drivers = new ArrayList<>();
+            int currentPage = (int) request.getServletContext().getAttribute("currentPage");
+            tempDrivers.add(0, DAODriver.getDriver(0));
             // add list to the request
+            int startNumber = currentPage * 5;
+            int endNumber = (tempDrivers.size() < ((currentPage + 1) * 5) ? tempDrivers.size() : (currentPage + 1) * 5);
+            int numPages = tempDrivers.size() % 5 + 1;
+            System.out.println(startNumber + "\t" + numPages+"\t"+endNumber);
+            for (int i = startNumber; i < endNumber; i++) {
+                drivers.add(tempDrivers.get(i));
+            }
             request.getServletContext().setAttribute("FULLDRIVER_LIST", drivers);
 
         } catch (Exception e) {

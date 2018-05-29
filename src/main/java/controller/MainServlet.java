@@ -283,6 +283,8 @@ public class MainServlet extends HttpServlet {
 
         String page = UserUtil.getUserPage(request, response);
         if (!page.equalsIgnoreCase("userNotFound.jsp")) {
+            int currentPage=0;
+            request.getServletContext().setAttribute("currentPage", currentPage);
             renewLists(request, response);
         }
         try {

@@ -175,6 +175,7 @@ public class DAODriver {
             List<Driver> tempDrivers = DAODriver.getDrivers();
             List<Driver> drivers = new ArrayList<>();
             int currentPage = (int) request.getServletContext().getAttribute("currentPage");
+            System.out.println(currentPage);
             String locale = (String) request.getServletContext().getAttribute("theLocale");
             tempDrivers.add(0, DAODriver.getDriver(0));
             // add list to the request
@@ -188,12 +189,12 @@ public class DAODriver {
             }
             String pagline = "";
             for (int i = 1; i < numPages; i++) {
-                pagline += "<a href=admin.jsp?currentPage=" + i + "&theLocale=" + locale + ">";
+                pagline += "<a href=?currentPage=" + (i-1) + "&theLocale=" + locale + "&command=CHANGEPAGE" + ">";
                 pagline += i;
                 pagline += "</a>";
                 pagline += "&nbsp;&nbsp;|&nbsp;&nbsp;";
             }
-            pagline += "<a href=admin.jsp?currentPage=" + numPages + "&theLocale=" + locale + ">";
+            pagline += "<a href=?currentPage=" + (numPages-1) + "&theLocale=" + locale + "&command=CHANGEPAGE" + ">";
             pagline += numPages;
             pagline += "</a>";
 

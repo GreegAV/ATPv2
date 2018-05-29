@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <c:set var="theLocale"
-       value="${not empty param.theLocale ? param.theLocale : pageContext.request.locale}" scope="session"/>
+       value="${not empty param.theLocale ? param.theLocale : pageContext.request.locale}"  scope="session"/>
 <fmt:setLocale value="${theLocale}"/>
 
 <fmt:setBundle basename="mylabels"/>
@@ -26,6 +26,7 @@
             /*text-align: center;*/
         }
     </style>
+
     <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
 </head>
 

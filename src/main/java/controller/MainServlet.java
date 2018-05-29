@@ -97,12 +97,31 @@ public class MainServlet extends HttpServlet {
                     confirmRoute(request, response);
                     break;
 
+                case "CHANGEPAGE":
+                    changePage(request, response);
+                    break;
+
                 default:
                     request.getRequestDispatcher("error.jsp").forward(request, response);
             }
 
         } catch (Exception e) {
             logError("Failed to process command.", e);
+        }
+    }
+
+    private void changePage(HttpServletRequest request, HttpServletResponse response) {
+        int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+        System.out.println(Integer.parseInt(request.getParameter("currentPage")));
+        String theLocale = request.getParameter("theLocale");
+        String page="admin.jsp?currentPage="+currentPage+"&theLocale="+theLocale;
+        request.getServletContext().setAttribute("theLocale", theLocale);
+        request.getServletContext().setAttribute("currentPage", currentPage);
+        renewLists(request, response);
+        try {
+            request.getRequestDispatcher(page).forward(request, response);
+        } catch (Exception e) {
+            logError("Failed change page.", e);
         }
     }
 
@@ -154,7 +173,7 @@ public class MainServlet extends HttpServlet {
         }
     }
 
-    private void setDriver(HttpServletRequest request, HttpServletResponse response)  {
+    private void setDriver(HttpServletRequest request, HttpServletResponse response) {
         int busID = Integer.parseInt(request.getParameter("busID"));
         int driverID = Integer.parseInt(request.getParameter("driverID"));
         String page = DAODriver.setBusID(busID, driverID);
@@ -283,7 +302,7 @@ public class MainServlet extends HttpServlet {
 
         String page = UserUtil.getUserPage(request, response);
         if (!page.equalsIgnoreCase("userNotFound.jsp")) {
-            int currentPage=0;
+            int currentPage = 0;
             request.getServletContext().setAttribute("currentPage", currentPage);
             renewLists(request, response);
         }

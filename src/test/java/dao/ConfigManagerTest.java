@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ConfigManagerTest_getInstance {
+public class ConfigManagerTest {
 
     @Test
     public void getInstance() {

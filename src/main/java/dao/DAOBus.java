@@ -13,7 +13,7 @@ import static service.ErrorLog.logInfo;
 
 public class DAOBus {
 
-    private static List<Bus> getBuses() {
+    public static List<Bus> getBuses() {
         List<Bus> buses = new ArrayList<>();
         String sql = "select * from bus";
 

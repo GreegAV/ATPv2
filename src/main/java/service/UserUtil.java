@@ -16,7 +16,7 @@ import static service.ErrorLog.logInfo;
 
 public class UserUtil {
 
-    private static Driver checkUserInDB(String loginName, String loginPassword) {
+    public static Driver checkUserInDB(String loginName, String loginPassword) {
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
              Statement myStmt = myConn.createStatement();

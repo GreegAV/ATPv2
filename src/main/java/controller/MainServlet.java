@@ -38,7 +38,6 @@ public class MainServlet extends HttpServlet {
             if (theCommand == null) {
                 theCommand = "HOME";
             }
-
             // route to the appropriate method
             switch (theCommand) {
 
@@ -105,7 +104,6 @@ public class MainServlet extends HttpServlet {
                 default:
                     request.getRequestDispatcher("error.jsp").forward(request, response);
             }
-
         } catch (Exception e) {
             logError("Failed to process command.", e);
         }

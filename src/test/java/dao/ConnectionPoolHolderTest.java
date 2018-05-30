@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ConnectionPoolHolderTest_getDataSource {
+public class ConnectionPoolHolderTest {
 
     @Test
     public void getDataSource() {

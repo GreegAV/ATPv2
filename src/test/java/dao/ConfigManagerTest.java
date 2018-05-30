@@ -11,5 +11,8 @@ public class ConfigManagerTest {
         assertNotNull(ConfigManager.getInstance());
     }
 
-
+    @Test
+    public void getProperty() {
+        assertNotNull(ConfigManager.getInstance().getProperty(ConfigManager.DRIVER));
+    }
 }

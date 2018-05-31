@@ -1,50 +1,70 @@
-drop database atp;
-CREATE SCHEMA `atp` ;
+-- MySQL Workbench Forward Engineering
 
-CREATE TABLE IF NOT EXISTS `atp`.`driver` (
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema atp2
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema atp2
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `atp2` DEFAULT CHARACTER SET utf8mb4 ;
+USE `atp2` ;
+
+-- -----------------------------------------------------
+-- Table `atp2`.`bus`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `atp2`.`bus` (
+  `busID` INT(11) NOT NULL AUTO_INCREMENT,
+  `busName` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`busID`),
+  UNIQUE INDEX `busID` (`busID` ASC))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1;
+
+
+-- -----------------------------------------------------
+-- Table `atp2`.`driver`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `atp2`.`driver` (
   `userID` INT(11) NOT NULL AUTO_INCREMENT,
   `driverName` VARCHAR(45) NULL DEFAULT NULL,
   `driverPassword` VARCHAR(45) NULL DEFAULT NULL,
-  `routeID` INT(11) NULL DEFAULT NULL,
-  `busID` INT(11) NULL DEFAULT NULL,
+  `bus_busID` INT(11) NOT NULL,
   `confirmed` INT(11) NULL DEFAULT '0',
   PRIMARY KEY (`userID`),
-  UNIQUE INDEX `userID` (`userID` ASC))
-  ENGINE = InnoDB
-  AUTO_INCREMENT = 0;
-
-INSERT INTO `atp`.`driver` (`userID`, `driverName`, `driverPassword`, `routeID`, `busID`, `confirmed`) VALUES ('0', 'Admin', 'nimda', '0', '0', '1');
-UPDATE `atp`.`driver` SET `userID`='0' WHERE `userID`='1';
-
-CREATE TABLE IF NOT EXISTS `atp`.`bus` (
-  `busID` INT(11) NOT NULL AUTO_INCREMENT,
-  `busName` VARCHAR(45) NULL DEFAULT NULL,
-  `assignedDriver` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`busID`),
-  UNIQUE INDEX `busID` (`busID` ASC),
-  INDEX `driverID_idx` (`assignedDriver` ASC),
-  CONSTRAINT `driverID`
-  FOREIGN KEY (`assignedDriver`)
-  REFERENCES `atp`.`driver` (`userID`))
-  ENGINE = InnoDB
-  AUTO_INCREMENT = 0;
-
-INSERT INTO `atp`.`bus` (`busID`, `busName`, `assignedDriver`) VALUES ('0', 'Admin bus', '0');
-UPDATE `atp`.`bus` SET `busID`='0' WHERE `busID`='1';
+  UNIQUE INDEX `userID` (`userID` ASC),
+  INDEX `fk_driver_bus1_idx` (`bus_busID` ASC),
+  CONSTRAINT `fk_driver_bus1`
+    FOREIGN KEY (`bus_busID`)
+    REFERENCES `atp2`.`bus` (`busID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1;
 
 
-CREATE TABLE IF NOT EXISTS `atp`.`route` (
+-- -----------------------------------------------------
+-- Table `atp2`.`route`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `atp2`.`route` (
   `routeID` INT(11) NOT NULL AUTO_INCREMENT,
   `routeName` VARCHAR(45) NULL DEFAULT NULL,
-  `assignedBus` INT(11) NULL DEFAULT NULL,
+  `bus_busID` INT(11) NOT NULL,
   PRIMARY KEY (`routeID`),
   UNIQUE INDEX `routeID` (`routeID` ASC),
-  INDEX `busID_idx` (`assignedBus` ASC),
-  CONSTRAINT `busID`
-  FOREIGN KEY (`assignedBus`)
-  REFERENCES `atp`.`bus` (`busID`))
-  ENGINE = InnoDB
-  AUTO_INCREMENT = 0;
+  INDEX `fk_route_bus_idx` (`bus_busID` ASC),
+  CONSTRAINT `fk_route_bus`
+    FOREIGN KEY (`bus_busID`)
+    REFERENCES `atp2`.`bus` (`busID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 1;
 
-INSERT INTO `atp`.`route` (`routeID`, `routeName`, `assignedBus`) VALUES ('0', 'Admin route', '0');
-UPDATE `atp`.`route` SET `routeID`='0' WHERE `routeID`='1';
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

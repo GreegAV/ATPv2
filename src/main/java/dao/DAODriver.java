@@ -75,6 +75,10 @@ public class DAODriver {
     }
 
     public static void deleteDriver(int driverID) {
+        Driver driver=DAODriver.getDriver(driverID);
+        int routeID=driver.getRouteID();
+        DAORoute.setRouteID(0,routeID);
+
         String sql = "delete from driver where userid=?";
 
         try (Connection myConn = ConnectionPool.getInstance().getConnection();
@@ -242,10 +246,27 @@ public class DAODriver {
             myStmt.setInt(1, 1);
             myStmt.setInt(2, driverID);
             myStmt.execute();
+
         } catch (SQLException e) {
             logError("Failed to set confirmation.", e);
             return "error.jsp";
         }
         return "userConfirmed.jsp";
+    }
+
+    public static String freeDriver(int driverID) {
+        String sql = "update driver set confirmed=1, bus_busID=0 where userID=?";
+        // execute query
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             PreparedStatement myStmt = myConn.prepareStatement(sql)) {
+            logInfo("Received connection for confirmation for the driver(driverID=" + driverID + ").");
+            myStmt.setInt(1, driverID);
+            myStmt.execute();
+
+        } catch (SQLException e) {
+            logError("Failed to free driver (driverID="+driverID+").", e);
+            return "error.jsp";
+        }
+        return "admin.jsp";
     }
 }

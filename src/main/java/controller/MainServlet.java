@@ -112,7 +112,7 @@ public class MainServlet extends HttpServlet {
     private void changePage(HttpServletRequest request, HttpServletResponse response) {
         int currentPage = Integer.parseInt(request.getParameter("currentPage"));
         String theLocale = request.getParameter("theLocale");
-        String page="admin.jsp?currentPage="+currentPage+"&theLocale="+theLocale;
+        String page = "admin.jsp?currentPage=" + currentPage + "&theLocale=" + theLocale;
         request.getServletContext().setAttribute("theLocale", theLocale);
         request.getServletContext().setAttribute("currentPage", currentPage);
         renewLists(request, response);
@@ -160,12 +160,12 @@ public class MainServlet extends HttpServlet {
     private void freeDriver(HttpServletRequest request, HttpServletResponse response) {
         int driverID = Integer.parseInt(request.getParameter("driverID"));
 
-        DAODriver.setBusID(0, driverID);
+        String page=DAODriver.freeDriver(driverID);
 
         // renew drivers list
         renewLists(request, response);
         try {
-            request.getRequestDispatcher("driverList.jsp").forward(request, response);
+            request.getRequestDispatcher(page).forward(request, response);
         } catch (Exception e) {
             logError("Failed to free driver.", e);
         }
@@ -188,8 +188,12 @@ public class MainServlet extends HttpServlet {
     private void setBus(HttpServletRequest request, HttpServletResponse response) {
         int busID = Integer.parseInt(request.getParameter("busID"));
         int routeID = Integer.parseInt(request.getParameter("routeID"));
-
-        String page = DAORoute.setRouteID(busID, routeID);
+        String page;
+        if (DAORoute.isFree(routeID)) {
+            page = DAORoute.setRouteID(busID, routeID);
+        } else {
+            page = "admin.jsp";
+        }
         renewLists(request, response);
 
         try {

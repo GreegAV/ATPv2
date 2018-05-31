@@ -165,4 +165,9 @@ public class DAORoute {
         }
         return "admin.jsp";
     }
+
+    public static boolean isFree(int routeID) {
+        return DAORoute.getRoute(routeID).getBusID() == 0;
+
+    }
 }

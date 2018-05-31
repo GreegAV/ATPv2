@@ -65,7 +65,7 @@
                             </c:url>
                             <c:choose>
                                 <c:when test="${tempRoute.busID==tempBus.busID}">
-                                    <option value="${setLink}" selected> ${tempRoute.routeName} </option>
+                                    <option value="${setLink}" selected disabled> ${tempRoute.routeName} </option>
                                 </c:when>
                                 <c:otherwise>
                                     <option value="${setLink}"> ${tempRoute.routeName} </option>

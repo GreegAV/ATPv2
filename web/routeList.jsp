@@ -63,7 +63,14 @@
                     <td align="center"> ${tempRoute.routeID} </td>
                     <td align="center"> ${tempRoute.routeName} </td>
                     <td align="center"> ${tempRoute.busName} </td>
-                    <td align="center"> ${tempRoute.driverName} </td>
+                    <c:choose>
+                        <c:when test="${tempRoute.driverName eq 'Admin'}">
+                            <td align="center">-----</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td align="center"> ${tempRoute.driverName} </td>
+                        </c:otherwise>
+                    </c:choose>
                     <td align="center">
                         <div class="btn-block">
                             <a class="btn-danger" href="${deleteLink}">

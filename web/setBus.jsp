@@ -42,19 +42,24 @@
         <br/>
         <h3><fmt:message key="label.setbus"/></h3>
         <br/>
-        <table class="table-striped" width="70%">
+        <table class="table-striped" align="center" width="70%" border="0">
             <tr>
-                <th align="center">№№</th>
-                <th align="center">&nbsp;</th>
-                <th align="center"><fmt:message key="label.drivername"/></th>
-                <th align="center"><fmt:message key="label.busname"/></th>
-                <th align="center"><fmt:message key="label.routename"/></th>
+                <th>№№</th>
+                <th><fmt:message key="label.drivername"/></th>
+                <th><fmt:message key="label.busname"/></th>
+                <th><fmt:message key="label.routename"/></th>
             </tr>
             <c:forEach var="tempBus" items="${FREEBUSES_LIST}">
                 <tr>
                     <td> ${tempBus.busID} </td>
-                    <td>&nbsp;</td>
-                    <td> ${tempBus.driverName} </td>
+                    <c:choose>
+                        <c:when test="${tempBus.driverName eq 'Admin'}">
+                            <td>-----</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td> ${tempBus.driverName} </td>
+                        </c:otherwise>
+                    </c:choose>
                     <td> ${tempBus.busName} </td>
                     <td><select name="busID" onchange="document.location=this.options[this.selectedIndex].value">
                         <c:forEach var="tempRoute" items="${FREEROUTES_LIST}">
@@ -67,9 +72,6 @@
                                 <c:when test="${tempRoute.routeID==0}">
                                     <option value="${setLink}" selected disabled> ${tempRoute.routeName} </option>
                                 </c:when>
-                                <%--<c:when test="${(tempRoute.busID==tempBus.busID)}">--%>
-                                    <%--<option value="${setLink}" selected disabled> ${tempRoute.routeName} </option>--%>
-                                <%--</c:when>--%>
                                 <c:otherwise>
                                     <option value="${setLink}"> ${tempRoute.routeName} </option>
                                 </c:otherwise>

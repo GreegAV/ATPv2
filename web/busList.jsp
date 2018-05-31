@@ -64,7 +64,14 @@
                 <tr>
                     <td align="center"> ${tempBus.busID} </td>
                     <td align="center"> ${tempBus.busName} </td>
-                    <td align="center"> ${tempBus.driverName} </td>
+                    <c:choose>
+                        <c:when test="${tempBus.driverName eq 'Admin'}">
+                            <td align="center">-----</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td align="center"> ${tempBus.driverName} </td>
+                        </c:otherwise>
+                    </c:choose>
                     <td align="center"> ${tempBus.routeName} </td>
                     <td align="center">
                         <div align="center" class="btn-block">

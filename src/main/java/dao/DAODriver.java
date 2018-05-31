@@ -186,7 +186,7 @@ public class DAODriver {
 
     public static void prepareFullListDrivers(HttpServletRequest request, HttpServletResponse response) {
         try {
-            // getting  and setting initial setings
+            // getting  and setting initial settings
             int rowsPerPage = 7;
             String pageLine = "";
             List<Driver> drivers = new ArrayList<>();
@@ -195,7 +195,7 @@ public class DAODriver {
 
             // preparing array of drivers
             List<Driver> tempDrivers = DAODriver.getDrivers();
-            tempDrivers.add(0, DAODriver.getDriver(0));
+//            tempDrivers.add(0, DAODriver.getDriver(0));
 
             // calculating pagination
             int startNumber = currentPage * rowsPerPage;

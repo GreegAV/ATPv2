@@ -40,18 +40,16 @@
         <br/>
         <h3><fmt:message key="label.setdriver"/></h3>
         <br/>
-        <table class="table-striped" width="70%">
+        <table align="center" class="table-striped" width="70%">
             <tr>
-                <th align="center">№№</th>
-                <th align="center">&nbsp;</th>
-                <th align="center"><fmt:message key="label.routename"/></th>
-                <th align="center"><fmt:message key="label.drivername"/></th>
-                <th align="center"><fmt:message key="label.busname"/></th>
+                <th>№№</th>
+                <th><fmt:message key="label.routename"/></th>
+                <th><fmt:message key="label.drivername"/></th>
+                <th><fmt:message key="label.busname"/></th>
             </tr>
             <c:forEach var="tempDriver" items="${FREEDRIVER_LIST}">
                 <tr>
-                    <td align="center"> ${tempDriver.userID} </td>
-                    <td>&nbsp;</td>
+                    <td> ${tempDriver.userID} </td>
                     <td> ${tempDriver.routeName} </td>
                     <td> ${tempDriver.driverName} </td>
                     <td><select name="busID" onchange="document.location=this.options[this.selectedIndex].value">
@@ -62,8 +60,8 @@
                                 <c:param name="command" value="SETDRIVER"/>
                             </c:url>
                             <c:choose>
-                                <c:when test="${tempDriver.busID==tempBus.busID}">
-                                    <option value="${setLink}" selected> ${tempBus.busName} </option>
+                                <c:when test="${tempBus.busID==0}">
+                                    <option value="${setLink}" disabled selected> ${tempBus.busName} </option>
                                 </c:when>
                                 <c:otherwise>
                                     <option value="${setLink}"> ${tempBus.busName} </option>

@@ -60,9 +60,6 @@
             <td width="70%" class="centertable" align="center">
                 <table class="table-striped" align="center" width="95%" border="1">
                     <tr>
-                        <%--<th width="10%">--%>
-                            <%--<div align="center">№№</div>--%>
-                        <%--</th>--%>
                         <th width="25%">
                             <div align="center"><fmt:message key="label.busname"/></div>
                         </th>
@@ -75,9 +72,6 @@
                     </tr>
                     <c:forEach var="tempDriver" items="${FULLDRIVER_LIST}">
                         <tr>
-                            <%--<td>--%>
-                                <%--<div align="center"> ${tempDriver.busID}</div>--%>
-                            <%--</td>--%>
                             <td>&nbsp; ${tempDriver.busName} </td>
                             <td>
                                 <c:choose>

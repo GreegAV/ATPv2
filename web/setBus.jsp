@@ -50,7 +50,7 @@
                 <th align="center"><fmt:message key="label.busname"/></th>
                 <th align="center"><fmt:message key="label.routename"/></th>
             </tr>
-            <c:forEach var="tempBus" items="${BUSES_LIST}">
+            <c:forEach var="tempBus" items="${FREEBUSES_LIST}">
                 <tr>
                     <td> ${tempBus.busID} </td>
                     <td>&nbsp;</td>
@@ -64,9 +64,12 @@
                                 <c:param name="command" value="SETBUS"/>
                             </c:url>
                             <c:choose>
-                                <c:when test="${tempRoute.busID==tempBus.busID}">
+                                <c:when test="${tempRoute.routeID==0}">
                                     <option value="${setLink}" selected disabled> ${tempRoute.routeName} </option>
                                 </c:when>
+                                <%--<c:when test="${(tempRoute.busID==tempBus.busID)}">--%>
+                                    <%--<option value="${setLink}" selected disabled> ${tempRoute.routeName} </option>--%>
+                                <%--</c:when>--%>
                                 <c:otherwise>
                                     <option value="${setLink}"> ${tempRoute.routeName} </option>
                                 </c:otherwise>

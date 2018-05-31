@@ -48,7 +48,7 @@ public class DAORoute {
         return routeName;
     }
 
-    private static List<Route> getRoutes() {
+    public static List<Route> getRoutes() {
         List<Route> routes = new ArrayList<>();
 
         String sql = "select * from route";
@@ -121,12 +121,36 @@ public class DAORoute {
     public static void prepareFullListRoutes(HttpServletRequest request, HttpServletResponse response) {
         try {
             List<Route> routes = DAORoute.getRoutes();
-            routes.add(0, DAORoute.getRoute(0));
+            routes.add(0,DAORoute.getRoute(0));
+//            List<Route> routes = DAORoute.getFreeRoutes();
             request.getServletContext().setAttribute("FULLROUTES_LIST", routes);
         } catch (Exception e) {
             logError("Failed go get routes list.", e);
         }
         logInfo("Route list updated.");
+    }
+
+    private static List<Route> getFreeRoutes() {
+        List<Route> freeRoutes = new ArrayList<>();
+
+        String sql = "select * from route where bus_busID=0";
+
+        try (Connection myConn = ConnectionPool.getInstance().getConnection();
+             Statement myStmt = myConn.createStatement();
+             ResultSet myRs = myStmt.executeQuery(sql)) {
+            logInfo("Received connection for getting list of routes.");
+
+            while (myRs.next()) {
+                int routeID = myRs.getInt("routeID");
+                String routeName = myRs.getString("routeName");
+                int busID = myRs.getInt("bus_busid");
+                    freeRoutes.add(new Route(routeID, routeName, busID));
+            }
+        } catch (Exception e) {
+            logError("Failed go get free routes list. DAORoute.getFreeRoutes().", e);
+        }
+        logInfo("Routeslist of free routes received. Total free routes: " + freeRoutes.size());
+        return freeRoutes;
     }
 
     private static Route getRoute(int routeID) {
@@ -157,7 +181,7 @@ public class DAORoute {
 
             myStmt.setInt(1, busID);
             myStmt.setInt(2, routeID);
-            myStmt.execute();
+            myStmt.executeUpdate();
 
         } catch (SQLException e) {
             logError("Failed to set new route for the bus.", e);

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static dao.DAOBus.prepareFreeListBuses;
 import static dao.DAOBus.prepareFullListBuses;
 import static dao.DAODriver.prepareFullListDrivers;
 import static dao.DAODriver.prepareListDrivers;
@@ -303,7 +304,6 @@ public class MainServlet extends HttpServlet {
     private void login(HttpServletRequest request, HttpServletResponse response) {
 
         String page = UserUtil.getUserPage(request, response);
-        System.out.println(page);
         if (!page.equalsIgnoreCase("userNotFound.jsp")) {
             int currentPage = 0;
             request.getServletContext().setAttribute("currentPage", currentPage);
@@ -321,6 +321,7 @@ public class MainServlet extends HttpServlet {
         prepareFullListDrivers(request, response);
         prepareListBuses(request, response);
         prepareFullListBuses(request, response);
+        prepareFreeListBuses(request, response);
         prepareFullListRoutes(request, response);
         prepareListRoutes(request, response);
     }

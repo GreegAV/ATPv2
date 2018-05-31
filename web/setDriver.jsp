@@ -48,7 +48,7 @@
                 <th align="center"><fmt:message key="label.drivername"/></th>
                 <th align="center"><fmt:message key="label.busname"/></th>
             </tr>
-            <c:forEach var="tempDriver" items="${DRIVER_LIST}">
+            <c:forEach var="tempDriver" items="${FREEDRIVER_LIST}">
                 <tr>
                     <td align="center"> ${tempDriver.userID} </td>
                     <td>&nbsp;</td>

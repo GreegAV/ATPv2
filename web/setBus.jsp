@@ -57,7 +57,7 @@
                     <td> ${tempBus.driverName} </td>
                     <td> ${tempBus.busName} </td>
                     <td><select name="busID" onchange="document.location=this.options[this.selectedIndex].value">
-                        <c:forEach var="tempRoute" items="${FULLROUTES_LIST}">
+                        <c:forEach var="tempRoute" items="${FREEROUTES_LIST}">
                             <c:url var="setLink" value="MainServlet">
                                 <c:param name="busID" value="${tempBus.busID}"/>
                                 <c:param name="routeID" value="${tempRoute.routeID}"/>

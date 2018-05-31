@@ -108,6 +108,16 @@ public class DAORoute {
         }
     }
 
+    public static void prepareFreeListRoutes(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            List<Route> routes = DAORoute.getFreeRoutes();
+            request.getServletContext().setAttribute("FREEROUTES_LIST", routes);
+        } catch (Exception e) {
+            logError("Failed go get free routes list.", e);
+        }
+        logInfo("Route list updated.");
+    }
+
     public static void prepareListRoutes(HttpServletRequest request, HttpServletResponse response) {
         try {
             List<Route> routes = DAORoute.getRoutes();

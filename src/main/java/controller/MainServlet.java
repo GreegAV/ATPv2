@@ -12,9 +12,9 @@ import java.io.IOException;
 
 import static dao.DAOBus.prepareFreeListBuses;
 import static dao.DAOBus.prepareFullListBuses;
-import static dao.DAODriver.prepareFullListDrivers;
-import static dao.DAODriver.prepareListDrivers;
 import static dao.DAOBus.prepareListBuses;
+import static dao.DAODriver.*;
+import static dao.DAORoute.prepareFreeListRoutes;
 import static dao.DAORoute.prepareFullListRoutes;
 import static dao.DAORoute.prepareListRoutes;
 import static service.ErrorLog.logError;
@@ -161,12 +161,12 @@ public class MainServlet extends HttpServlet {
     private void freeDriver(HttpServletRequest request, HttpServletResponse response) {
         int driverID = Integer.parseInt(request.getParameter("driverID"));
 
-        String page=DAODriver.freeDriver(driverID);
+        DAODriver.freeDriver(driverID);
 
         // renew drivers list
         renewLists(request, response);
         try {
-            request.getRequestDispatcher(page).forward(request, response);
+            request.getRequestDispatcher("driverList.jsp").forward(request, response);
         } catch (Exception e) {
             logError("Failed to free driver.", e);
         }
@@ -318,11 +318,13 @@ public class MainServlet extends HttpServlet {
 
     private void renewLists(HttpServletRequest request, HttpServletResponse response) {
         prepareListDrivers(request, response);
+        prepareFreeListDrivers(request, response);
         prepareFullListDrivers(request, response);
         prepareListBuses(request, response);
         prepareFullListBuses(request, response);
         prepareFreeListBuses(request, response);
         prepareFullListRoutes(request, response);
+        prepareFreeListRoutes(request, response);
         prepareListRoutes(request, response);
     }
 }

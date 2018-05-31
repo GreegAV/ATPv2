@@ -75,9 +75,9 @@ public class DAODriver {
     }
 
     public static void deleteDriver(int driverID) {
-        Driver driver=DAODriver.getDriver(driverID);
-        int routeID=driver.getRouteID();
-        DAORoute.setRouteID(0,routeID);
+        Driver driver = DAODriver.getDriver(driverID);
+        int routeID = driver.getRouteID();
+        DAORoute.setRouteID(0, routeID);
 
         String sql = "delete from driver where userid=?";
 
@@ -109,7 +109,7 @@ public class DAODriver {
                 String driverPassword = myRs.getString("driverPassword");
                 int driverBusID = myRs.getInt("bus_busID");
                 int driverConfirmed = myRs.getInt("confirmed");
-            // Admin is not a driver :)
+                // Admin is not a driver :)
                 if (driverID != 0)
                     drivers.add(new Driver(driverID, driverName, driverPassword, driverBusID, driverConfirmed));
             }
@@ -153,15 +153,24 @@ public class DAODriver {
 //        return freeDrivers;
 //    }
 
-//    public static void prepareListFreeDrivers(HttpServletRequest request, HttpServletResponse response) {
-//        try {
-//            List<Driver> drivers = DAODriver.getFreeDrivers();
-//            request.getServletContext().setAttribute("FREEDRIVER_LIST", drivers);
-//        } catch (Exception e) {
-//            logError("Failed go get free drivers list. DAODriver.prepareListFreeDrivers", e);
-//        }
-//        logInfo("Drivers list updated.");
-//    }
+    public static void prepareFreeListDrivers(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            List<Driver> drivers = DAODriver.getFreeDrivers();
+            request.getServletContext().setAttribute("FREEDRIVER_LIST", drivers);
+        } catch (Exception e) {
+            logError("Failed go get free drivers list. DAODriver.prepareFreeListDrivers", e);
+        }
+        logInfo("Drivers list updated.");
+    }
+
+    private static List<Driver> getFreeDrivers() {
+        List<Driver> freeDrivers = new ArrayList<>();
+        for (Driver tempDriver : DAODriver.getDrivers()) {
+            if (tempDriver.getBusID()==0)
+                freeDrivers.add(tempDriver);
+        }
+        return freeDrivers;
+    }
 
     public static void prepareListDrivers(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -264,7 +273,7 @@ public class DAODriver {
             myStmt.execute();
 
         } catch (SQLException e) {
-            logError("Failed to free driver (driverID="+driverID+").", e);
+            logError("Failed to free driver (driverID=" + driverID + ").", e);
             return "error.jsp";
         }
         return "admin.jsp";

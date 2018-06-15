@@ -16,16 +16,16 @@ public class ConnectionPool {
         try {
             pool = ConnectionPoolHolder.getDataSource();
         } catch (Exception e) {
-            logError("Unable to get connection pool.", e);
+            logError("Unable to get datasource for connection pool.", e);
         }
     }
 
     public static ConnectionPool getInstance() {
-        if (instance == null) {
-            logInfo("ConnectioPool instance creation.");
-            instance = new ConnectionPool();
-        }
-        return instance;
+            if (instance == null) {
+                logInfo("ConnectioPool instance creation.");
+                instance = new ConnectionPool();
+            }
+            return instance;
     }
 
     public Connection getConnection() throws SQLException {
